@@ -1,5 +1,8 @@
 <!--The content below is only a placeholder and can be replaced.-->
-<ActionBar [title]="title"></ActionBar>
-<StackLayout  class="p-20">
-    <Label text="Welcome to {{ title }}!" class="h1 text-center" textWrap="true"></Label>
-</StackLayout>
+<app-action-bar [title]="title" [hasMenu]='true' [showBackButton]="false" [showNotifications]="true"></app-action-bar>
+<ScrollView>
+    <FlexBoxLayout flexDirection="column">
+        <Label text="Home"></Label>
+        <Image height="200" src="https://images.unsplash.com/photo-1512106374988-c95f566d39ef?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=500&q=60" loadMode="async" stretch="aspectFill"></Image>
+    </FlexBoxLayout>
+</ScrollView>

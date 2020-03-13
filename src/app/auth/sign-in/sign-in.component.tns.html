@@ -1,0 +1,26 @@
+<app-action-bar title="Sign In" [showGoBackButton]="false" [hasMenu]="false"></app-action-bar>
+<ScrollView>
+    <FlexboxLayout flexDirection="column" justifyContent="center" alignItems="center">
+        <StackLayout class="text-center m-b-20">
+            <Label class="h1" text="Sign In"></Label>
+            <Label class="h2" text="to your eWallet account"></Label>
+        </StackLayout>
+        <StackLayout class="nt-form">
+            <TextField width="80%" class="ok -border" [autocorrect]="false" ReturnKeyType="next" textAlignment="center"
+                hint="Enter Email"></TextField>
+            <TextField width="80%" class="input -border" hint="Enter Password" textAlignment="center" ReturnKeyType="done">
+            </TextField>
+            <Button text="Sign In" width="80%" *ngIf="!formSubmited" class="-primary" (tap)="signInAction()"></Button>
+            <ActivityIndicator [busy]="true" *ngIf="formSubmited"></ActivityIndicator>
+        </StackLayout>
+        <GridLayout rows="auto" columns="auto,auto">
+            <Label class="body text-right m-r-5" row="0" col="0" text="Forgot Password?"></Label>
+            <Label class="body text-primary text-left" row="0" col="1" text="Click Here" (tap)="forgotPasswordPage()"></Label>
+        </GridLayout>
+        <Label class="body" text="Don't have a account?"></Label>
+        <GridLayout rows="auto" columns="auto,auto">
+            <Label class="body text-right m-r-5" row="0" col="0" text="Signup for new eWallet account"></Label>
+            <Label class="body text-primary text-left" row="0" col="1" text="Here" (tap)="signUpPage()"></Label>
+        </GridLayout>
+    </FlexboxLayout>
+</ScrollView>

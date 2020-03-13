@@ -1,5 +1,26 @@
+// Pre-Defined Theme
 @import "~@nativescript/theme/core";
-@import "~@nativescript/theme/blue";
+// @import '~@nativescript/theme/aqua';
+@import '~@nativescript/theme/blue';
+// @import '~@nativescript/theme/brown';
+// @import '~@nativescript/theme/forest';
+// @import '~@nativescript/theme/grey';
+// @import '~@nativescript/theme/lemon';
+// @import '~@nativescript/theme/lime';
+// @import '~@nativescript/theme/orange';
+// @import '~@nativescript/theme/purple';
+// @import '~@nativescript/theme/ruby';
+// @import '~@nativescript/theme/sky';
+
+// following if you need custom theme
+// /* Colors */
+// $accent: #369;
+
+// /* This color was named $ab-background in Theme v1 */
+// $complementary: red;
+
+// /* The variables are loaded before the Core styles */
+// @import '~@nativescript/theme/index';
 
 // Place any CSS rules you want to apply on both iOS and Android here.
 // This is where the vast majority of your CSS code goes.
@@ -18,4 +39,7 @@
 .far {
     font-family: "Font Awesome 5 Free", "fa-regular-400";
     font-weight: 400;
+}
+.fa {
+    font-family: 'FontAwesome', 'Font-Awesome';
 }

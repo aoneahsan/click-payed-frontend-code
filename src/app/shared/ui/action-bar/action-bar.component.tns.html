@@ -1,0 +1,22 @@
+<ActionBar [title]="title" class="action-bar" (loaded)="onLoaded()" icon="">
+    <NavigationButton
+    text=""
+    android.systemIcon="ic_menu_back"
+    *ngIf="canGoBack"
+    (tap)="onGoBack()"
+  >
+  </NavigationButton>
+    <NavigationButton
+        text=""
+        *ngIf="isAndroidDevice && hasMenu"
+        (tap)="sideDrawerToggle()"
+        icon="res://menu_black"
+    ></NavigationButton>
+    <ActionItem *ngIf="!isAndroidDevice && hasMenu" ios.position="left">
+        <Label text="&#xf0c9;" class="fa" (tap)="sideDrawerToggle()"></Label>
+    </ActionItem>
+    <ActionItem *ngIf="showNotifications && hasMenu" ios.position="right">
+        
+        <Label text="&#xf0f3;" class="fa" (tap)="sideDrawerToggle()"></Label>
+    </ActionItem>
+</ActionBar>
