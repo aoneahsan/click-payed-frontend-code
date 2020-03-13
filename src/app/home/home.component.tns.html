@@ -2,7 +2,51 @@
 <app-action-bar [title]="title" [hasMenu]='true' [showBackButton]="false" [showNotifications]="true"></app-action-bar>
 <ScrollView>
     <FlexBoxLayout flexDirection="column">
-        <Label text="Home"></Label>
-        <Image height="200" src="https://images.unsplash.com/photo-1512106374988-c95f566d39ef?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=500&q=60" loadMode="async" stretch="aspectFill"></Image>
+        <!-- Banner Section -->
+        <Image height="200" src="res://banner" loadMode="async" stretch="aspectFill"></Image>
+
+        <!-- Notice Board Section -->
+        <Label text="Notice Board" class="h3 p-5 m-b-0 text-center" letterSpacing=".5" style="background: #C73B0E; color: white;"></Label>
+        <Label text="Currently we are accepting balance top-ups via easypaisa and jazzcash only. For any assistance, please reach us via our customer service WhatsApp" class="text-center m-t-0 p-10 p-l-30 p-r-30" [textWrap]="true" style="font-size: 14;border-width: 2;"></Label>
+        
+        <!-- Coin Part Section -->
+        <FlexBoxLayout width="100%" justifyContent="space-around" class="m-t-15">
+            <FlexBoxLayout width="90%" justifyContent="space-around">
+                <FlexBoxLayout flexDirection="row" justifyContent="center" class="coin_btn">
+                    <Image src="res://coin" height="40" loadMode="async" stretch="aspectFill"></Image>
+                    <Label text="Buy Coins" class="text-left"></Label>
+                </FlexBoxLayout>
+                <FlexBoxLayout flexDirection="row" justifyContent="center" class="coin_btn">
+                    <Label text="ok  " class="text-right"></Image>
+                    <Label text="Buy Coins" class="text-left"></Label>
+                </FlexBoxLayout>
+                <FlexBoxLayout flexDirection="row" justifyContent="center" class="coin_btn">
+                    <Label text="ok  " class="text-right"></Label>
+                    <Label text="Buy Coins" class="text-left"></Label>
+                </FlexBoxLayout>
+            </FlexBoxLayout>
+        </FlexBoxLayout>
+
+        <!-- Four Button Section top-up, withdraw, etc -->
+        <FlexBoxLayout width="100%" justifyContent="space-around" class="m-t-15">
+            <FlexBoxLayout width="90%" justifyContent="space-around">
+                <FlexBoxLayout width="48%" justifyContent="center" class="topup_btn">
+                    <Label text="Topup Your Wallet" class="text-left"></Label>
+                </FlexBoxLayout>
+                <FlexBoxLayout width="48%" justifyContent="center" class="topup_btn">
+                    <Label text="Request a Withdrawal" class="text-left"></Label>
+                </FlexBoxLayout>
+            </FlexBoxLayout>
+        </FlexBoxLayout>
+        <FlexBoxLayout width="100%" justifyContent="space-around" class="m-t-10">
+            <FlexBoxLayout width="90%" justifyContent="space-around">
+                <FlexBoxLayout width="48%" justifyContent="center" class="topup_btn">
+                    <Label text="View Transaction History" class="text-left"></Label>
+                </FlexBoxLayout>
+                <FlexBoxLayout width="48%" justifyContent="center" class="topup_btn">
+                    <Label text="Offers & Promotions" class="text-left"></Label>
+                </FlexBoxLayout>
+            </FlexBoxLayout>
+        </FlexBoxLayout>
     </FlexBoxLayout>
 </ScrollView>

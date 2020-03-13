@@ -1,0 +1,25 @@
+.coin_btn {
+    width: 32%;
+    background: #262626;
+    // text-align: center;
+    border-width: 1;
+    border-color: #262626;
+    border-radius: 6;
+    color: white;
+    padding: 10 0
+}
+
+.topup_btn {
+    background: #0D4C43;
+    padding: 15 0;
+    color: white;
+    text-transform: uppercase;
+    border-width: 1;
+    border-color: #0D4C43;
+    border-radius: 6;
+}
+
+.topup_btn:highlighted {
+    background: #C00900;
+    border-color: #C00900;
+}
