@@ -1,4 +1,4 @@
-<RadSideDrawer>
+<RadSideDrawer drawerLocation="Right" drawerTransition="SlideInOnTopTransition">
     <FlexBoxLayout 
         tkDrawerContent 
         class="drawer-container"  
@@ -10,6 +10,6 @@
         <Button text="Logout" width="90%" class="-primary" (tap)="logout()"></Button>
     </FlexBoxLayout>
     <StackLayout tkMainContent>
-        <page-router-outlet class="m-t-30"></page-router-outlet>
+            <page-router-outlet class="m-t-30"></page-router-outlet>
     </StackLayout>
 </RadSideDrawer>

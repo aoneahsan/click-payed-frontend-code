@@ -51,4 +51,8 @@ export class ActionBarComponent implements OnInit {
     this._uiService.toggleDrawerState();
   }
 
+  showNotificationsAction() {
+    alert("Noti..");
+  }
+
 }

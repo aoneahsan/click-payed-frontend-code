@@ -11,25 +11,25 @@
         
         <!-- Coin Part Section -->
         <FlexBoxLayout width="100%" justifyContent="space-around" class="m-t-15">
-            <FlexBoxLayout width="90%" justifyContent="space-around">
-                <FlexBoxLayout flexDirection="row" justifyContent="center" class="coin_btn">
-                    <Image src="res://coin" height="40" loadMode="async" stretch="aspectFill"></Image>
-                    <Label text="Buy Coins" class="text-left"></Label>
+            <FlexBoxLayout width="94%" justifyContent="space-around">
+                <FlexBoxLayout flexDirection="row" justifyContent="center" alignItems="center" class="coin_btn">
+                    <Image src="res://coin" height="20" width="20" class="m-r-5"></Image>
+                    <Label text="Buy Coins" class="text-left" [textWrap]="true"></Label>
                 </FlexBoxLayout>
-                <FlexBoxLayout flexDirection="row" justifyContent="center" class="coin_btn">
-                    <Label text="ok  " class="text-right"></Image>
-                    <Label text="Buy Coins" class="text-left"></Label>
+                <FlexBoxLayout flexDirection="row" justifyContent="center" alignItems="center" class="coin_btn">
+                    <Image src="res://coin" height="20" width="20" class="m-l-5 m-r-5"></Image>
+                    <Label text="Redeem Coins" class="text-left" [textWrap]="true"></Label>
                 </FlexBoxLayout>
-                <FlexBoxLayout flexDirection="row" justifyContent="center" class="coin_btn">
-                    <Label text="ok  " class="text-right"></Label>
-                    <Label text="Buy Coins" class="text-left"></Label>
+                <FlexBoxLayout flexDirection="row" justifyContent="center" alignItems="center" class="coin_btn">
+                    <Image src="res://coin" height="20" width="20" class="m-l-5 m-r-5"></Image>
+                    <Label text="Transfer Coins" class="text-left" [textWrap]="true"></Label>
                 </FlexBoxLayout>
             </FlexBoxLayout>
         </FlexBoxLayout>
 
         <!-- Four Button Section top-up, withdraw, etc -->
         <FlexBoxLayout width="100%" justifyContent="space-around" class="m-t-15">
-            <FlexBoxLayout width="90%" justifyContent="space-around">
+            <FlexBoxLayout width="94%" justifyContent="space-around">
                 <FlexBoxLayout width="48%" justifyContent="center" class="topup_btn">
                     <Label text="Topup Your Wallet" class="text-left"></Label>
                 </FlexBoxLayout>
@@ -39,7 +39,7 @@
             </FlexBoxLayout>
         </FlexBoxLayout>
         <FlexBoxLayout width="100%" justifyContent="space-around" class="m-t-10">
-            <FlexBoxLayout width="90%" justifyContent="space-around">
+            <FlexBoxLayout width="94%" justifyContent="space-around">
                 <FlexBoxLayout width="48%" justifyContent="center" class="topup_btn">
                     <Label text="View Transaction History" class="text-left"></Label>
                 </FlexBoxLayout>
@@ -48,5 +48,8 @@
                 </FlexBoxLayout>
             </FlexBoxLayout>
         </FlexBoxLayout>
+
+        <!-- App Footer -->
+        <app-footer [section_1]="true"></app-footer>
     </FlexBoxLayout>
 </ScrollView>

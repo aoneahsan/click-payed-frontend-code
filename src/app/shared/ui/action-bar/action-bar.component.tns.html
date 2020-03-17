@@ -1,4 +1,4 @@
-<ActionBar [title]="title" class="action-bar" (loaded)="onLoaded()" icon="">
+<ActionBar [title]="title" class="action-bar p-r-10" (loaded)="onLoaded()" icon="">
     <NavigationButton
     text=""
     android.systemIcon="ic_menu_back"
@@ -6,17 +6,16 @@
     (tap)="onGoBack()"
   >
   </NavigationButton>
-    <NavigationButton
+    <!-- <NavigationButton
         text=""
         *ngIf="isAndroidDevice && hasMenu"
         (tap)="sideDrawerToggle()"
         icon="res://menu_black"
-    ></NavigationButton>
-    <ActionItem *ngIf="!isAndroidDevice && hasMenu" ios.position="left">
-        <Label text="&#xf0c9;" class="fa" (tap)="sideDrawerToggle()"></Label>
+    ></NavigationButton> -->
+    <ActionItem *ngIf="showNotifications && hasMenu" ios.position="right" class=" m-r-50">
+        <Label text="&#xf0f3;" class="fa" (tap)="showNotificationsAction()" style="color: black; font-size: 18;"></Label>
     </ActionItem>
-    <ActionItem *ngIf="showNotifications && hasMenu" ios.position="right">
-        
-        <Label text="&#xf0f3;" class="fa" (tap)="sideDrawerToggle()"></Label>
+    <ActionItem *ngIf="hasMenu" ios.position="left">
+        <Label text="&#xf0c9;" class="fa text-center" (tap)="sideDrawerToggle()" style="color: black; font-size: 16; border-width: 1;border-radius: 42; padding: 11 0 0 0;" width="42" height="42"></Label>
     </ActionItem>
 </ActionBar>
