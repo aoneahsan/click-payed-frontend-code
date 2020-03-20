@@ -16,6 +16,7 @@ import { TopupYourWalletComponent } from '@src/app/components/topup-your-wallet/
 import { RequestWithdrawalComponent } from '@src/app/components/request-withdrawal/request-withdrawal.component';
 import { TransactionHistoryComponent } from '@src/app/components/transaction-history/transaction-history.component';
 import { ProfileComponent } from '@src/app/components/user/profile/profile.component';
+import { AchievementsComponent } from '@src/app/components/user/achievements/achievements.component';
 
 
 @NgModule({
@@ -32,7 +33,8 @@ import { ProfileComponent } from '@src/app/components/user/profile/profile.compo
     TopupYourWalletComponent,
     RequestWithdrawalComponent,
     TransactionHistoryComponent,
-    ProfileComponent
+    ProfileComponent,
+    AchievementsComponent
   ],
   imports: [
     BrowserModule,

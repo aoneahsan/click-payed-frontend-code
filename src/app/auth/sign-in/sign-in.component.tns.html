@@ -1,26 +1,26 @@
 <app-action-bar title="Sign In" [showGoBackButton]="false" [hasMenu]="false"></app-action-bar>
 <ScrollView>
-    <FlexboxLayout flexDirection="column" justifyContent="center" alignItems="center">
+    <FlexboxLayout class="main_con" flexDirection="column" justifyContent="center" alignItems="center">
         <StackLayout class="text-center m-b-20">
-            <Label class="h1" text="Sign In"></Label>
-            <Label class="h2" text="to your eWallet account"></Label>
+            <Label class="h1 t_white" text="Sign In"></Label>
+            <Label class="h2 t_white" text="to your eWallet account"></Label>
         </StackLayout>
         <StackLayout class="nt-form">
-            <TextField width="80%" class="ok -border" [autocorrect]="false" ReturnKeyType="next" textAlignment="center"
-                hint="Enter Email"></TextField>
-            <TextField width="80%" class="input -border" hint="Enter Password" textAlignment="center" ReturnKeyType="done">
+            <TextField width="80%" class="ok t_white -border" [autocorrect]="false" ReturnKeyType="next" textAlignment="center"
+                hint="Enter Email" style="placeholder-color:rgba(255,255,255)"></TextField>
+            <TextField width="80%" class="input t_white -border" hint="Enter Password" textAlignment="center" ReturnKeyType="done" style="placeholder-color:rgba(255,255,255)">
             </TextField>
             <Button text="Sign In" width="80%" *ngIf="!formSubmited" class="-primary" (tap)="signInAction()"></Button>
             <ActivityIndicator [busy]="true" *ngIf="formSubmited"></ActivityIndicator>
         </StackLayout>
         <GridLayout rows="auto" columns="auto,auto">
-            <Label class="body text-right m-r-5" row="0" col="0" text="Forgot Password?"></Label>
-            <Label class="body text-primary text-left" row="0" col="1" text="Click Here" (tap)="forgotPasswordPage()"></Label>
+            <Label class="body t_white text-right m-r-5" row="0" col="0" text="Forgot Password?"></Label>
+            <Label class="body t_orange text-left" row="0" col="1" text="Click Here" (tap)="forgotPasswordPage()"></Label>
         </GridLayout>
-        <Label class="body" text="Don't have a account?"></Label>
+        <Label class="body t_white" text="Don't have a account?"></Label>
         <GridLayout rows="auto" columns="auto,auto">
-            <Label class="body text-right m-r-5" row="0" col="0" text="Signup for new eWallet account"></Label>
-            <Label class="body text-primary text-left" row="0" col="1" text="Here" (tap)="signUpPage()"></Label>
+            <Label class="body t_white text-right m-r-5" row="0" col="0" text="Signup for new eWallet account"></Label>
+            <Label class="body  t_orange text-left" row="0" col="1" text="Here" (tap)="signUpPage()"></Label>
         </GridLayout>
     </FlexboxLayout>
 </ScrollView>

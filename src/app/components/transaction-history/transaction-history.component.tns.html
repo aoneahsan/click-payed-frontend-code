@@ -1,1 +1,35 @@
-<Button text="transaction-history works!" class="btn btn-primary"></Button>
+<!--The content below is only a placeholder and can be replaced.-->
+<app-action-bar title="Transaction History" [hasMenu]='true' [showBackButton]="false" [showNotifications]="true"></app-action-bar>
+<ScrollView>
+    <FlexBoxLayout flexDirection="column">
+        <!-- Notice Board Section -->
+        <Label text="VIEW TRANSACTION HISTORY" class="h3 p-10 m-b-0 text-center text-uppercase" letterSpacing=".2" style="background: black; color: white;margin-bottom: 0;"></Label>
+        <!-- <Label class="hr m-10"></Label> -->
+
+        <FlexBoxLayout flexDirection="column" justifyContent="space-around">
+            <GridLayout rows="auto" columns="2*,2*,*,*,*" class="p-10 bg_forest report_heading_row">
+                <Label row="0" col="0" text="Date/Time" class="t_white"></Label>
+                <Label row="0" col="1" text="Trx#" class="t_white"></Label>
+                <Label row="0" col="2" text="Cr" class="t_white"></Label>
+                <Label row="0" col="3" text="Db" class="t_white"></Label>
+                <Label row="0" col="4" text="Balance" class="t_white"></Label>
+            </GridLayout>
+            <GridLayout rows="auto" columns="2*,2*,*,*,*" class="report_row" *ngFor="let record of transcation_records">
+                <Label row="0" col="0" [text]="record.date_time" class="m-l-10"></Label>
+                <Label row="0" col="1" [text]="record.trx"></Label>
+                <Label row="0" col="2" [text]="record.cr" [ngClass]="{'t_green': (record.cr > 0)}"></Label>
+                <Label row="0" col="3" [text]="record.db" [ngClass]="{'t_red': (record.db > 0)}"></Label>
+                <Label row="0" col="4" [text]="record.balance"></Label>
+            </GridLayout>
+        </FlexBoxLayout>
+
+        <Label class="hr m-10"></Label>
+
+        <!-- <FlexBoxLayout justifyContent="space-around" class="">
+            <Button text="Show More Entries" borderColor="black" borderRadius="4" class="-outline" width="70%"></Button>
+        </FlexBoxLayout> -->
+
+        <!-- App Footer -->
+        <app-footer [section_1]="true"></app-footer>
+    </FlexBoxLayout>
+</ScrollView>

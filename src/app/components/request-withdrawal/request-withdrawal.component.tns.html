@@ -1,1 +1,31 @@
-<Button text="request-withdrawal works!" class="btn btn-primary"></Button>
+<!--The content below is only a placeholder and can be replaced.-->
+<app-action-bar title="Request Widtdrawal" [hasMenu]='true' [showBackButton]="false" [showNotifications]="true"></app-action-bar>
+<ScrollView>
+    <FlexBoxLayout flexDirection="column" justifyContent="center">
+        <!-- Notice Board Section -->
+        <Label text="Request A Widtdrawal" class="h3 p-10 m-b-0 text-center text-uppercase" letterSpacing=".2" style="background: black; color: white;"></Label>
+        <FlexBoxLayout flexDirection="column" justifyContent="center" alignItems="center" class="p-t-20 p-b-20">
+            <Label text="Choose an Amount to Withdraw" style="font-weight: 700;" class="h3"></Label>
+            <Label text="You can only make a withdrawal in multiples of 100."></Label>
+            <Label text="For Example 100, 200, 300, 400, 500 etc."></Label>
+        </FlexBoxLayout>
+        <Label text="ENTER AMOUNT TO PURCHASE COINS" class="h4 p-10 m-b-0 text-center text-uppercase bg_forest font-weight-bold" style="color: white;"></Label>
+        <!-- Coin Part Section -->
+        <FlexBoxLayout width="100%" justifyContent="space-around" style="margin: 50 0 20 0;">
+            <FlexBoxLayout width="94%" justifyContent="space-around">
+                <Button text="Selector Here"></Button>
+            </FlexBoxLayout>
+        </FlexBoxLayout>
+
+        <Label [text]="remaining_balance" fontSize="14" width="60%" marginBottom="30" borderRadius="4" class="text-center body"></Label>
+        <Label text="ClickPayed charges a service fee of 20% on all withdrawal requests." [textWrap]="true" marginBottom="10" class="t_red text-center body"></Label>
+        <FlexBoxLayout width="100%" justifyContent="space-around" style="margin: 0 0 5 0;">
+            <Button text="SUBMIT WITHDRAWAL REQUEST" fontSize="14" width="60%" borderRadius="4" class="bg_green t_white p-0"></Button>
+        </FlexBoxLayout>
+        <Label text="All withdrawal requests will be credited to your preferred payout account." class="body text-center m-t-20" [textWrap]="true"></Label>
+        <Label text="You can change your preferred payout account from your profile page" class="body text-center m-b-20" [textWrap]="true"></Label>
+        
+        <!-- App Footer -->
+        <app-footer [section_1]="true"></app-footer>
+    </FlexBoxLayout>
+</ScrollView>

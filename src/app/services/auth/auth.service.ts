@@ -14,8 +14,9 @@ export class AuthService {
     }
 
     signUp() {
-        this._router.navigate(['/home'], {clearHistory: true});
-    }
+        // send http
+        // this._router.navigate(['/home'], {clearHistory: true}); // ok
+    } 
 
     forgotPassword() {
         this._router.navigate(['/home'], {clearHistory: true});

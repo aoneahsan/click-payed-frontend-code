@@ -2,6 +2,7 @@ import { Component, OnInit, Input } from '@angular/core';
 import { Page, isAndroid } from 'tns-core-modules/ui/page';
 import { RouterExtensions } from 'nativescript-angular/router';
 import { UIService } from '../ui.service';
+import { SystemService } from '@src/app/services/system.service';
 
 declare var android:any;
 
@@ -13,17 +14,31 @@ declare var android:any;
 export class ActionBarComponent implements OnInit {
 
   @Input() title = "";
-  @Input() showGoBackButton = true;
+  @Input() showGoBackButton = false;
   @Input() hasMenu = true;
   @Input() showNotifications = false;
+  remaining_balance: string = 'PKR 0';
+  remaining_coins: number = 0;
+  nofitications_count: string = '';
 
-  constructor(private _page: Page, private _router: RouterExtensions, private _uiService: UIService) { }
+  constructor(private _page: Page, private _router: RouterExtensions, private _uiService: UIService, private _systemService: SystemService) { }
 
   ngOnInit() {
+    this._systemService.getUserCoins().subscribe(
+      coins => {
+        this.remaining_coins = coins; 
+      }
+    );
+    this._systemService.getUserBalance().subscribe(
+      balance => {
+        this.remaining_balance = "PKR " + balance; 
+      }
+    );
+    this.nofitications_count = 99 + '+';
   }
 
   get canGoBack() {
-    return this._router.canGoBack() && this.showGoBackButton;
+    return this.showGoBackButton;
   }
 
   get isAndroidDevice() {
@@ -53,6 +68,11 @@ export class ActionBarComponent implements OnInit {
 
   showNotificationsAction() {
     alert("Noti..");
+  }
+
+  logout() {
+    // send http using service remove app setting (local keys), and then navigate
+    this._router.navigate(['/sign-in'], {clearHistory: true});
   }
 
 }

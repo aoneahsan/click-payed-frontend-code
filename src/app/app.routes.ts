@@ -4,11 +4,18 @@ import { SignInComponent } from '@src/app/auth/sign-in/sign-in.component';
 import { SignUpComponent } from '@src/app/auth/sign-up/sign-up.component';
 import { ForgotPasswordComponent } from './auth/forgot-password/forgot-password.component';
 import { HomeComponent } from './components/home/home.component';
+import { BuyCoinsComponent } from './components/buy-coins/buy-coins.component';
+import { RedeemCoinsComponent } from './components/redeem-coins/redeem-coins.component';
+import { TransferCoinsComponent } from './components/transfer-coins/transfer-coins.component';
+import { TopupYourWalletComponent } from './components/topup-your-wallet/topup-your-wallet.component';
+import { RequestWithdrawalComponent } from './components/request-withdrawal/request-withdrawal.component';
+import { TransactionHistoryComponent } from './components/transaction-history/transaction-history.component';
+import { ProfileComponent } from './components/user/profile/profile.component';
 
 export const routes: Routes = [
   {
     path: '',
-    redirectTo: '/home',
+    redirectTo: '/user/profile',
     pathMatch: 'full',
   },
   {
@@ -28,27 +35,31 @@ export const routes: Routes = [
     component: ForgotPasswordComponent
   },
   {
+    path: 'buy-coins',
+    component: BuyCoinsComponent
+  },
+  {
+    path: 'redeem-coins',
+    component: RedeemCoinsComponent
+  },
+  {
+    path: 'transfer-coins',
+    component: TransferCoinsComponent
+  },
+  {
+    path: 'topup-your-wallet',
+    component: TopupYourWalletComponent
+  },
+  {
+    path: 'request-withdrawal',
+    component: RequestWithdrawalComponent
+  },
+  {
+    path: 'transaction-history',
+    component: TransactionHistoryComponent
+  },
+  {
     path: 'user/profile',
-    component: ForgotPasswordComponent
-  },
-  {
-    path: 'forgot-password',
-    component: ForgotPasswordComponent
-  },
-  {
-    path: 'forgot-password',
-    component: ForgotPasswordComponent
-  },
-  {
-    path: 'forgot-password',
-    component: ForgotPasswordComponent
-  },
-  {
-    path: 'forgot-password',
-    component: ForgotPasswordComponent
-  },
-  {
-    path: 'forgot-password',
-    component: ForgotPasswordComponent
+    component: ProfileComponent
   }
 ];

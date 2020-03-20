@@ -3,24 +3,24 @@
 <ScrollView>
     <FlexBoxLayout flexDirection="column">
         <!-- Banner Section -->
-        <Image height="200" src="res://banner" loadMode="async" stretch="aspectFill"></Image>
+        <Image height="160" src="res://banner" loadMode="async" stretch="aspectFill"></Image>
 
         <!-- Notice Board Section -->
-        <Label text="Notice Board" class="h3 p-5 m-b-0 text-center" letterSpacing=".5" style="background: #C73B0E; color: white;"></Label>
+        <Label text="Notice Board" class="h3 p-5 text-center" letterSpacing=".5" style="background: #C73B0E; color: white;margin-bottom: 0;"></Label>
         <Label text="Currently we are accepting balance top-ups via easypaisa and jazzcash only. For any assistance, please reach us via our customer service WhatsApp" class="text-center m-t-0 p-10 p-l-30 p-r-30" [textWrap]="true" style="font-size: 14;border-width: 2;"></Label>
         
         <!-- Coin Part Section -->
         <FlexBoxLayout width="100%" justifyContent="space-around" class="m-t-15">
             <FlexBoxLayout width="94%" justifyContent="space-around">
-                <FlexBoxLayout flexDirection="row" justifyContent="center" alignItems="center" class="coin_btn">
+                <FlexBoxLayout flexDirection="row" justifyContent="center" alignItems="center" class="coin_btn" nsRouterLink="/buy-coins">
                     <Image src="res://coin" height="20" width="20" class="m-r-5"></Image>
                     <Label text="Buy Coins" class="text-left" [textWrap]="true"></Label>
                 </FlexBoxLayout>
-                <FlexBoxLayout flexDirection="row" justifyContent="center" alignItems="center" class="coin_btn">
+                <FlexBoxLayout flexDirection="row" justifyContent="center" alignItems="center" class="coin_btn" nsRouterLink="/redeem-coins">
                     <Image src="res://coin" height="20" width="20" class="m-l-5 m-r-5"></Image>
                     <Label text="Redeem Coins" class="text-left" [textWrap]="true"></Label>
                 </FlexBoxLayout>
-                <FlexBoxLayout flexDirection="row" justifyContent="center" alignItems="center" class="coin_btn">
+                <FlexBoxLayout flexDirection="row" justifyContent="center" alignItems="center" class="coin_btn" nsRouterLink="/transfer-coins">
                     <Image src="res://coin" height="20" width="20" class="m-l-5 m-r-5"></Image>
                     <Label text="Transfer Coins" class="text-left" [textWrap]="true"></Label>
                 </FlexBoxLayout>
@@ -29,27 +29,27 @@
 
         <!-- Four Button Section top-up, withdraw, etc -->
         <FlexBoxLayout width="100%" justifyContent="space-around" class="m-t-15">
-            <FlexBoxLayout width="94%" justifyContent="space-around">
-                <FlexBoxLayout width="48%" justifyContent="center" class="topup_btn">
+            <FlexBoxLayout width="94%" justifyContent="space-around" alignItems="center">
+                <FlexBoxLayout width="48%" style="height: 40;padding: 0 10;" justifyContent="center" flexDirection="column" alignItems="center" class="topup_btn" nsRouterLink="/topup-your-wallet">
                     <Label text="Topup Your Wallet" class="text-left"></Label>
                 </FlexBoxLayout>
-                <FlexBoxLayout width="48%" justifyContent="center" class="topup_btn">
+                <FlexBoxLayout width="48%" style="height: 40;padding: 0 10;" justifyContent="center" flexDirection="column" alignItems="center" class="topup_btn" nsRouterLink="/request-withdrawal">
                     <Label text="Request a Withdrawal" class="text-left"></Label>
                 </FlexBoxLayout>
             </FlexBoxLayout>
         </FlexBoxLayout>
         <FlexBoxLayout width="100%" justifyContent="space-around" class="m-t-10">
             <FlexBoxLayout width="94%" justifyContent="space-around">
-                <FlexBoxLayout width="48%" justifyContent="center" class="topup_btn">
+                <FlexBoxLayout width="48%" style="height: 40;padding: 0 10;" justifyContent="center" flexDirection="column" alignItems="center" class="topup_btn" nsRouterLink="/transaction-history">
                     <Label text="View Transaction History" class="text-left"></Label>
                 </FlexBoxLayout>
-                <FlexBoxLayout width="48%" justifyContent="center" class="topup_btn">
+                <FlexBoxLayout width="48%" style="height: 40;padding: 0 10;" justifyContent="center" flexDirection="column" alignItems="center" class="topup_btn" nsRouterLink="/transaction-history">
                     <Label text="Offers & Promotions" class="text-left"></Label>
                 </FlexBoxLayout>
             </FlexBoxLayout>
         </FlexBoxLayout>
 
         <!-- App Footer -->
-        <app-footer [section_1]="true"></app-footer>
+        <app-footer [section_1]="false"></app-footer>
     </FlexBoxLayout>
 </ScrollView>

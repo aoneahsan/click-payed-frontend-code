@@ -19,6 +19,8 @@ import { TopupYourWalletComponent } from '@src/app/components/topup-your-wallet/
 import { RequestWithdrawalComponent } from '@src/app/components/request-withdrawal/request-withdrawal.component';
 import { TransactionHistoryComponent } from '@src/app/components/transaction-history/transaction-history.component';
 import { ProfileComponent } from '@src/app/components/user/profile/profile.component';
+import { SignupPopupComponent } from '@src/app/auth/signup-popup/signup-popup.component';
+import { AchievementsComponent } from '@src/app/components/user/achievements/achievements.component';
 
 
 // Uncomment and add to NgModule imports if you need to use two-way binding
@@ -41,7 +43,9 @@ import { ProfileComponent } from '@src/app/components/user/profile/profile.compo
     TopupYourWalletComponent,
     RequestWithdrawalComponent,
     TransactionHistoryComponent,
-    ProfileComponent
+    ProfileComponent,
+    SignupPopupComponent,
+    AchievementsComponent
   ],
   imports: [
     NativeScriptModule,
@@ -52,6 +56,7 @@ import { ProfileComponent } from '@src/app/components/user/profile/profile.compo
   ],
   providers: [],
   bootstrap: [AppComponent],
-  schemas: [NO_ERRORS_SCHEMA]
+  schemas: [NO_ERRORS_SCHEMA],
+  entryComponents: [SignupPopupComponent]
 })
 export class AppModule { }

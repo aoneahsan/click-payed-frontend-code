@@ -1,1 +1,42 @@
-<Button text="transfer-coins works!" class="btn btn-primary"></Button>
+<!--The content below is only a placeholder and can be replaced.-->
+<app-action-bar title="Transfer Coins" [hasMenu]='true' [showGoBackButton]="true"></app-action-bar>
+<ScrollView>
+    <FlexBoxLayout flexDirection="column">
+        <!-- Notice Board Section -->
+        <Label text="Transfer Coins" class="h3 p-10 m-b-0 text-center text-uppercase" letterSpacing=".2" style="background: black; color: white;margin: 0;"></Label>
+        <Label text="TRANSFER DETAILS" class="h4 p-10 m-b-0 text-center text-uppercase bg_forest font-weight-bold" style="color: white;"></Label>
+        <!-- Coin Part Section -->
+        <FlexBoxLayout width="100%" justifyContent="space-around" style="margin: 50 0 10 0;">
+            <FlexBoxLayout width="94%" justifyContent="center" alignItems="center" flexDirection="column">
+                <FlexBoxLayout width="100%" justifyContent="space-around" alignItems="center" flexDirection="column">
+                    <TextField hint="Enter Number of Coins" [(ngModel)]="coins_to_transfer" width="60%" style="border-width: 2; border-radius: 4;" class="text-center body p-10"></TextField>
+                    <Label text="Enter the number of coins you wish to transfer" [textWrap]="true" width="100%" class="text-center" marginTop="-6"></Label>
+                </FlexBoxLayout>
+                <FlexBoxLayout width="100%" justifyContent="space-around" alignItems="center" flexDirection="column" marginTop="10">
+                    <TextField hint="Registered Mobile Number" [(ngModel)]="reciver_number" width="60%" style="border-width: 2; border-radius: 4;" class="text-center body p-10"></TextField>
+                    <Label text="Enter a ClickPayed registered mobile number" [textWrap]="true" width="100%" class="text-center" marginTop="-6"></Label>
+                </FlexBoxLayout>
+            </FlexBoxLayout>
+        </FlexBoxLayout>
+
+        <FlexBoxLayout width="100%" justifyContent="space-around" style="margin: 0 0 5 0;">
+            <Button text="SEARCH" fontSize="14" borderRadius="4" class="bg_forest t_white p-t-0 p-b-0 p-l-20 p-r-20" (tap)="searchPerson()"></Button>
+        </FlexBoxLayout>
+
+        <FlexBoxLayout width="100%" justifyContent="space-around" style="margin: 15 0 20 0;">
+            <FlexBoxLayout width="94%" justifyContent="center" alignItems="center" flexDirection="column">
+                <FlexBoxLayout width="100%" justifyContent="space-around" alignItems="center" flexDirection="column">
+                    <Label text="Recipient Registered Name" width="60%" style="border-width: 2; border-radius: 4;" class="text-center bg_grey body p-10"></Label>
+                </FlexBoxLayout>
+            </FlexBoxLayout>
+        </FlexBoxLayout>
+
+        <FlexBoxLayout width="100%" justifyContent="space-around" style="margin: 0 0 5 0;">
+            <Button text="TRANSFER COINS" (tap)="transferCoins()" fontSize="14" width="50%" borderRadius="4" class="bg_green t_white p-0"></Button>
+        </FlexBoxLayout>
+        <Label [text]="remaining_coins" fontSize="14" width="60%" marginBottom="25" borderRadius="4" class="text-center"></Label>
+
+        <!-- App Footer -->
+        <app-footer [section_1]="true"></app-footer>
+    </FlexBoxLayout>
+</ScrollView>

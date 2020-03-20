@@ -1,21 +1,93 @@
-<ActionBar [title]="title" class="action-bar p-r-10" (loaded)="onLoaded()" icon="">
-    <NavigationButton
-    text=""
-    android.systemIcon="ic_menu_back"
-    *ngIf="canGoBack"
-    (tap)="onGoBack()"
-  >
-  </NavigationButton>
-    <!-- <NavigationButton
-        text=""
-        *ngIf="isAndroidDevice && hasMenu"
-        (tap)="sideDrawerToggle()"
-        icon="res://menu_black"
-    ></NavigationButton> -->
-    <ActionItem *ngIf="showNotifications && hasMenu" ios.position="right" class=" m-r-50">
-        <Label text="&#xf0f3;" class="fa" (tap)="showNotificationsAction()" style="color: black; font-size: 18;"></Label>
-    </ActionItem>
-    <ActionItem *ngIf="hasMenu" ios.position="left">
-        <Label text="&#xf0c9;" class="fa text-center" (tap)="sideDrawerToggle()" style="color: black; font-size: 16; border-width: 1;border-radius: 42; padding: 11 0 0 0;" width="42" height="42"></Label>
-    </ActionItem>
+<ActionBar
+  [title]="title"
+  class="action-bar p-r-10"
+  (loaded)="onLoaded()"
+  icon=""
+>
+  <GridLayout rows="*" columns="auto,*" *ngIf="hasMenu">
+    <FlexBoxLayout row="0" col="0" class="action-bar-leftside-content">
+      <FlexBoxLayLayout class="to show back button ok">
+        <image
+          src="res://icon"
+          class="action-image"
+          width="80"
+          height="80"
+          style="margin: 0 0 0 0;"
+          nsRouterLink="/home"
+          clearHistory="true"
+        ></image>
+        <FlexBoxLayout
+          flexDirection="column"
+          style="border-left-width: 2; padding: 0 0 0 6; margin: 0 0 0 6;"
+        >
+          <label
+            text="Available Balance"
+            class="t_blue"
+            style="margin: 0 0 -15 0;"
+          ></label>
+          <label
+            [text]="remaining_balance"
+            class="t_black"
+            style="margin: -10 0 -22 -43;font-size: 16;font-weight: 600;"
+          ></label>
+          <FlexBoxLayout style="margin: 0 0 -4 0;">
+            <image
+              src="res://coin"
+              width="20"
+              height="20"
+              style="margin: 0 4 0 0;"
+            ></image>
+            <label
+              [text]="remaining_coins"
+              class="t_brown"
+              style="margin: 0 0 0 0;font-size: 15;font-weight: 600;"
+            ></label>
+          </FlexBoxLayout>
+        </FlexBoxLayout>
+      </FlexBoxLayLayout>
+    </FlexBoxLayout>
+    <SlackLayout row="0" col="1">
+      <GridLayout
+        rows="auto"
+        columns="*,auto"
+        class="action-bar-rightside-content"
+      >
+        <label row="0" col="0"></label>
+        <FlexBoxLayout row="0" col="1" style="margin: 20 0 0 0;">
+          <image
+            src="res://notifications"
+            (tap)="showNotificationsAction()"
+            width="30"
+            height="30"
+            marginRight="-16"
+          ></image>
+          <SlackLayout
+            style="padding-top: 5; padding-bottom: 5;margin: -1 0 0 0; width: 14; height: 14;"
+            orientation="horizontal"
+          >
+            <label
+              [text]="nofitications_count"
+              class="t_black text-center"
+              fontSize="18"
+              style="padding: 5; margin: -5 0 0 6;"
+            ></label>
+          </SlackLayout>
+          <image
+            src="res://user1"
+            nsRouterLink="/user/profile"
+            width="30"
+            height="30"
+            marginLeft="0"
+            marginRight="6"
+          ></image>
+          <image
+            src="res://logout"
+            (tap)="logout()"
+            width="30"
+            height="30"
+          ></image>
+        </FlexBoxLayout>
+      </GridLayout>
+    </SlackLayout>
+  </GridLayout>
 </ActionBar>

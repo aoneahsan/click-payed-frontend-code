@@ -1,28 +1,28 @@
 <app-action-bar title="Sign Up" [showGoBackButton]="false" [hasMenu]="false"></app-action-bar>
 <ScrollView>
-    <FlexboxLayout flexDirection="column" justifyContent="center" alignItems="center">
-        <StackLayout class="text-center m-b-20">
-            <Label class="h1" text="Sign Up"></Label>
-            <Label class="h2" text="Create Your eWallet Account"></Label>
+    <FlexboxLayout class="main_con" flexDirection="column" justifyContent="center" alignItems="center">
+        <StackLayout class="text-center m-b-0" style="margin: -100 0 0 0;">
+            <Label class="h1 t_white" text="Sign Up"></Label>
+            <Label class="h2 t_white" text="Create Your eWallet Account"></Label>
         </StackLayout>
-        <StackLayout class="nt-form">
+        <StackLayout class="nt-form" style="margin: -10 0 0 0;">
             <TextField width="80%" class="ok -border" [autocorrect]="false" ReturnKeyType="next" textAlignment="center"
-                hint="Enter Name"></TextField>
+                hint="Enter Name" style="placeholder-color:rgba(255,255,255)"></TextField>
             <TextField width="80%" class="ok -border" [autocorrect]="false" ReturnKeyType="next" textAlignment="center"
-                hint="Enter Number"></TextField>
+                hint="Enter Number" style="placeholder-color:rgba(255,255,255)"></TextField>
             <TextField width="80%" class="ok -border" [autocorrect]="false" ReturnKeyType="next" textAlignment="center"
-                hint="Enter Email"></TextField>
-            <TextField width="80%" class="input -border" hint="Enter Password" textAlignment="center" ReturnKeyType="done">
+                hint="Enter Email" style="placeholder-color:rgba(255,255,255)"></TextField>
+            <TextField width="80%" class="input -border" hint="Enter Password" textAlignment="center" ReturnKeyType="done" style="placeholder-color:rgba(255,255,255)">
             </TextField>
-            <TextField width="80%" class="input -border" hint="Confirm Password" textAlignment="center" ReturnKeyType="done">
+            <TextField width="80%" class="input -border" hint="Confirm Password" textAlignment="center" ReturnKeyType="done" style="placeholder-color:rgba(255,255,255)">
             </TextField>
             <Button width="80%" *ngIf="!formSubmited" text="Sign Up" class="-primary" (tap)="signUpAction()"></Button>
             <ActivityIndicator [busy]='true' *ngIf="formSubmited"></ActivityIndicator>
         </StackLayout>
-        <Label class="body" text="Already have a account?"></Label>
+        <Label class="body t_white" text="Already have a account?"></Label>
         <GridLayout rows="auto" columns="auto,auto">
-            <Label class="body text-right m-r-5" row="0" col="0" text="Signin into your eWallet account"></Label>
-            <Label class="body text-primary text-left" row="0" col="1" text="Here" (tap)="signInPage()"></Label>
+            <Label class="body t_white text-right m-r-5" row="0" col="0" text="Signin into your eWallet account"></Label>
+            <Label class="body t_orange text-left" row="0" col="1" text="Here" (tap)="signInPage()"></Label>
         </GridLayout>
     </FlexboxLayout>
 </ScrollView>
