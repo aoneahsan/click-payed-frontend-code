@@ -1,4 +1,5 @@
-import { Component, OnInit, ViewChild, ElementRef } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
+import { RadioOption } from './radiooptions';
 
 @Component({
   selector: 'app-profile',
@@ -7,19 +8,43 @@ import { Component, OnInit, ViewChild, ElementRef } from '@angular/core';
 })
 export class ProfileComponent implements OnInit {
 
-  @ViewChild("CB1", { static: false }) FirstCheckBox: ElementRef;
+  radioOptions?: Array<RadioOption>;
+  selectedRadioOption: RadioOption = null;
 
-  constructor() { }
+  constructor(
+  ) {}
 
-  ngOnInit() {
+  ngOnInit(): void {
+    
+    // Plain ol' inline Array definition coming up :)
+    this.radioOptions = [
+      new RadioOption("Radio option 1"),
+      new RadioOption("Radio option 2"),
+      new RadioOption("Radio option 3")
+    ];
   }
-  
-  public toggleCheck() {
-    this.FirstCheckBox.nativeElement.toggle();
+
+  public checkedChange(modelRef) {
+    console.log("checkedChange:", modelRef.checked);
   }
 
-  public getCheckProp() {
-    console.log('checked prop value = ' + this.FirstCheckBox.nativeElement.checked);
+  changeCheckedRadio(radioOption: RadioOption): void {
+    radioOption.selected = !radioOption.selected;
+
+    if (!radioOption.selected) {
+      return;
+    }
+
+    // uncheck all other options
+    this.radioOptions.forEach(option => {
+      if (option.text !== radioOption.text) {
+        option.selected = false;
+      }
+    });
+
+    this.selectedRadioOption = radioOption;
+
+    console.log(this.selectedRadioOption);
   }
 
 }

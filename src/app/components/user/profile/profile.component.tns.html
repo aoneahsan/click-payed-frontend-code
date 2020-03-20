@@ -9,88 +9,37 @@
   <FlexBoxLayout flexDirection="column">
     <!-- Notice Board Section -->
     <FlexBoxLayout justifyContent="center" class="p-t-20 p-b-20 bg_forest">
-      <StackLayout>
-        <CheckBox text="CheckBox Label" checked="false"></CheckBox>
-        <Button (tap)="toggleCheck()" text="Toggle it!"></Button>
-        <Button (tap)="getCheckProp()" text="Check Property"></Button>
-      </StackLayout>
+      <FlexBoxLayout flexDirection="column" justifyContent="center" alignItems="center" class="t_white">
+        <label
+          class="p-10"
+          text="Tap either the buttons or the labels. You can even unselect the radiobutton selection."
+          textWrap="true"
+        ></label>
+        <StackLayout class="p-10" *ngFor="let option of radioOptions">
+          <StackLayout orientation="horizontal" verticalAlignment="center">
+            <CheckBox
+              #elem
+              [checked]="option.selected"
+              (checkedChange)="elem.checked !== option.selected && changeCheckedRadio(option)"
+              class="checkbox"
+              boxType="circle"
+            ></CheckBox>
+            <StackLayout verticalAlignment="center">
+              <label
+                [text]="option.text"
+                textWrap="true"
+                (tap)="changeCheckedRadio(option)"
+              ></label>
+            </StackLayout>
+          </StackLayout>
+        </StackLayout>
+      </FlexBoxLayout>
     </FlexBoxLayout>
     <label
       text="ENTER AMOUNT TO PURCHASE COINS"
       class="h4 p-10 m-b-0 text-center text-uppercase  font-weight-bold"
       style="color: white;"
     ></label>
-    <!-- Coin Part Section -->
-    <FlexBoxLayout
-      width="100%"
-      justifyContent="space-around"
-      style="margin: 50 0 20 0;"
-    >
-      <FlexBoxLayout width="94%" justifyContent="space-around">
-        <GridLayout rows="auto" columns="auto,*" class="coin_btn">
-          <label
-            text="PKR"
-            row="0"
-            col="0"
-            fontSize="16"
-            width="52"
-            height="100%"
-            class="text-center"
-            style="border-right-width: 2; padding-top: 10;"
-          ></label>
-          <TextField
-            [(ngModel)]="rupees_value"
-            row="0"
-            col="1"
-            keyType="number"
-            style="border-width: 0; font-size: 17;padding: 0; margin: 0 0 0 0;"
-            [textWrap]="true"
-            class="text-center"
-          ></TextField>
-        </GridLayout>
-        <GridLayout rows="auto" columns="auto,*" class="coin_btn bg_grey">
-          <image
-            src="res://coin"
-            row="0"
-            col="0"
-            height="100%"
-            width="40"
-            class="p-r-10 m-r-5"
-            style="border-right-width: 2;"
-          ></image>
-          <label
-            [text]="rupees_value * _pkrToCoinsRate"
-            row="0"
-            col="1"
-            style="border-width: 0; font-size: 17; margin-top: 8;"
-            class="text-center"
-          ></label>
-        </GridLayout>
-      </FlexBoxLayout>
-    </FlexBoxLayout>
-
-    <FlexBoxLayout
-      width="100%"
-      justifyContent="space-around"
-      style="margin: 0 0 5 0;"
-    >
-      <button
-        text="PURCHASE COINS"
-        fontSize="14"
-        width="60%"
-        borderRadius="4"
-        class="bg_green t_white p-0"
-      ></button>
-    </FlexBoxLayout>
-    <label
-      [text]="remaining_balance"
-      fontSize="14"
-      width="60%"
-      marginBottom="40"
-      borderRadius="4"
-      class="text-center"
-    ></label>
-
     <!-- App Footer -->
     <app-footer [section_1]="true"></app-footer>
   </FlexBoxLayout>

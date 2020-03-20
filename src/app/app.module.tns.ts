@@ -10,7 +10,7 @@ import { SharedModule } from '@src/app/modules/shared/shared.module';
 
 // Plugins
 import { NativeScriptUISideDrawerModule } from 'nativescript-ui-sidedrawer/angular/side-drawer-directives';
-import { TNSCheckBoxModule } from 'nativescript-checkbox/angular';
+import { TNSCheckBoxModule } from '@nstudio/nativescript-checkbox/angular';
 
 // Components
 import { AppComponent } from '@src/app/app.component';
@@ -28,6 +28,7 @@ import { RequestWithdrawalComponent } from '@src/app/components/request-withdraw
 import { TransactionHistoryComponent } from '@src/app/components/transaction-history/transaction-history.component';
 import { ProfileComponent } from '@src/app/components/user/profile/profile.component';
 import { AchievementsComponent } from '@src/app/components/user/achievements/achievements.component';
+import { ReactiveFormsModule } from '@angular/forms';
 
 // Uncomment and add to NgModule imports  if you need to use the HTTP wrapper
 // import { NativeScriptHttpClientModule } from 'nativescript-angular/http-client';
@@ -55,6 +56,7 @@ import { AchievementsComponent } from '@src/app/components/user/achievements/ach
     AppRoutingModule,
     SharedModule,
     NativeScriptFormsModule,
+    ReactiveFormsModule,
     NativeScriptUISideDrawerModule,
     TNSCheckBoxModule
   ],
