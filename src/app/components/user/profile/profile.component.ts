@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild, ElementRef } from '@angular/core';
 
 @Component({
   selector: 'app-profile',
@@ -7,9 +7,19 @@ import { Component, OnInit } from '@angular/core';
 })
 export class ProfileComponent implements OnInit {
 
+  @ViewChild("CB1", { static: false }) FirstCheckBox: ElementRef;
+
   constructor() { }
 
   ngOnInit() {
+  }
+  
+  public toggleCheck() {
+    this.FirstCheckBox.nativeElement.toggle();
+  }
+
+  public getCheckProp() {
+    console.log('checked prop value = ' + this.FirstCheckBox.nativeElement.checked);
   }
 
 }
