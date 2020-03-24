@@ -1,1 +1,29 @@
 /* Add mobile styles for the component here.  */
+.section_2_con {
+    padding: 40 20 30 20;
+    margin: -40 20 0 20; 
+    background-color: white;
+    min-height: 200;
+    border-width: 2;
+    border-color: #bababa;
+    border-radius: 30;
+}
+.info_name {
+    font-size: 13;
+    color: #bababa;
+}
+.info_value {
+    font-size: 18;
+}
+
+// Record Row
+.record_row .record_name {
+    font-size: 16;
+    color: black;
+    font-weight: 500;
+}
+.record_row .record_value {
+    font-size: 15;
+    color: black;
+    text-align: right;
+}

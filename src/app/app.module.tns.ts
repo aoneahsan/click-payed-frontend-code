@@ -29,6 +29,7 @@ import { TransactionHistoryComponent } from '@src/app/components/transaction-his
 import { ProfileComponent } from '@src/app/components/user/profile/profile.component';
 import { AchievementsComponent } from '@src/app/components/user/achievements/achievements.component';
 import { ReactiveFormsModule } from '@angular/forms';
+import { UserEditComponent } from '@src/app/components/user/user-edit/user-edit.component';
 
 // Uncomment and add to NgModule imports  if you need to use the HTTP wrapper
 // import { NativeScriptHttpClientModule } from 'nativescript-angular/http-client';
@@ -49,7 +50,8 @@ import { ReactiveFormsModule } from '@angular/forms';
     TransactionHistoryComponent,
     ProfileComponent,
     SignupPopupComponent,
-    AchievementsComponent
+    AchievementsComponent,
+    UserEditComponent
   ],
   imports: [
     NativeScriptModule,

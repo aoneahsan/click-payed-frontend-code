@@ -1,0 +1,46 @@
+<!--The content below is only a placeholder and can be replaced.-->
+<app-action-bar
+  title="User Profile"
+  [hasMenu]="true"
+  [showBackButton]="false"
+  [showNotifications]="true"
+></app-action-bar>
+<ScrollView>
+  <FlexBoxLayout flexDirection="column">
+    <!-- Notice Board Section -->
+    <FlexBoxLayout justifyContent="center" class="p-t-20 p-b-20 bg_forest">
+      <FlexBoxLayout flexDirection="column" justifyContent="center" alignItems="center" class="t_white">
+        <label
+          class="p-10"
+          text="Tap either the buttons or the labels. You can even unselect the radiobutton selection."
+          textWrap="true"
+        ></label>
+        <StackLayout class="p-10" *ngFor="let option of radioOptions">
+          <StackLayout orientation="horizontal" verticalAlignment="center">
+            <CheckBox
+              #elem
+              [checked]="option.selected"
+              (checkedChange)="elem.checked !== option.selected && changeCheckedRadio(option)"
+              class="checkbox"
+              boxType="circle"
+            ></CheckBox>
+            <StackLayout verticalAlignment="center">
+              <label
+                [text]="option.text"
+                textWrap="true"
+                (tap)="changeCheckedRadio(option)"
+              ></label>
+            </StackLayout>
+          </StackLayout>
+        </StackLayout>
+      </FlexBoxLayout>
+    </FlexBoxLayout>
+    <label
+      text="ENTER AMOUNT TO PURCHASE COINS"
+      class="h4 p-10 m-b-0 text-center text-uppercase  font-weight-bold"
+      style="color: white;"
+    ></label>
+    <!-- App Footer -->
+    <app-footer [section_1]="true"></app-footer>
+  </FlexBoxLayout>
+</ScrollView>

@@ -17,6 +17,7 @@ import { RequestWithdrawalComponent } from '@src/app/components/request-withdraw
 import { TransactionHistoryComponent } from '@src/app/components/transaction-history/transaction-history.component';
 import { ProfileComponent } from '@src/app/components/user/profile/profile.component';
 import { AchievementsComponent } from '@src/app/components/user/achievements/achievements.component';
+import { UserEditComponent } from '@src/app/components/user/user-edit/user-edit.component';
 
 
 @NgModule({
@@ -34,7 +35,8 @@ import { AchievementsComponent } from '@src/app/components/user/achievements/ach
     RequestWithdrawalComponent,
     TransactionHistoryComponent,
     ProfileComponent,
-    AchievementsComponent
+    AchievementsComponent,
+    UserEditComponent
   ],
   imports: [
     BrowserModule,

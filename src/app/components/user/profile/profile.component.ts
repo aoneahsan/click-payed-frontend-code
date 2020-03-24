@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { RadioOption } from './radiooptions';
+import { AuthService } from '@src/app/services/auth/auth.service';
 
 @Component({
   selector: 'app-profile',
@@ -8,43 +8,30 @@ import { RadioOption } from './radiooptions';
 })
 export class ProfileComponent implements OnInit {
 
-  radioOptions?: Array<RadioOption>;
-  selectedRadioOption: RadioOption = null;
+  user_name: string = '';
+  member_since: string = '';
+  user_img: string = '';
+  user_earned_coins: string = "";
+  user_balance: string = "";
+  user_email: string = '';
+  user_phone_no: string = '';
+  user_city: string = '';
+  user_country: string = '';
+  isJazzCashPreferred: boolean = null;
 
-  constructor(
-  ) {}
+  constructor(private _authService: AuthService) {}
 
   ngOnInit(): void {
-    
-    // Plain ol' inline Array definition coming up :)
-    this.radioOptions = [
-      new RadioOption("Radio option 1"),
-      new RadioOption("Radio option 2"),
-      new RadioOption("Radio option 3")
-    ];
+   // get user info from auth service using observable
+   this.user_name = 'Salman Ahmad';
+   this.member_since = 'Member Since ' + new Date();
+   this.user_img = 'res://profile';
+   this.user_earned_coins = "Total Coins Earned: " + 15000;
+   this.user_balance = "PKR 2000";
+   this.user_phone_no = "03006543216";
+   this.user_email = "salman123@gmail.com";
+   this.user_city = 'Lahore';
+   this.user_country = 'Pakistan';
+   this.isJazzCashPreferred = false;
   }
-
-  public checkedChange(modelRef) {
-    console.log("checkedChange:", modelRef.checked);
-  }
-
-  changeCheckedRadio(radioOption: RadioOption): void {
-    radioOption.selected = !radioOption.selected;
-
-    if (!radioOption.selected) {
-      return;
-    }
-
-    // uncheck all other options
-    this.radioOptions.forEach(option => {
-      if (option.text !== radioOption.text) {
-        option.selected = false;
-      }
-    });
-
-    this.selectedRadioOption = radioOption;
-
-    console.log(this.selectedRadioOption);
-  }
-
 }

@@ -1,1 +1,165 @@
-<Button text="achievements works!" class="btn btn-primary"></Button>
+<!--The content below is only a placeholder and can be replaced.-->
+<app-action-bar
+  title="User Profile"
+  [hasMenu]="true"
+  [showBackButton]="false"
+  [showNotifications]="true"
+></app-action-bar>
+<ScrollView>
+  <FlexBoxLayout flexDirection="column">
+    <!-- Notice Board Section -->
+    <FlexBoxLayout class="bg_forest" style="padding: 30 0 70 0;">
+      <FlexBoxLayout flexDirection="column" class="m-l-20">
+        <GridLayout rows="auto" columns="*, auto">
+          <FlexBoxLayout
+            flexDirection="column"
+            alignItems="flex-start"
+            class="m-t-15"
+            row="0"
+            col="0"
+          >
+            <label
+              class="t_white"
+              [text]="user_name"
+              style="font-size: 22;"
+            ></label>
+            <label
+              class="t_white"
+              [text]="member_since"
+              style="font-size: 12;"
+              [textWrap]="true"
+            ></label>
+            <label
+              [text]="user_earned_coins"
+              class="t_orange m-b-5"
+              style="font-size: 14;"
+            ></label>
+            <button
+              width="auto"
+              height="36"
+              text="Edit Profile"
+              style="background-color: transparent; border-color: white; border-width: 2; padding: 0 10; margin: 0; border-radius: 4;"
+              class="t_white"
+              nsRouterLink="/user/edit"
+            ></button>
+          </FlexBoxLayout>
+          <FlexBoxLayout
+            flexDirection="column"
+            justifyContent="center"
+            alignItems="center"
+            class="m-r-30"
+            row="0"
+            col="1"
+          >
+            <image [src]="user_img" width="120" height="120"></image>
+          </FlexBoxLayout>
+        </GridLayout>
+        <FlexBoxLayout class="t_white m-t-20" style="font-size: 20;">
+          <label
+            text="Personal"
+            class="m-r-20"
+            nsRouterLink="/user/profile"
+          ></label>
+          <label
+            text="Achievements"
+            borderBottomWidth="2"
+            borderColor="white"
+          ></label>
+        </FlexBoxLayout>
+      </FlexBoxLayout>
+    </FlexBoxLayout>
+
+    <!-- Second Sectoion -->
+    <FlexBoxLayout flexDirection="column" class="section_2_con">
+      <FlexBoxLayout width="100%" justifyContent="space-around" class="m-b-10">
+        <FlexBoxLayout width="35%" flexDirection="column"></FlexBoxLayout>
+        <FlexBoxLayout width="30%" flexDirection="column">
+          <label
+            [textWrap]="true"
+            text="Coins Spent"
+            class="info_name"
+            style="font-size: 14; text-align: right;"
+          ></label>
+        </FlexBoxLayout>
+        <FlexBoxLayout width="30%" flexDirection="column">
+          <label
+            [textWrap]="true"
+            text="Coins Earned"
+            class="info_name"
+            style="font-size: 14; text-align: right;"
+          ></label>
+        </FlexBoxLayout>
+      </FlexBoxLayout>
+
+      <FlexBoxLayout
+        width="100%"
+        justifyContent="space-around"
+        class="record_row"
+        *ngFor="let record of achievements_records"
+      >
+        <FlexBoxLayout width="35%" flexDirection="column">
+          <label [text]="record.name" class="record_name"></label>
+        </FlexBoxLayout>
+        <FlexBoxLayout width="30%" flexDirection="column">
+          <label
+            [textWrap]="true"
+            [text]="record.coin_spend"
+            class="record_value"
+          ></label>
+        </FlexBoxLayout>
+        <FlexBoxLayout width="30%" flexDirection="column">
+          <label
+            [textWrap]="true"
+            [text]="record.coin_earned"
+            class="record_value"
+          ></label>
+        </FlexBoxLayout>
+      </FlexBoxLayout>
+
+      <FlexBoxLayout
+        width="100%"
+        justifyContent="flex-end"
+        class="record_row"
+      >
+        <FlexBoxLayout width="35%" flexDirection="column"></FlexBoxLayout>
+        <FlexBoxLayout width="20%" flexDirection="column">
+          <label class="hr m-y-10" style="border-color: black;"></label>
+        </FlexBoxLayout>
+        <FlexBoxLayout width="20%" flexDirection="column" style="margin-left: 38;">
+          <label class="hr m-y-10" style="border-color: black;"></label>
+        </FlexBoxLayout>
+      </FlexBoxLayout>
+
+      <FlexBoxLayout
+        width="100%"
+        justifyContent="space-around"
+        class="record_row"
+      >
+        <FlexBoxLayout width="35%" flexDirection="column">
+          <label
+            text="Total"
+            class="record_name"
+            style="font-weight: 700;"
+          ></label>
+        </FlexBoxLayout>
+        <FlexBoxLayout width="27%" flexDirection="column">
+          <label
+            [textWrap]="true"
+            [text]="coin_spend_total"
+            class="record_value"
+          ></label>
+        </FlexBoxLayout>
+        <FlexBoxLayout width="27%" flexDirection="column">
+          <label
+            [textWrap]="true"
+            [text]="coin_earned_total"
+            class="record_value"
+          ></label>
+        </FlexBoxLayout>
+      </FlexBoxLayout>
+    </FlexBoxLayout>
+
+    <!-- App Footer -->
+    <app-footer [section_1]="false"></app-footer>
+  </FlexBoxLayout>
+</ScrollView>

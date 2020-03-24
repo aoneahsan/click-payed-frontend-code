@@ -11,11 +11,13 @@ import { TopupYourWalletComponent } from './components/topup-your-wallet/topup-y
 import { RequestWithdrawalComponent } from './components/request-withdrawal/request-withdrawal.component';
 import { TransactionHistoryComponent } from './components/transaction-history/transaction-history.component';
 import { ProfileComponent } from './components/user/profile/profile.component';
+import { AchievementsComponent } from './components/user/achievements/achievements.component';
+import { UserEditComponent } from './components/user/user-edit/user-edit.component';
 
 export const routes: Routes = [
   {
     path: '',
-    redirectTo: '/user/profile',
+    redirectTo: '/topup-your-wallet',
     pathMatch: 'full',
   },
   {
@@ -61,5 +63,13 @@ export const routes: Routes = [
   {
     path: 'user/profile',
     component: ProfileComponent
+  },
+  {
+    path: 'user/achievements',
+    component: AchievementsComponent
+  },
+  {
+    path: 'user/edit',
+    component: UserEditComponent
   }
 ];
