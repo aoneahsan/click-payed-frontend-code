@@ -1,0 +1,12 @@
+<FlexBoxLayout width="350" height="auto" borderWidth="2" borderRadius="4" borderColor="white" padding="30" flexDirection="column" justifyContent="center" alignItems="center">
+    <Image src="res://congratulationtext"></Image>
+    <Label text="Your coin transfer request is complete" class="body text-center m-t-20 m-b-20" style="font-weight: 600;font-size: 20;" [textWrap]="true"></Label>
+    <FlexBoxLayout justifyContent="center" alignItems="center" flexDirection="column" class="m-t-30 m-b-20">
+        <Label text="YOUR REMAINING COINS WILL BE" class="text-center" style="font-size: 14;"></Label>
+        <FlexBoxLayout justifyContent="center" alignItems="center" class="m-t-10">
+            <Image src="res://coin" width="45" height="45" class="m-r-5"></Image>
+            <Label [text]="remainingCoins" class="text-center t_brown" style="font-size: 26;"></Label>
+        </FlexBoxLayout>
+    </FlexBoxLayout>
+    <Button width="64%" borderRadius="4" borderWidth="1" (tap)="onHandle('ok')" class="bg_green t_white" text="Okay!!!"></Button>
+</FlexBoxLayout>

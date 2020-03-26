@@ -1,31 +1,108 @@
 <!--The content below is only a placeholder and can be replaced.-->
-<app-action-bar title="Request Widtdrawal" [hasMenu]='true' [showBackButton]="false" [showNotifications]="true"></app-action-bar>
+<app-action-bar
+  title="Request Widtdrawal"
+  [hasMenu]="true"
+  [showBackButton]="false"
+  [showNotifications]="true"
+></app-action-bar>
 <ScrollView>
-    <FlexBoxLayout flexDirection="column" justifyContent="center">
-        <!-- Notice Board Section -->
-        <Label text="Request A Widtdrawal" class="h3 p-10 m-b-0 text-center text-uppercase" letterSpacing=".2" style="background: black; color: white;"></Label>
-        <FlexBoxLayout flexDirection="column" justifyContent="center" alignItems="center" class="p-t-20 p-b-20">
-            <Label text="Choose an Amount to Withdraw" style="font-weight: 700;" class="h3"></Label>
-            <Label text="You can only make a withdrawal in multiples of 100."></Label>
-            <Label text="For Example 100, 200, 300, 400, 500 etc."></Label>
-        </FlexBoxLayout>
-        <Label text="ENTER AMOUNT TO PURCHASE COINS" class="h4 p-10 m-b-0 text-center text-uppercase bg_forest font-weight-bold" style="color: white;"></Label>
-        <!-- Coin Part Section -->
-        <FlexBoxLayout width="100%" justifyContent="space-around" style="margin: 50 0 20 0;">
-            <FlexBoxLayout width="94%" justifyContent="space-around">
-                <Button text="Selector Here"></Button>
-            </FlexBoxLayout>
-        </FlexBoxLayout>
-
-        <Label [text]="remaining_balance" fontSize="14" width="60%" marginBottom="30" borderRadius="4" class="text-center body"></Label>
-        <Label text="ClickPayed charges a service fee of 20% on all withdrawal requests." [textWrap]="true" marginBottom="10" class="t_red text-center body"></Label>
-        <FlexBoxLayout width="100%" justifyContent="space-around" style="margin: 0 0 5 0;">
-            <Button text="SUBMIT WITHDRAWAL REQUEST" fontSize="14" width="60%" borderRadius="4" class="bg_green t_white p-0"></Button>
-        </FlexBoxLayout>
-        <Label text="All withdrawal requests will be credited to your preferred payout account." class="body text-center m-t-20" [textWrap]="true"></Label>
-        <Label text="You can change your preferred payout account from your profile page" class="body text-center m-b-20" [textWrap]="true"></Label>
-        
-        <!-- App Footer -->
-        <app-footer [section_1]="true"></app-footer>
+  <FlexBoxLayout flexDirection="column" justifyContent="center">
+    <!-- Notice Board Section -->
+    <label
+      text="Request A Widtdrawal"
+      class="h3 p-10 m-b-0 text-center text-uppercase"
+      letterSpacing=".2"
+      style="background: black; color: white;"
+    ></label>
+    <FlexBoxLayout
+      flexDirection="column"
+      justifyContent="center"
+      alignItems="center"
+      class="p-t-10 p-b-15"
+    >
+      <label
+        text="Choose an Amount to Withdraw"
+        style="font-weight: 700;"
+        class="h3"
+      ></label>
+      <label text="You can only make a withdrawal in multiples of 100."></label>
+      <label text="For Example 100, 200, 300, 400, 500 etc."></label>
     </FlexBoxLayout>
+    <!-- <label
+      text="ENTER AMOUNT TO PURCHASE COINS"
+      class="h4 p-10 m-b-0 text-center text-uppercase bg_forest font-weight-bold"
+      style="color: white;"
+    ></label> -->
+    <!-- Coin Part Section -->
+    <FlexBoxLayout
+      width="100%"
+      justifyContent="space-around"
+      style="margin: 0 0 2 0;"
+    >
+      <FlexBoxLayout width="94%" justifyContent="center" alignItems="center">
+        <DropDown
+          #dropdow
+          width="70%"
+          height="50"
+          class="text-center"
+          itemsTextAlignment="center"
+          [items]="items"
+          [(ngModel)]="selectedIndex"
+          (selectedIndexChanged)="onchange($event)"
+          (opened)="onopen()"
+          (closed)="onclose()"
+          style="border-width: 2;border-color: black;padding: 6 0 0 0;margin: 0;background-color: white;border-radius: 4;font-size: 20;"
+        ></DropDown>
+        <label text="ˇ" style="font-size: 40; margin: 15 0 0 -30;"></label>
+      </FlexBoxLayout>
+    </FlexBoxLayout>
+
+    <label
+      [text]="remaining_balance"
+      fontSize="14"
+      width="60%"
+      marginTop="0"
+      marginBottom="15"
+      borderRadius="4"
+      class="text-center body"
+    ></label>
+    <FlexBoxLayout justifyContent="center" alignItems="center" width="100%">
+      <label
+        text="ClickPayed charges a service fee of 20% on all withdrawal requests."
+        [textWrap]="true"
+        width="92%"
+        alignItem="center"
+        marginBottom="6"
+        class="t_red text-center body"
+        style="font-size: 11;"
+      ></label>
+    </FlexBoxLayout>
+    <FlexBoxLayout
+      width="100%"
+      justifyContent="space-around"
+      alignItems="center"
+      style="margin: 0 0 0 0;"
+    >
+      <button
+        text="SUBMIT WITHDRAWAL REQUEST"
+        fontSize="14"
+        width="60%"
+        height="40"
+        borderRadius="4"
+        class="bg_green t_white p-0"
+      ></button>
+    </FlexBoxLayout>
+    <FlexBoxLayout width="100%" flexDirection="column" justifyContent="center" alignItems="center">
+      <label
+        text="All withdrawal requests will be credited to your preferred payout account. You can change your preferred payout account from your profile page"
+        class="body text-center"
+        width="86%"
+        [textWrap]="true"
+        style="font-size: 12;line-height: 4; margin: 14 0 0 0;"
+      ></label>
+    </FlexBoxLayout>
+
+    <!-- App Footer -->
+    <app-footer [section_1]="true"></app-footer>
+  </FlexBoxLayout>
 </ScrollView>

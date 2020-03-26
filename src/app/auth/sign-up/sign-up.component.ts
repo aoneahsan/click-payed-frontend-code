@@ -46,19 +46,28 @@ export class SignUpComponent implements OnInit {
       res => {
         console.log(res);
         if (res == 'complete') {
-          this._router.navigate(['/user/profile'], { clearHistory: true });
+          this.goToProfile();
         }
         else if (res == 'skip') {
-          this._router.navigate(['/home'], { clearHistory: true });
+          this.goToHome();
         }
         else if (res == undefined) {
-          this._router.navigate(['/home'], { clearHistory: true });
+          this.goToHome();
         }
       }
     );
     this.formSubmited = false;
   }
+  
+  goToHome() {
+    setTimeout(()=> {
+      this._router.navigate(['/home'], { clearHistory: true });
+    }, 400)
+  }
 
-
-
+  goToProfile() {
+    setTimeout(()=> {
+      this._router.navigate(['/user/profile'], { clearHistory: true });
+    }, 400)
+  }
 }

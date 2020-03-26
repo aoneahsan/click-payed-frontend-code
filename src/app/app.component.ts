@@ -1,9 +1,9 @@
-import { Component, OnInit, OnDestroy, ViewChild, AfterViewInit, ViewContainerRef } from '@angular/core';
+import { Component, OnInit, OnDestroy, AfterViewInit, ViewContainerRef } from '@angular/core';
 
 import { RouterExtensions } from 'nativescript-angular/router';
-import { RadSideDrawerComponent } from 'nativescript-ui-sidedrawer/angular/side-drawer-directives';
-import { RadSideDrawer } from 'nativescript-ui-sidedrawer';
-import { Subscription } from 'rxjs';
+// import { RadSideDrawerComponent } from 'nativescript-ui-sidedrawer/angular/side-drawer-directives';
+// import { RadSideDrawer } from 'nativescript-ui-sidedrawer';
+// import { Subscription } from 'rxjs';
 import { UIService } from './shared/ui/ui.service';
 
 @Component({
@@ -13,25 +13,25 @@ import { UIService } from './shared/ui/ui.service';
 })
 export class AppComponent implements OnInit, AfterViewInit, OnDestroy {
 
-  @ViewChild(RadSideDrawerComponent, {static: false}) drawerComponent: RadSideDrawerComponent;
-  private drawer: RadSideDrawer;
-  drawerSub: Subscription;
+  // @ViewChild(RadSideDrawerComponent, {static: false}) drawerComponent: RadSideDrawerComponent;
+  // private drawer: RadSideDrawer;
+  // drawerSub: Subscription;
 
   constructor(private _router: RouterExtensions, private _uiService: UIService, private _vcRef: ViewContainerRef) {}
 
   ngOnInit() {
-    this.drawerSub = this._uiService.drawerState.subscribe(
-      () => {
-        if (this.drawer) {
-          this.drawer.toggleDrawerState();
-        }
-      }
-    );
+    // this.drawerSub = this._uiService.drawerState.subscribe(
+    //   () => {
+    //     if (this.drawer) {
+    //       this.drawer.toggleDrawerState();
+    //     }
+    //   }
+    // );
     this._uiService.setAppVCRef(this._vcRef);
   }
 
   ngAfterViewInit() {
-    this.drawer = this.drawerComponent.sideDrawer;
+    // this.drawer = this.drawerComponent.sideDrawer;
   }
 
   logout() {
@@ -40,9 +40,9 @@ export class AppComponent implements OnInit, AfterViewInit, OnDestroy {
   }
 
   ngOnDestroy() {
-    if (this.drawerSub) {
-      this.drawerSub.unsubscribe();
-    }
+    // if (this.drawerSub) {
+    //   this.drawerSub.unsubscribe();
+    // }
   }
 
 }

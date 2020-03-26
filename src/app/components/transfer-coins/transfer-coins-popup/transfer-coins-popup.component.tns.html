@@ -1,0 +1,23 @@
+<FlexBoxLayout width="auto" height="auto" borderWidth="2" borderRadius="4" borderColor="white" flexDirection="column" justifyContent="center" alignItems="center" style="padding: 30 5;">
+    <Label text="PLEASE CONFIRM THAT YOU WISH TO TRANSFER" style="font-size: 20;" [textWrap]="true" class="text-center" width="90%"></Label>
+    <FlexBoxLayout justifyContent="center" alignItems="center" class="m-t-15 m-b-20">
+        <Image src="res://coin" width="30" height="30" class="m-r-5"></Image>
+        <Label [text]="modalData.coinsToTransfer" class="text-center t_orange" style="font-size: 24;"></Label>
+    </FlexBoxLayout>
+    <Label text="to" style="font-size: 18; font-weight: 600; text-align: center;"></Label>
+    <FlexBoxLayout justifyContent="center" alignItems="center" flexDirection="column" class="m-t-15 m-b-20">
+        <Label [text]="modalData.otherUser.name" class="text-center" style="font-size: 24;"></Label>
+        <Label [text]="modalData.otherUser.number" class="text-center t_blue" style="font-size: 24;"></Label>
+    </FlexBoxLayout>
+    <FlexBoxLayout justifyContent="center" alignItems="center" flexDirection="column">
+        <Label text="YOUR REMAINING COINS WILL BE" class="text-center" style="font-size: 14;"></Label>
+        <FlexBoxLayout justifyContent="center" alignItems="center" class="m-t-10">
+            <Image src="res://coin" width="45" height="45" class="m-r-5"></Image>
+            <Label [text]="modalData.remainingCoins" class="text-center t_brown" style="font-size: 26;"></Label>
+        </FlexBoxLayout>
+    </FlexBoxLayout>
+    <FlexBoxLayout justifyContent="center" alignItems="center" class="m-t-20" width="98%">
+        <Button width="48%" borderRadius="4" borderWidth="1" (tap)="onHandle('TRANSFER')" class="bg_green t_white" text="TRANSFER NOW" style="font-size: 13;"></Button>
+        <Button width="48%" borderRadius="4" borderWidth="1" (tap)="onHandle('CANCEL')" class="bg_orange t_white" text="CANCEL REQUEST" style="font-size: 13;"></Button>
+    </FlexBoxLayout>
+</FlexBoxLayout>

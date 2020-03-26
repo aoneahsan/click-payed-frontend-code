@@ -14,7 +14,7 @@
             <FlexBoxLayout width="94%" justifyContent="space-around">
                 <GridLayout rows="auto" columns="auto,*" class="coin_btn">
                     <Image src="res://coin" row="0" col="0" height="100%" width="40" class="p-r-10 m-r-5" style="border-right-width: 2;"></Image>
-                    <TextField [(ngModel)]="coins_to_redeem" row="0" col="1" keyType="number" style="border-width: 0; font-size: 17;padding: 0; margin: 0 0 0 0;" [textWrap]="true" class="text-center"></TextField>
+                    <TextField [(ngModel)]="coins_to_redeem" row="0" col="1" keyboardType="phone" style="border-width: 0; font-size: 17;padding: 0; margin: 0 0 0 0;" [textWrap]="true" class="text-center"></TextField>
                 </GridLayout>
                 <GridLayout rows="auto" columns="auto,*" class="coin_btn bg_grey">
                     <Label text="PKR" row="0" col="0" fontSize="16" width="52" height="100%" class="text-center" style="border-right-width: 2; padding-top: 10;"></Label>
@@ -24,11 +24,11 @@
         </FlexBoxLayout>
 
         <FlexBoxLayout width="100%" justifyContent="space-around" style="margin: 0 0 5 0;">
-            <Button text="PURCHASE COINS" fontSize="14" width="60%" borderRadius="4" class="bg_green t_white p-0"></Button>
+            <Button text="Redeem Coins" fontSize="14" width="60%" borderRadius="4" class="bg_green t_white p-0" style="text-transform: uppercase;"></Button>
         </FlexBoxLayout>
         <Label [text]="remaining_balance" fontSize="14" width="60%" marginBottom="40" borderRadius="4" class="text-center"></Label>
 
         <!-- App Footer -->
-        <app-footer [section_1]="true"></app-footer>
+        <app-footer [section_1]="false"></app-footer>
     </FlexBoxLayout>
 </ScrollView>

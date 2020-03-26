@@ -4,31 +4,34 @@
     <FlexBoxLayout flexDirection="column">
         <!-- Notice Board Section -->
         <Label text="Top Up Your Wallet" class="h3 p-10 m-b-0 text-center text-uppercase" letterSpacing=".2" style="background: black; color: white;"></Label>
-        <FlexBoxLayout justifyContent="center" class="p-t-20 p-b-20 h2">
-            <Label text="Coin Rate" style="color: gold;"></Label>
-            <Label [text]="pkrToCoinRateText"></Label>
+        <FlexBoxLayout justifyContent="center" alignItems="center" width="100%" class="p-t-20 p-b-20">
+            <Label text="In order to make new deposits, you need to have an easypaisa / jazzcash wallet account. Using your easypaisa account, you can deposit or withdraw cash from ClickPayed wallet" [textWrap]="true" class="text-center" width="90%" style="font-size: 12;"></Label>
         </FlexBoxLayout>
-        <Label text="ENTER AMOUNT TO PURCHASE COINS" class="h4 p-10 m-b-0 text-center text-uppercase bg_forest font-weight-bold" style="color: white;"></Label>
+        <Label text="To make a new deposit, just follow 3 simple steps below" class="h5 p-10 m-b-0 text-center text-uppercase bg_forest font-weight-bold" style="color: white;"></Label>
         <!-- Coin Part Section -->
-        <FlexBoxLayout width="100%" justifyContent="space-around" style="margin: 50 0 20 0;">
-            <FlexBoxLayout width="94%" justifyContent="space-around">
-                <GridLayout rows="auto" columns="auto,*" class="coin_btn">
-                    <Label text="PKR" row="0" col="0" fontSize="16" width="52" height="100%" class="text-center" style="border-right-width: 2; padding-top: 10;"></Label>
-                    <TextField [(ngModel)]="rupees_value" row="0" col="1" keyType="number" style="border-width: 0; font-size: 17;padding: 0; margin: 0 0 0 0;" [textWrap]="true" class="text-center"></TextField>
-                </GridLayout>
-                <GridLayout rows="auto" columns="auto,*" class="coin_btn bg_grey">
-                    <Image src="res://coin" row="0" col="0" height="100%" width="40" class="p-r-10 m-r-5" style="border-right-width: 2;"></Image>
-                    <Label [text]="rupees_value * _pkrToCoinsRate" row="0" col="1" style="border-width: 0; font-size: 17; margin-top: 8;" class="text-center"></Label>
-                </GridLayout>
+        <FlexBoxLayout width="100%" justifyContent="space-around" style="margin: 0 0 0 0;">
+            <FlexBoxLayout width="94%" justifyContent="center" alignItems="center" flexDirection="column">
+                <FlexBoxLayout width="100%" justifyContent="center" alignItems="center">
+                    <Image src="res://easypaisajazzcash" width="auto" height="140"></Image>
+                </FlexBoxLayout>
+                <FlexBoxLayout width="98%" justifyContent="center" alignItems="center" flexDirection="column" class="p-l-5">
+                    <GridLayout rows="auto" columns="auto, *" width="100%" *ngFor="let step of steps">
+                        <Label [text]="step.number" class="t_blue p-l-5 p-r-5" row="0" col="0"></Label>
+                        <Label [text]="step.description" row="0" col="1" class="t_black" [textWrap]="true" style="font-size: 12;"></Label>
+                    </GridLayout>
+                </FlexBoxLayout>
+                <FlexBoxLayout width="98%" justifyContent="center" alignItems="center" class="p-l-5 m-t-15">
+                    <FlexBoxLayout width="48%" justifyContent="center" alignItems="center" flexDirection="column" class="p-l-5">
+                        <Button (tap)="openEasypaisaAppURL()" width="100%" height="40" text="Get EasyPaisa App" style="font-size: 12;border-radius: 8;" class="bg_black t_white"></Button>
+                    </FlexBoxLayout>
+                    <FlexBoxLayout width="48%" justifyContent="center" alignItems="center" flexDirection="column" class="p-l-5">
+                        <Button (tap)="openJazzcashAppURL()" width="100%" height="40" text="Get EasyPaisa App" style="font-size: 12;border-radius: 8;" class="bg_black t_white"></Button>
+                    </FlexBoxLayout>
+                </FlexBoxLayout>
             </FlexBoxLayout>
         </FlexBoxLayout>
 
-        <FlexBoxLayout width="100%" justifyContent="space-around" style="margin: 0 0 5 0;">
-            <Button text="PURCHASE COINS" fontSize="14" width="60%" borderRadius="4" class="bg_green t_white p-0"></Button>
-        </FlexBoxLayout>
-        <Label [text]="remaining_balance" fontSize="14" width="60%" marginBottom="40" borderRadius="4" class="text-center"></Label>
-
         <!-- App Footer -->
-        <app-footer [section_1]="true"></app-footer>
+        <app-footer [section_1]="false"></app-footer>
     </FlexBoxLayout>
 </ScrollView>

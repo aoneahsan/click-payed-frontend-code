@@ -10,6 +10,11 @@ export class HomeComponent implements OnInit {
   constructor() { }
 
   ngOnInit() {
+    // alert('ok');
+  }
+
+  offersAndPromotions() {
+    alert('Offers and Promotions');
   }
 
 }
