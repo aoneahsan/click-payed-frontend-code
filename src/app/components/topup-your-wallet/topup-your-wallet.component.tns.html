@@ -5,7 +5,18 @@
         <!-- Notice Board Section -->
         <Label text="Top Up Your Wallet" class="h3 p-10 m-b-0 text-center text-uppercase" letterSpacing=".2" style="background: black; color: white;"></Label>
         <FlexBoxLayout justifyContent="center" alignItems="center" width="100%" class="p-t-20 p-b-20">
-            <Label text="In order to make new deposits, you need to have an easypaisa / jazzcash wallet account. Using your easypaisa account, you can deposit or withdraw cash from ClickPayed wallet" [textWrap]="true" class="text-center" width="90%" style="font-size: 12;"></Label>
+            <!-- <Label text=" ClickPayed wallet" [textWrap]="true" class="text-center" width="90%" style="font-size: 12;"></Label> -->
+            <Label class="p-8" style="font-size: 12;" class="color_text" [textWrap]="true">
+                <FormattedString>
+                    <Span fontSize="14" text="In order to make new deposits, you need to have an " class=""></Span>
+                    <Span fontSize="14" text=" easypaisa " class="t_green"></Span>
+                    <Span fontSize="14" text=" / " color=""></Span>
+                    <Span fontSize="14" text=" jazzcash " class="t_red"></Span>
+                    <Span fontSize="14" text=" wallet account. Using your easypaisa account, you can deposit or withdraw cash from "></Span>
+                    <Span fontSize="16" fontWeight="600" text=" ClickPayed " class="t_blue"></Span>
+                    <Span fontSize="14" text=" wallet. " class=""></Span>
+                </FormattedString>
+            </Label>
         </FlexBoxLayout>
         <Label text="To make a new deposit, just follow 3 simple steps below" class="h5 p-10 m-b-0 text-center text-uppercase bg_forest font-weight-bold" style="color: white;"></Label>
         <!-- Coin Part Section -->

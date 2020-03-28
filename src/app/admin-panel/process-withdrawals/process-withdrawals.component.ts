@@ -1,8 +1,11 @@
-import { Component, OnInit, ViewChild, ElementRef } from '@angular/core';
+import { Component, OnInit, ViewChild, ElementRef, ViewContainerRef } from '@angular/core';
 
 import { RouterExtensions } from 'nativescript-angular/router';
 
 import { ValueList, SelectedIndexChangedEventData } from 'nativescript-drop-down';
+import { ModalDialogService } from 'nativescript-angular/common';
+import { ProcessWithdrawalsPopupComponent } from './process-withdrawals-popup/process-withdrawals-popup.component';
+import { UIService } from '@src/app/shared/ui/ui.service';
 
 @Component({
   selector: 'app-process-withdrawals',
@@ -19,46 +22,50 @@ export class ProcessWithdrawalsComponent implements OnInit {
 
   requests: {
     id: number,
-    date_time: string,
+    date_time: string, 
+    account_name: string,
     account_no: string,
     amount: string,
     status: string
   }[] = [];
 
-  all_withdrawal_requests: { id: number, date_time: string, account_no: string, amount: string, status: string}[] = [
-    {id: 1, date_time: '22/11/2020 | 1327', account_no: '03006562423', amount: '300', status: 'pending'},
-    {id: 2, date_time: '22/11/2020 | 1327', account_no: '03006562423', amount: '300', status: 'pending'},
-    {id: 3, date_time: '22/11/2020 | 1327', account_no: '03006562423', amount: '300', status: 'approved'},
-    {id: 4, date_time: '22/11/2020 | 1327', account_no: '03006562423', amount: '300', status: 'rejected'},
-    {id: 5, date_time: '22/11/2020 | 1327', account_no: '03006562423', amount: '300', status: 'pending'},
-    {id: 6, date_time: '22/11/2020 | 1327', account_no: '03006562423', amount: '300', status: 'pending'},
-    {id: 7, date_time: '22/11/2020 | 1327', account_no: '03006562423', amount: '300', status: 'pending'},
-    {id: 8, date_time: '22/11/2020 | 1327', account_no: '03006562423', amount: '300', status: 'pending'}
+  all_withdrawal_requests: { id: number, date_time: string, account_name: string, account_no: string, amount: string, status: string}[] = [
+    {id: 1, date_time: '22/11/2020 | 1327', account_name: 'Ahsan Mahmood', account_no: '03006562423', amount: '300', status: 'pending'},
+    {id: 2, date_time: '22/11/2020 | 1327', account_name: 'Ahsan Mahmood', account_no: '03006562423', amount: '300', status: 'pending'},
+    {id: 3, date_time: '22/11/2020 | 1327', account_name: 'Ahsan Mahmood', account_no: '03006562423', amount: '300', status: 'approved'},
+    {id: 4, date_time: '22/11/2020 | 1327', account_name: 'Ahsan Mahmood', account_no: '03006562423', amount: '300', status: 'rejected'},
+    {id: 5, date_time: '22/11/2020 | 1327', account_name: 'Ahsan Mahmood', account_no: '03006562423', amount: '300', status: 'pending'},
+    {id: 6, date_time: '22/11/2020 | 1327', account_name: 'Ahsan Mahmood', account_no: '03006562423', amount: '300', status: 'pending'},
+    {id: 7, date_time: '22/11/2020 | 1327', account_name: 'Ahsan Mahmood', account_no: '03006562423', amount: '300', status: 'pending'},
+    {id: 8, date_time: '22/11/2020 | 1327', account_name: 'Ahsan Mahmood', account_no: '03006562423', amount: '300', status: 'pending'}
   ];
 
-  all_pending_requests: { id: number, date_time: string, account_no: string, amount: string, status: string}[] = [
-    {id: 1, date_time: '22/11/2020 | 1327', account_no: '03006562423', amount: '300', status: 'pending'},
-    {id: 2, date_time: '22/11/2020 | 1327', account_no: '03006562423', amount: '300', status: 'pending'},
-    {id: 3, date_time: '22/11/2020 | 1327', account_no: '03006562423', amount: '300', status: 'pending'},
-    {id: 4, date_time: '22/11/2020 | 1327', account_no: '03006562423', amount: '300', status: 'pending'},
-    {id: 5, date_time: '22/11/2020 | 1327', account_no: '03006562423', amount: '300', status: 'pending'},
-    {id: 6, date_time: '22/11/2020 | 1327', account_no: '03006562423', amount: '300', status: 'pending'}
+  all_pending_requests: { id: number, date_time: string, account_name: string, account_no: string, amount: string, status: string}[] = [
+    {id: 1, date_time: '22/11/2020 | 1327', account_name: 'Ahsan Mahmood', account_no: '03006562423', amount: '300', status: 'pending'},
+    {id: 2, date_time: '22/11/2020 | 1327', account_name: 'Ahsan Mahmood', account_no: '03006562423', amount: '300', status: 'pending'},
+    {id: 3, date_time: '22/11/2020 | 1327', account_name: 'Ahsan Mahmood', account_no: '03006562423', amount: '300', status: 'pending'},
+    {id: 4, date_time: '22/11/2020 | 1327', account_name: 'Ahsan Mahmood', account_no: '03006562423', amount: '300', status: 'pending'},
+    {id: 5, date_time: '22/11/2020 | 1327', account_name: 'Ahsan Mahmood', account_no: '03006562423', amount: '300', status: 'pending'},
+    {id: 6, date_time: '22/11/2020 | 1327', account_name: 'Ahsan Mahmood', account_no: '03006562423', amount: '300', status: 'pending'}
   ];
 
-  all_approved_requests: { id: number, date_time: string, account_no: string, amount: string, status: string}[] = [
-    {id: 1, date_time: '22/11/2020 | 1327', account_no: '03006562423', amount: '300', status: 'approved'},
-    {id: 2, date_time: '22/11/2020 | 1327', account_no: '03006562423', amount: '300', status: 'approved'},
-    {id: 3, date_time: '22/11/2020 | 1327', account_no: '03006562423', amount: '300', status: 'approved'}
+  all_approved_requests: { id: number, date_time: string, account_name: string, account_no: string, amount: string, status: string}[] = [
+    {id: 1, date_time: '22/11/2020 | 1327', account_name: 'Ahsan Mahmood', account_no: '03006562423', amount: '300', status: 'approved'},
+    {id: 2, date_time: '22/11/2020 | 1327', account_name: 'Ahsan Mahmood', account_no: '03006562423', amount: '300', status: 'approved'},
+    {id: 3, date_time: '22/11/2020 | 1327', account_name: 'Ahsan Mahmood', account_no: '03006562423', amount: '300', status: 'approved'}
   ];
 
-  all_rejected_requests: { id: number, date_time: string, account_no: string, amount: string, status: string}[] = [
-    {id: 1, date_time: '22/11/2020 | 1327', account_no: '03006562423', amount: '300', status: 'rejected'},
-    {id: 2, date_time: '22/11/2020 | 1327', account_no: '03006562423', amount: '300', status: 'rejected'},
-    {id: 3, date_time: '22/11/2020 | 1327', account_no: '03006562423', amount: '300', status: 'rejected'}
+  all_rejected_requests: { id: number, date_time: string, account_name: string, account_no: string, amount: string, status: string}[] = [
+    {id: 1, date_time: '22/11/2020 | 1327', account_name: 'Ahsan Mahmood', account_no: '03006562423', amount: '300', status: 'rejected'},
+    {id: 2, date_time: '22/11/2020 | 1327', account_name: 'Ahsan Mahmood', account_no: '03006562423', amount: '300', status: 'rejected'},
+    {id: 3, date_time: '22/11/2020 | 1327', account_name: 'Ahsan Mahmood', account_no: '03006562423', amount: '300', status: 'rejected'}
   ];
 
   constructor(
-    private _router: RouterExtensions
+    private _router: RouterExtensions,
+    private _modalService: ModalDialogService,
+    private _viewRe: ViewContainerRef,
+    private _uiService: UIService
   ) { }
 
   ngOnInit() {
@@ -103,9 +110,41 @@ export class ProcessWithdrawalsComponent implements OnInit {
   }
 
   showRequestDetail(item_id) {
-    const item: { id: number, date_time: string, account_no: string, amount: string, status: string} = this.requests.find(el => el.id == item_id);
-    console.log(item);
-    alert(item.status);
+    const loadedItem: { id: number, date_time: string, account_name: string, account_no: string, amount: string, status: string} = this.requests.find(el => el.id == item_id);
+    // console.log(loadedItem);
+    if (loadedItem.status == 'pending') {
+      this.showModal(loadedItem);
+    } else if (loadedItem.status == 'approved'){
+      alert('Request Already Approved');
+    } else if (loadedItem.status == 'rejected'){
+      alert('Request Already Rejected');
+    }
+    
+  }
+
+  showModal(loadedItem){
+    this._modalService.showModal(
+      ProcessWithdrawalsPopupComponent,
+      {
+        fullscreen: false,
+        viewContainerRef: this._uiService.getAppVCRef() ? this._uiService.getAppVCRef() : this._viewRe,
+        context: {
+          item: loadedItem
+        }
+      }
+    ).then(
+      res => {
+        if (res == 'approved') {
+          console.log("request approved");
+        }
+        else if (res == 'rejected') {
+          console.log("request rejected");
+        }
+        else if (res == undefined) {
+          alert("Process Canceled");
+        }
+      }
+    );
   }
 
 }

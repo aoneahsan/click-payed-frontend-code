@@ -1,9 +1,10 @@
-import { RouterExtensions } from 'nativescript-angular/router';
 import { ViewContainerRef } from '@angular/core';
 import { Component, OnInit } from '@angular/core';
-import { SystemService } from '@src/app/services/system.service';
+
 import { ModalDialogService } from 'nativescript-angular/common';
+
 import { UIService } from '@src/app/shared/ui/ui.service';
+
 import { MakeDepositPopupComponent } from './make-deposit-popup/make-deposit-popup.component';
 
 @Component({
@@ -25,11 +26,9 @@ export class MakeDepositComponent implements OnInit {
   remainingUserCoins: number = 0;
 
   constructor(
-    private _systemService: SystemService,
     private _modalService: ModalDialogService,
     private _viewRf: ViewContainerRef,
-    private _uiService: UIService,
-    private _router: RouterExtensions
+    private _uiService: UIService
   ) { }
 
   ngOnInit() {
