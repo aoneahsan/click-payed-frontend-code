@@ -13,13 +13,14 @@ export class MakeDepositPopupComponent implements OnInit {
       name: string,
       number: string
     },
-    amountToDeposit: any
+    amountToDeposit: any,
+    select_beneficiary: boolean
   };
 
   constructor(private _modalParams: ModalDialogParams) { }
 
   ngOnInit() {
-    this.modalData = (this._modalParams.context as { data: { User: { name: string, number: string }, amountToDeposit: any } }).data;
+    this.modalData = (this._modalParams.context as { data: { User: { name: string, number: string }, amountToDeposit: any, select_beneficiary: boolean } }).data;
   }
 
   onHandle(action: "deposit" | 'cancel') {

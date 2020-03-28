@@ -43,6 +43,14 @@
                     <Label [text]="reciver.country" width="100%" style="border-width: 2; border-radius: 4;" class="text-center bg_grey body p-10"></Label>
                 </FlexBoxLayout>
             </FlexBoxLayout>
+
+            <FlexBoxLayout width="94%" justifyContent="center" alignItems="center" class="m-t-20">
+                <FlexBoxLayout width="44%" style="border-width: 2; border-radius: 4;" class="bg_grey text-center">
+                    <CheckBox [(ngModel)]="select_beneficiary" width="65"></CheckBox>
+                    <Label text="Select Beneficiary" width="100%" class="m-t-5"></Label>
+                </FlexBoxLayout>
+            </FlexBoxLayout>
+
         </FlexBoxLayout>
 
         <Label class="hr m-5" style="border-color: black;"></Label>

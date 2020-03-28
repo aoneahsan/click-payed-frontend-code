@@ -1,8 +1,7 @@
 import { Component, OnInit, OnDestroy, ViewChild, ElementRef } from '@angular/core';
 import { SystemService } from '@src/app/services/system.service';
 import { Subscription } from 'rxjs';
-import { SelectedIndexChangedEventData, ValueList, DropDown } from 'nativescript-drop-down';
-import { Page } from 'tns-core-modules/ui/page';
+import { SelectedIndexChangedEventData, ValueList } from 'nativescript-drop-down';
 
 @Component({
   selector: 'app-request-withdrawal',
@@ -17,7 +16,7 @@ export class RequestWithdrawalComponent implements OnInit, OnDestroy {
   public items: any;
   @ViewChild('dropdow', {static: false}) dropdow: ElementRef;
   
-  constructor(private _systemService: SystemService, private page: Page) {
+  constructor(private _systemService: SystemService) {
     this.items = new ValueList([
       { value: "000-click-100", display: "100" },
       { value: "000-click-200", display: "200" },
@@ -27,8 +26,6 @@ export class RequestWithdrawalComponent implements OnInit, OnDestroy {
   }
   
   ngOnInit() {
-    let dd = this.page.getViewById<any>("dropdow");
-    console.log(dd);
     this.remaining_balance_Sub = this._systemService.getUserBalance().subscribe(
       balance => {
         this.remaining_balance = "Remaining Balance: PKR " + balance;

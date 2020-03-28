@@ -17,32 +17,35 @@
     android:horizontalAlignment="left"
   >
     <image src="res://icon" class="action-image" width="80" height="80"></image>
-    <FlexBoxLayout
-      flexDirection="column"
-      style="border-left-width: 2; padding: 0 0 0 10; margin: 0 0 0 10;"
-    >
-      <label
-        text="Available Balance"
-        class="t_blue"
-        style="margin: 0 0 -15 0;"
-      ></label>
-      <label
-        text="PKR 2000"
-        class="t_black"
-        style="margin: -10 0 -22 0;font-size: 16;font-weight: 600;"
-      ></label>
-      <FlexBoxLayout style="margin: 0 0 -4 0;">
-        <image
-          src="res://coin"
-          width="20"
-          height="20"
-          style="margin: 0 4 0 0;"
-        ></image>
+    <FlexBoxLayout justifyContent="center" alignItems="center" style="padding: 4 0;">
+      <FlexBoxLayout
+        flexDirection="column"
+        height="99%"
+        style="border-left-width: 2; padding: 0 0 0 10; margin: 0 0 0 10;"
+      >
         <label
-          text="2000"
-          class="t_brown"
-          style="margin: 0 0 0 0;font-size: 14;font-weight: 600;"
+          text="Available Balance"
+          class="t_blue"
+          style="margin: 0 0 -15 0;"
         ></label>
+        <label
+          text="PKR 2000"
+          class="t_black"
+          style="margin: -10 0 -22 0;font-size: 16;font-weight: 600;"
+        ></label>
+        <FlexBoxLayout style="margin: 0 0 -4 0;">
+          <image
+            src="res://coin"
+            width="20"
+            height="20"
+            style="margin: 0 4 0 0;"
+          ></image>
+          <label
+            text="2000"
+            class="t_brown"
+            style="margin: 0 0 0 0;font-size: 14;font-weight: 600;"
+          ></label>
+        </FlexBoxLayout>
       </FlexBoxLayout>
     </FlexBoxLayout>
   </StackLayout>

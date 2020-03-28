@@ -17,6 +17,7 @@ export class MakeDepositComponent implements OnInit {
   amountToDeposit: number = null;
   reciver_number: any;
   reciver: { name: string, number: string, city: string, country: string } = null;
+  select_beneficiary: boolean = false;
   userFound: boolean = false;
 
   searchForPerson: boolean = false;
@@ -32,7 +33,6 @@ export class MakeDepositComponent implements OnInit {
   ) { }
 
   ngOnInit() {
-    
   }
 
   searchPerson() {
@@ -75,7 +75,8 @@ export class MakeDepositComponent implements OnInit {
               name: this.reciver.name,
               number: this.reciver.number
             },
-            amountToDeposit: this.amountToDeposit
+            amountToDeposit: this.amountToDeposit,
+            select_beneficiary: this.select_beneficiary
           }
         }
       }
@@ -96,19 +97,25 @@ export class MakeDepositComponent implements OnInit {
   }
 
   depositNow() {
+    // remember select_beneficiary  and other data ok
     setTimeout(() => {
       alert('Done');
+      this.resetFields();
     }, 1000);
     this.formSubmited = false;
   }
 
   resetFields() {
     this.amountToDeposit = null;
+    this.reciver_number = null;
     this.reciver.number = null;
     this.reciver.name = null;
+    this.reciver.city = null;
+    this.reciver.country = null;
     this.userFound = false;
     this.searchForPerson = false;
     this.formSubmited = false;
+    this.select_beneficiary = false;
   }
 
 }

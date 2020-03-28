@@ -1,9 +1,12 @@
-import { MakeDepositPopupComponent } from './../../admin-panel/make-deposit/make-deposit-popup/make-deposit-popup.component';
 import { Routes } from '@angular/router';
 import { NativeScriptRouterModule } from 'nativescript-angular/router';
 import { NgModule, NO_ERRORS_SCHEMA } from '@angular/core';
 
 import { NativeScriptCommonModule } from 'nativescript-angular/common';
+import { NativeScriptFormsModule } from 'nativescript-angular/forms';
+
+import { DropDownModule } from 'nativescript-drop-down/angular';
+import { TNSCheckBoxModule } from '@nstudio/nativescript-checkbox/angular';
 
 import { SharedModule } from '../shared/shared.module';
 
@@ -13,7 +16,6 @@ import { MakeDepositPopupComponent } from '@src/app/admin-panel/make-deposit/mak
 import { ProcessWithdrawalsComponent } from '@src/app/admin-panel/process-withdrawals/process-withdrawals.component';
 import { ProcessWithdrawalsPopupComponent } from '@src/app/admin-panel/process-withdrawals/process-withdrawals-popup/process-withdrawals-popup.component';
 import { ProcessWithdrawalsConfirmPopupComponent } from '@src/app/admin-panel/process-withdrawals/process-withdrawals-confirm-popup/process-withdrawals-confirm-popup.component';
-import { NativeScriptFormsModule } from 'nativescript-angular/forms';
 
 
 const routes: Routes = [
@@ -44,7 +46,9 @@ const routes: Routes = [
         NativeScriptCommonModule,
         NativeScriptRouterModule.forChild(routes),
         SharedModule,
-        NativeScriptFormsModule
+        NativeScriptFormsModule,
+        TNSCheckBoxModule,
+        DropDownModule
     ],
     exports: [
         NativeScriptRouterModule

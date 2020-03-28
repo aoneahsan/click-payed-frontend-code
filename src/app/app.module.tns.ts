@@ -9,7 +9,7 @@ import { SharedModule } from '@src/app/modules/shared/shared.module';
 
 // Plugins
 // import { NativeScriptUISideDrawerModule } from 'nativescript-ui-sidedrawer/angular/side-drawer-directives';
-import { TNSCheckBoxModule } from '@nstudio/nativescript-checkbox/angular';
+// import { TNSCheckBoxModule } from '@nstudio/nativescript-checkbox/angular';
 
 // Components Modules
 import { AuthModule } from './modules/auth/auth.module';
@@ -35,10 +35,10 @@ import { AppComponent } from '@src/app/app.component';
   ],
   imports: [
     // NativeScriptUISideDrawerModule,
+    // TNSCheckBoxModule,
     NativeScriptModule,
     AppRoutingModule,
     SharedModule,
-    TNSCheckBoxModule,
 
     AuthModule,
     AdminPanelModule,

@@ -3,7 +3,7 @@ import { Routes } from '@angular/router';
 export const routes: Routes = [
   {
     path: '',
-    redirectTo: '/admin/make-deposit',
+    redirectTo: '/admin/process-withdrawals',
     pathMatch: 'full',
   },
   {
