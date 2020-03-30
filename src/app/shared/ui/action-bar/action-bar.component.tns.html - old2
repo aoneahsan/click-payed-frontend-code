@@ -18,7 +18,7 @@
         ></image>
         <FlexBoxLayout
           flexDirection="column"
-          style="border-left-width: 2;border-color: #333; padding: 4 0 4 6; margin: 6 0 6 6;"
+          style="border-left-width: 2; padding: 4 0 4 6; margin: 6 0 6 6;"
         >
           <label
             text="Available Balance"
@@ -51,38 +51,57 @@
         rows="auto"
         columns="*,auto"
         class="action-bar-rightside-content"
-        style="margin: 17 0 0 0;"
+        style="margin: 18 0 0 0;"
       >
         <label row="0" col="0"></label>
-        <FlexBoxLayout row="0" col="1" style="margin: 14 0 0 0;">
+        <FlexBoxLayout row="0" col="1" style="margin: 20 0 0 0;">
+          <!-- <image
+            src="res://notifications"
+            (tap)="showNotificationsAction()"
+            width="30"
+            height="30"
+            marginRight="-16"
+          ></image> -->
           <Label
-            text="&#xf0f3;"
+            text="&#xf2bd;"
             class="fa"
             (tap)="showNotificationsAction()"
-            style="margin: 0 -26 0 0; font-size: 24; color: #333;"
+            style="margin: 0 0 0 0; font-size: 30; color: black;"
           ></Label>
           <SlackLayout
-            style=""
+            style="padding-top: 5; padding-bottom: 5;margin: -1 0 0 0; width: 12; height: 12;"
             orientation="horizontal"
           >
             <label
               [text]="nofitications_count"
               class="t_black text-center"
               fontSize="12"
-              style="padding: 5; margin: -2 0 0 4;"
+              style="padding: 5; margin: -5 0 0 6;"
             ></label>
           </SlackLayout>
-          <Label
-          text="&#xf2bd;"
-            class="fa"
+          <!-- <image
+            src="res://user1"
             nsRouterLink="/user/profile"
-            style="font-size: 24; color: #333; margin: 0 -2;"
+            width="30"
+            height="30"
+            marginLeft="0"
+            marginRight="6"
+          ></image> -->
+          <Label
+            text="&#xf0f3;"
+            nsRouterLink="/user/profile"
+            style="font-size: 30;"
           ></Label>
+          <!-- <image
+            src="res://logout"
+            (tap)="logout()"
+            width="30"
+            height="30"
+          ></image> -->Í
           <Label
             text="&#xf011;"
-            class="fa"
             (tap)="logout()"
-            style="font-size: 24; color: #333; margin: 0 0 0 0;"
+            style="font-size: 30;"
           ></Label>
         </FlexBoxLayout>
       </GridLayout>
