@@ -2,6 +2,10 @@ import { Component, OnInit } from '@angular/core';
 import { Subscription } from 'rxjs';
 import { SystemService } from '@src/app/services/system.service';
 
+// import * as application from "tns-core-modules/application";
+// import { AndroidApplication, AndroidActivityBackPressedEventData } from "tns-core-modules/application";
+// import { isAndroid } from "tns-core-modules/platform";
+
 @Component({
   selector: 'app-redeem-coins',
   templateUrl: './redeem-coins.component.html',
@@ -24,6 +28,18 @@ export class RedeemCoinsComponent implements OnInit {
       });
     this._pkrToCoinsRate = this._systemService.getPkrToCoinRate();
     this.pkrToCoinRateText = ' | ' + this._pkrToCoinsRate + ' Coins = PKR 1';
+    
+    // back button to home code
+    // if (!isAndroid) {
+    //   return;
+    // }
+    // application.android.on(AndroidApplication.activityBackPressedEvent, (data: AndroidActivityBackPressedEventData) => {
+    //   // if (this.router.isActive("/articles", false)) { // check a specific one
+    //     data.cancel = true; // prevents default back button behavior
+    //     this._router.navigate(['/admin/dashboard']);
+    //     // this.logout();
+    //   // }
+    // });
   }
 
   get remaining_balance() {

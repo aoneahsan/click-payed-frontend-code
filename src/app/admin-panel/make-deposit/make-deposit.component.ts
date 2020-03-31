@@ -1,5 +1,4 @@
-import { ViewContainerRef } from '@angular/core';
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewContainerRef } from '@angular/core';
 
 import { ModalDialogService } from 'nativescript-angular/common';
 
@@ -17,7 +16,7 @@ export class MakeDepositComponent implements OnInit {
 
   amountToDeposit: number = null;
   reciver_number: any;
-  reciver: { name: string, number: string, city: string, country: string } = null;
+  reciver: { name: string, number: string, city: string, country: string } = {name: "", number: "", city: "", country: ""};
   select_beneficiary: boolean = false;
   userFound: boolean = false;
 

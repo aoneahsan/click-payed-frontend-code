@@ -3,7 +3,7 @@
 <ScrollView>
     <FlexBoxLayout flexDirection="column">
         <!-- Banner Section -->
-        <Image height="160" src="res://banner" loadMode="async" stretch="aspectFill"></Image>
+        <Image height="200" src="res://banner" loadMode="async" stretch="aspectFill"></Image>
 
         <!-- Notice Board Section -->
         <Label text="Notice Board" class="h3 p-5 text-center" letterSpacing=".5" style="background: #C73B0E; color: white;margin-bottom: 0;"></Label>
@@ -58,6 +58,8 @@
         </FlexBoxLayout>
 
         <!-- App Footer -->
-        <app-footer [section_1]="false"></app-footer>
+        <StackLayout style="margin-top: 50;">
+            <app-footer [section_1]="false"></app-footer>
+        </StackLayout>
     </FlexBoxLayout>
 </ScrollView>
