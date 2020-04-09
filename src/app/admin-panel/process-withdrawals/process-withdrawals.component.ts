@@ -16,49 +16,50 @@ export class ProcessWithdrawalsComponent implements OnInit {
 
   public selectedIndex = 0;
   public items: any;
-  @ViewChild('dropdow', {static: false}) dropdow: ElementRef;
-  
+  @ViewChild('dropdow', { static: false }) dropdow: ElementRef;
+
   loadingResult: boolean = false;
 
   requests: {
     id: number,
-    date_time: string, 
+    date_time: string,
     account_name: string,
     account_no: string,
     amount: string,
-    status: string
+    status: string,
+    trx_id: number
   }[] = [];
 
-  all_withdrawal_requests: { id: number, date_time: string, account_name: string, account_no: string, amount: string, status: string}[] = [
-    {id: 1, date_time: '22/11/2020 | 1327', account_name: 'Ahsan Mahmood', account_no: '03006562423', amount: '300', status: 'pending'},
-    {id: 2, date_time: '22/11/2020 | 1327', account_name: 'Ahsan Mahmood', account_no: '03006562423', amount: '300', status: 'pending'},
-    {id: 3, date_time: '22/11/2020 | 1327', account_name: 'Ahsan Mahmood', account_no: '03006562423', amount: '300', status: 'approved'},
-    {id: 4, date_time: '22/11/2020 | 1327', account_name: 'Ahsan Mahmood', account_no: '03006562423', amount: '300', status: 'rejected'},
-    {id: 5, date_time: '22/11/2020 | 1327', account_name: 'Ahsan Mahmood', account_no: '03006562423', amount: '300', status: 'pending'},
-    {id: 6, date_time: '22/11/2020 | 1327', account_name: 'Ahsan Mahmood', account_no: '03006562423', amount: '300', status: 'pending'},
-    {id: 7, date_time: '22/11/2020 | 1327', account_name: 'Ahsan Mahmood', account_no: '03006562423', amount: '300', status: 'pending'},
-    {id: 8, date_time: '22/11/2020 | 1327', account_name: 'Ahsan Mahmood', account_no: '03006562423', amount: '300', status: 'pending'}
+  all_withdrawal_requests: { id: number, date_time: string, account_name: string, account_no: string, amount: string, status: string, trx_id: number }[] = [
+    { id: 1, date_time: '22/11/2020 | 1327', account_name: 'Ahsan Mahmood', account_no: '03006562423', amount: '300', status: 'pending', trx_id: null },
+    { id: 2, date_time: '22/11/2020 | 1327', account_name: 'Ahsan Mahmood', account_no: '03006562423', amount: '300', status: 'pending', trx_id: null },
+    { id: 3, date_time: '22/11/2020 | 1327', account_name: 'Ahsan Mahmood', account_no: '03006562423', amount: '300', status: 'approved', trx_id: 21029109 },
+    { id: 4, date_time: '22/11/2020 | 1327', account_name: 'Ahsan Mahmood', account_no: '03006562423', amount: '300', status: 'rejected', trx_id: 21029109 },
+    { id: 5, date_time: '22/11/2020 | 1327', account_name: 'Ahsan Mahmood', account_no: '03006562423', amount: '300', status: 'pending', trx_id: null },
+    { id: 6, date_time: '22/11/2020 | 1327', account_name: 'Ahsan Mahmood', account_no: '03006562423', amount: '300', status: 'pending', trx_id: null },
+    { id: 7, date_time: '22/11/2020 | 1327', account_name: 'Ahsan Mahmood', account_no: '03006562423', amount: '300', status: 'pending', trx_id: null },
+    { id: 8, date_time: '22/11/2020 | 1327', account_name: 'Ahsan Mahmood', account_no: '03006562423', amount: '300', status: 'pending', trx_id: null }
   ];
 
-  all_pending_requests: { id: number, date_time: string, account_name: string, account_no: string, amount: string, status: string}[] = [
-    {id: 1, date_time: '22/11/2020 | 1327', account_name: 'Ahsan Mahmood', account_no: '03006562423', amount: '300', status: 'pending'},
-    {id: 2, date_time: '22/11/2020 | 1327', account_name: 'Ahsan Mahmood', account_no: '03006562423', amount: '300', status: 'pending'},
-    {id: 3, date_time: '22/11/2020 | 1327', account_name: 'Ahsan Mahmood', account_no: '03006562423', amount: '300', status: 'pending'},
-    {id: 4, date_time: '22/11/2020 | 1327', account_name: 'Ahsan Mahmood', account_no: '03006562423', amount: '300', status: 'pending'},
-    {id: 5, date_time: '22/11/2020 | 1327', account_name: 'Ahsan Mahmood', account_no: '03006562423', amount: '300', status: 'pending'},
-    {id: 6, date_time: '22/11/2020 | 1327', account_name: 'Ahsan Mahmood', account_no: '03006562423', amount: '300', status: 'pending'}
+  all_pending_requests: { id: number, date_time: string, account_name: string, account_no: string, amount: string, status: string, trx_id: number }[] = [
+    { id: 1, date_time: '22/11/2020 | 1327', account_name: 'Ahsan Mahmood', account_no: '03006562423', amount: '300', status: 'pending', trx_id: null },
+    { id: 2, date_time: '22/11/2020 | 1327', account_name: 'Ahsan Mahmood', account_no: '03006562423', amount: '300', status: 'pending', trx_id: null },
+    { id: 3, date_time: '22/11/2020 | 1327', account_name: 'Ahsan Mahmood', account_no: '03006562423', amount: '300', status: 'pending', trx_id: null },
+    { id: 4, date_time: '22/11/2020 | 1327', account_name: 'Ahsan Mahmood', account_no: '03006562423', amount: '300', status: 'pending', trx_id: null },
+    { id: 5, date_time: '22/11/2020 | 1327', account_name: 'Ahsan Mahmood', account_no: '03006562423', amount: '300', status: 'pending', trx_id: null },
+    { id: 6, date_time: '22/11/2020 | 1327', account_name: 'Ahsan Mahmood', account_no: '03006562423', amount: '300', status: 'pending', trx_id: null }
   ];
 
-  all_approved_requests: { id: number, date_time: string, account_name: string, account_no: string, amount: string, status: string}[] = [
-    {id: 1, date_time: '22/11/2020 | 1327', account_name: 'Ahsan Mahmood', account_no: '03006562423', amount: '300', status: 'approved'},
-    {id: 2, date_time: '22/11/2020 | 1327', account_name: 'Ahsan Mahmood', account_no: '03006562423', amount: '300', status: 'approved'},
-    {id: 3, date_time: '22/11/2020 | 1327', account_name: 'Ahsan Mahmood', account_no: '03006562423', amount: '300', status: 'approved'}
+  all_approved_requests: { id: number, date_time: string, account_name: string, account_no: string, amount: string, status: string, trx_id: number }[] = [
+    { id: 1, date_time: '22/11/2020 | 1327', account_name: 'Ahsan Mahmood', account_no: '03006562423', amount: '300', status: 'approved', trx_id: 21029109 },
+    { id: 2, date_time: '22/11/2020 | 1327', account_name: 'Ahsan Mahmood', account_no: '03006562423', amount: '300', status: 'approved', trx_id: 21029109 },
+    { id: 3, date_time: '22/11/2020 | 1327', account_name: 'Ahsan Mahmood', account_no: '03006562423', amount: '300', status: 'approved', trx_id: 21029109 }
   ];
 
-  all_rejected_requests: { id: number, date_time: string, account_name: string, account_no: string, amount: string, status: string}[] = [
-    {id: 1, date_time: '22/11/2020 | 1327', account_name: 'Ahsan Mahmood', account_no: '03006562423', amount: '300', status: 'rejected'},
-    {id: 2, date_time: '22/11/2020 | 1327', account_name: 'Ahsan Mahmood', account_no: '03006562423', amount: '300', status: 'rejected'},
-    {id: 3, date_time: '22/11/2020 | 1327', account_name: 'Ahsan Mahmood', account_no: '03006562423', amount: '300', status: 'rejected'}
+  all_rejected_requests: { id: number, date_time: string, account_name: string, account_no: string, amount: string, status: string, trx_id: number }[] = [
+    { id: 1, date_time: '22/11/2020 | 1327', account_name: 'Ahsan Mahmood', account_no: '03006562423', amount: '300', status: 'rejected', trx_id: 21029109 },
+    { id: 2, date_time: '22/11/2020 | 1327', account_name: 'Ahsan Mahmood', account_no: '03006562423', amount: '300', status: 'rejected', trx_id: 21029109 },
+    { id: 3, date_time: '22/11/2020 | 1327', account_name: 'Ahsan Mahmood', account_no: '03006562423', amount: '300', status: 'rejected', trx_id: 21029109 }
   ];
 
   constructor(
@@ -99,30 +100,40 @@ export class ProcessWithdrawalsComponent implements OnInit {
   loadLocalData(dataSet: number) {
     if (dataSet == 0) {
       this.requests = this.all_withdrawal_requests;
-    } else if(dataSet == 1) { 
+    } else if (dataSet == 1) {
       this.requests = this.all_pending_requests;
-    } else if(dataSet == 2) {
+    } else if (dataSet == 2) {
       this.requests = this.all_approved_requests;
-    } else if(dataSet == 3) {
+    } else if (dataSet == 3) {
       this.requests = this.all_rejected_requests;
     };
     this.loadingResult = false;
   }
 
   showRequestDetail(item_id) {
-    const loadedItem: { id: number, date_time: string, account_name: string, account_no: string, amount: string, status: string} = this.requests.find(el => el.id == item_id);
+    const loadedItem: { id: number, date_time: string, account_name: string, account_no: string, amount: string, status: string, trx_id: number } = this.requests.find(el => el.id == item_id);
     // console.log(loadedItem);
     if (loadedItem.status == 'pending') {
       this.showModal(loadedItem);
-    } else if (loadedItem.status == 'approved'){
-      alert('Request Already Approved');
-    } else if (loadedItem.status == 'rejected'){
-      alert('Request Already Rejected');
+    } else if (loadedItem.status == 'approved') {
+      let options = {
+        title: "Approved",
+        message: 'TRX = ' + loadedItem.trx_id + "\n\nDate: " + loadedItem.date_time,
+        okButtonText: 'Okay'
+      };
+      alert(options);
+    } else if (loadedItem.status == 'rejected') {
+      let options = {
+        title: "Rejected",
+        message: 'TRX = ' + loadedItem.trx_id + "\n\nDate: " + loadedItem.date_time,
+        okButtonText: 'Okay'
+      };
+      alert(options);
     }
-    
+
   }
 
-  showModal(loadedItem){
+  showModal(loadedItem) {
     this._modalService.showModal(
       ProcessWithdrawalsPopupComponent,
       {

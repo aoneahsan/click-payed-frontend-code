@@ -2,6 +2,13 @@
 <!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
 <plist version="1.0">
 <dict>
+	<!-- Custon Code Added By Ahsan Start -->
+	<key>NSCameraUsageDescription</key>
+	<string>Take pictures for the gallery</string>
+	<key>NSPhotoLibraryUsageDescription</key>
+	<string>Add images from your device</string>
+	<!-- Custon Code Added By Ahsan End -->
+	
 	<key>CFBundleDevelopmentRegion</key>
 	<string>en</string>
 	<key>CFBundleDisplayName</key>

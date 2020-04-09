@@ -58,16 +58,26 @@ export class SignUpComponent implements OnInit {
     );
     this.formSubmited = false;
   }
-  
+
   goToHome() {
-    setTimeout(()=> {
+    setTimeout(() => {
       this._router.navigate(['/home'], { clearHistory: true });
     }, 400)
   }
 
   goToProfile() {
-    setTimeout(()=> {
+    setTimeout(() => {
       this._router.navigate(['/user/profile'], { clearHistory: true });
     }, 400)
+  }
+
+  openTermsandConditions() {
+    let options = {
+      title: "Terms and Conditions",
+      message: "Kindly read all terms and conditions of click payed app.",
+      okButtonText: "Accept"
+    };
+
+    alert(options);
   }
 }

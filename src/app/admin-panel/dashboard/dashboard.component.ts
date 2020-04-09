@@ -12,15 +12,17 @@ export class DashboardComponent implements OnInit {
   totalCoinsConverted: string = '';
   totalCoinsRedeemed: string = '';
   totalCoinsInCirculation: string = '';
+  totalwalletusers: string = "";
   constructor() { }
 
   ngOnInit() {
     // http to get values
-    this.totalDeposit = 'PKR 12,000,000';
-    this.totalWithDrawal = "PKR 2,700,000";
-    this.totalCoinsConverted = "120,000,000";
-    this.totalCoinsRedeemed = "80,000,000";
-    this.totalCoinsInCirculation = "40,000,000";
+    this.totalDeposit = '12000000';
+    this.totalWithDrawal = "2700000";
+    this.totalCoinsConverted = "120000000";
+    this.totalCoinsRedeemed = "80000000";
+    this.totalCoinsInCirculation = "40000000";
+    this.totalwalletusers = '2200';
   }
 
 }

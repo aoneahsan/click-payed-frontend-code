@@ -24,7 +24,7 @@ export class RedeemCoinsComponent implements OnInit {
     this._remaining_balance_Sub = this._systemService
       .getUserBalance()
       .subscribe(balance => {
-        this._remaining_balance = "Remaining Balance: PKR " + balance;
+        this._remaining_balance = balance;
       });
     this._pkrToCoinsRate = this._systemService.getPkrToCoinRate();
     this.pkrToCoinRateText = ' | ' + this._pkrToCoinsRate + ' Coins = PKR 1';

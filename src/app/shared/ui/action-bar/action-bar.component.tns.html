@@ -1,91 +1,94 @@
 <ActionBar
-  [title]="title"
-  class="action-bar p-r-10"
-  (loaded)="onLoaded()"
-  icon=""
+    [title]="title"
+    class="action-bar p-r-10"
+    (loaded)="onLoaded()"
+    icon=""
 >
-  <GridLayout rows="*" columns="auto,*" *ngIf="hasMenu">
-    <FlexBoxLayout row="0" col="0" class="action-bar-leftside-content">
-      <FlexBoxLayLayout class="to show back button ok">
-        <image
-          src="res://icon"
-          class="action-image"
-          width="80"
-          height="80"
-          style="margin: 0 0 0 0;"
-          nsRouterLink="/home"
-          clearHistory="true"
-        ></image>
-        <FlexBoxLayout
-          flexDirection="column"
-          style="border-left-width: 2;border-color: #333; padding: 4 0 4 6; margin: 6 0 6 6;"
-        >
-          <label
-            text="Available Balance"
-            class="t_forest"
-            style="margin: 0 0 -15 0;font-size: 14;"
-          ></label>
-          <label
-            [text]="remaining_balance"
-            class="t_black"
-            style="margin: -10 0 -22 -39;font-size: 18;font-weight: 600;"
-          ></label>
-          <FlexBoxLayout style="margin: 0 0 -4 0;">
-            <image
-              src="res://coin"
-              width="20"
-              height="20"
-              style="margin: 0 4 0 0;"
-            ></image>
-            <label
-              [text]="remaining_coins"
-              class="t_brown"
-              style="margin: 0 0 0 0;font-size: 15;font-weight: 600;"
-            ></label>
-          </FlexBoxLayout>
+    <GridLayout rows="*" columns="auto,*" *ngIf="hasMenu">
+        <FlexBoxLayout row="0" col="0" class="action-bar-leftside-content">
+            <FlexBoxLayLayout class="to show back button ok">
+                <image
+                    src="res://icon"
+                    class="action-image"
+                    width="80"
+                    height="80"
+                    style="margin: 0 0 0 0;"
+                    nsRouterLink="/home"
+                    clearHistory="true"
+                ></image>
+                <FlexBoxLayout
+                    flexDirection="column"
+                    style="border-left-width: 2;border-color: #333; padding: 4 0 4 6; margin: 6 0 6 6;"
+                >
+                    <label
+                        text="Available Balance"
+                        class="t_forest"
+                        style="margin: 0 0 -15 0;font-size: 14;"
+                    ></label>
+                    <label
+                        class="t_black"
+                        style="margin: -10 0 -22 -18;font-size: 18;font-weight: 900;"
+                    >
+                        <FormattedString>
+                            <span text="PKR "></span>
+                            <span
+                                [text]="remaining_balance | number: '1.2-2'"
+                            ></span>
+                        </FormattedString>
+                    </label>
+                    <FlexBoxLayout style="margin: 0 0 -4 0;">
+                        <image
+                            src="res://coin"
+                            width="20"
+                            height="20"
+                            style="margin: 0 4 0 0;"
+                        ></image>
+                        <label
+                            [text]="remaining_coins | number"
+                            class="t_brown"
+                            style="margin: 0 0 0 0;font-size: 15;font-weight: 600;"
+                        ></label>
+                    </FlexBoxLayout>
+                </FlexBoxLayout>
+            </FlexBoxLayLayout>
         </FlexBoxLayout>
-      </FlexBoxLayLayout>
-    </FlexBoxLayout>
-    <SlackLayout row="0" col="1">
-      <GridLayout
-        rows="auto"
-        columns="*,auto"
-        class="action-bar-rightside-content"
-        style="margin: 17 0 0 0;"
-      >
-        <label row="0" col="0"></label>
-        <FlexBoxLayout row="0" col="1" style="margin: 14 0 0 0;">
-          <Label
-            text="&#xf0f3;"
-            class="fa"
-            (tap)="showNotificationsAction()"
-            style="margin: 0 -26 0 0; font-size: 24; color: #333;"
-          ></Label>
-          <SlackLayout
-            style=""
-            orientation="horizontal"
-          >
-            <label
-              [text]="nofitications_count"
-              class="t_black text-center"
-              fontSize="12"
-              style="padding: 5; margin: -2 0 0 4;"
-            ></label>
-          </SlackLayout>
-          <Label
-          text="&#xf2bd;"
-            class="fa"
-            nsRouterLink="/user/profile"
-            style="font-size: 24; color: #333; margin: 0 -2;"
-          ></Label>
-          <Label
-            text="&#xf011;"
-            class="fa"
-            (tap)="logout()"
-            style="font-size: 24; color: #333; margin: 0 0 0 0;"
-          ></Label>
-        </FlexBoxLayout>
-      </GridLayout>
-    </SlackLayout>
-  </GridLayout>
+        <SlackLayout row="0" col="1">
+            <GridLayout
+                rows="auto"
+                columns="*,auto"
+                class="action-bar-rightside-content"
+                style="margin: 17 0 0 0;"
+            >
+                <label row="0" col="0"></label>
+                <FlexBoxLayout row="0" col="1" style="margin: 14 0 0 0;">
+                    <label
+                        text="&#xf0f3;"
+                        class="fa"
+                        nsRouterLink="/notification"
+                        style="margin: 0 -26 0 0; font-size: 24; color: #333;"
+                    ></label>
+                    <SlackLayout style="" orientation="horizontal">
+                        <label
+                            [text]="nofitications_count"
+                            class="t_black text-center"
+                            fontSize="12"
+                            style="padding: 5; margin: -2 0 0 4;"
+                        ></label>
+                    </SlackLayout>
+                    <label
+                        text="&#xf2bd;"
+                        class="fa"
+                        nsRouterLink="/user/profile"
+                        style="font-size: 24; color: #333; margin: 0 -2;"
+                    ></label>
+                    <label
+                        text="&#xf011;"
+                        class="fa"
+                        (tap)="logout()"
+                        style="font-size: 24; color: #333; margin: 0 0 0 0;"
+                    ></label>
+                </FlexBoxLayout>
+            </GridLayout>
+        </SlackLayout>
+    </GridLayout>
 </ActionBar>

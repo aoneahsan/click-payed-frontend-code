@@ -1,0 +1,62 @@
+<!-- <FlexBoxLayout flexDirection="column" justifyContent="space-around" alignItems="center" style="font-size: 44;">
+    <label
+        text="&#xf030; "
+        (tap)="takePicture()"
+        class="take-picture-icon fa"
+    ></label>
+    <label
+        text="&#xf1c5; "
+        (tap)="chooseImage()"
+        class="take-picture-icon fa"
+    ></label>
+    <FlexBoxLayout *ngIf="pitchers.length > 0">
+        <Image [src]="item.path" *ngFor="let item of pitchers"></Image>
+    </FlexBoxLayout> 
+</FlexBoxLayout> -->
+
+<ActionBar class="action-bar">
+    <label class="action-bar-title" text="Picture Gallery"></label>
+</ActionBar>
+<FlexBoxLayout
+    flexDirection="column"
+    justifyContent="space-around"
+    alignItems="center"
+    style="font-size: 44;"
+>
+    <label
+        (tap)="takePicture()"
+        class="take-picture-icon fa"
+        text="&#xf030; "
+    ></label>
+    <ScrollView class="picture-gallery" orientation="vertical">
+        <StackLayout>
+            <GridLayout
+                cols="*"
+                rows="*"
+                (tap)="tapPicture"
+                *ngFor="let image of arrayPictures"
+            >
+                <image
+                    class="gallery-item"
+                    col="0"
+                    row="0"
+                    [src]="image"
+                    stretch="aspectFill"
+                ></image>
+                <StackLayout
+                    [visibility]="image.note && (image.note.length>0)  ? 'visible' : 'hidden'"
+                    col="0"
+                    row="0"
+                    class="note-picture-wrapper"
+                >
+                    <label
+                        textWrap="true"
+                        verticalAlignement="bottom"
+                        [text]="image.note"
+                        class="note-picture-text"
+                    ></label>
+                </StackLayout>
+            </GridLayout>
+        </StackLayout>
+    </ScrollView>
+</FlexBoxLayout>

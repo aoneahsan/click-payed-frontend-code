@@ -9,8 +9,9 @@ import { ModalDialogParams } from 'nativescript-angular/common';
 })
 export class ProcessWithdrawalsPopupComponent implements OnInit {
 
-  modalData: { id: number, date_time: string, account_name: string, account_no: string, amount: string, status: string};
+  modalData: { id: number, date_time: string, account_name: string, account_no: string, amount: string, status: string };
   trx_no: string = null;
+  additional_note: string = null;
 
   requestApproved: boolean = false;
   request_approved_date_time: string = '';
@@ -18,12 +19,20 @@ export class ProcessWithdrawalsPopupComponent implements OnInit {
   constructor(private _modalParams: ModalDialogParams) { }
 
   ngOnInit() {
-    this.modalData = (this._modalParams.context as {item: { id: number, date_time: string, account_name: string, account_no: string, amount: string, status: string}}).item;
+    this.modalData = (this._modalParams.context as { item: { id: number, date_time: string, account_name: string, account_no: string, amount: string, status: string } }).item;
     console.log(this.modalData);
   }
 
   get trxNoAdded() {
-    return !!this.trx_no;
+    if (this.trx_no) {
+      if (this.trx_no.length >= 6) {
+        return true;
+      } else {
+        return false;
+      }
+    } else {
+      return false;
+    }
   }
 
   onHandle(action: "approve" | 'reject') {

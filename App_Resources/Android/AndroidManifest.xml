@@ -14,11 +14,17 @@
 		android:minSdkVersion="17"
 		android:targetSdkVersion="__APILEVEL__"/>
 
+	<!-- Custon Code Added By Ahsan Start -->
+	<uses-permission android:name="android.permission.CAMERA"/>
 	<uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE"/>
 	<uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE"/>
+	<!-- Custon Code Added By Ahsan End -->
+
 	<uses-permission android:name="android.permission.INTERNET"/>
 
+	<!-- Custon Code Added By Ahsan Start first Line "requestLegacyExternalStorage" -->
 	<application
+		android:requestLegacyExternalStorage="true"
 		android:name="com.tns.NativeScriptApplication"
 		android:allowBackup="true"
 		android:icon="@drawable/icon"

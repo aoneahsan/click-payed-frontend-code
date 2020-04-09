@@ -17,15 +17,15 @@ export class RequestWithdrawalComponent implements OnInit, OnDestroy {
   @ViewChild('dropdow', {static: false}) dropdow: ElementRef;
   
   constructor(private _systemService: SystemService) {
+  }
+  
+  ngOnInit() {
     this.items = new ValueList([
       { value: "000-click-100", display: "100" },
       { value: "000-click-200", display: "200" },
       { value: "000-click-300", display: "300" },
       { value: "000-click-400", display: "400" },
     ]);
-  }
-  
-  ngOnInit() {
     this.remaining_balance_Sub = this._systemService.getUserBalance().subscribe(
       balance => {
         this.remaining_balance = "Remaining Balance: PKR " + balance;

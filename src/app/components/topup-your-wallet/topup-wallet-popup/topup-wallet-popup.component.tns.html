@@ -1,0 +1,87 @@
+<FlexBoxLayout
+    width="auto"
+    height="auto"
+    borderWidth="2"
+    borderRadius="4"
+    borderColor="white"
+    flexDirection="column"
+    justifyContent="center"
+    alignItems="center"
+    style="padding: 30 20;"
+>
+    <!-- Steps -->
+    <FlexBoxLayout
+        flexDirection="column"
+        justifyContent="center"
+        alignItems="center"
+        *ngIf="dataToShow == 'steps' && steps && !loading"
+    >
+        <label
+            class="h2"
+            style="font-weight: 600; margin: 0 0 40 0;"
+            text="Steps to Topup Your Wallet"
+            textWrap="true"
+        ></label>
+        <FlexBoxLayout
+            width="320"
+            justifyContent="center"
+            alignItems="center"
+            flexDirection="column"
+        >
+            <GridLayout
+                rows="auto"
+                columns="auto, *"
+                width="100%"
+                *ngFor="let step of steps"
+            >
+                <label
+                    [text]="step.number"
+                    class="t_blue p-l-5 p-r-5"
+                    row="0"
+                    col="0"
+                    minWidth="60"
+                    style="font-size: 14;"
+                ></label>
+                <label
+                    [text]="step.description"
+                    row="0"
+                    col="1"
+                    class="t_black"
+                    [textWrap]="true"
+                    style="font-size: 13;"
+                ></label>
+            </GridLayout>
+        </FlexBoxLayout>
+    </FlexBoxLayout>
+
+    <!-- Accounts -->
+    <FlexBoxLayout
+        flexDirection="column"
+        justifyContent="center"
+        alignItems="center"
+        class="text-center"
+        width="300"
+        *ngIf="dataToShow == 'available_accounts' && accounts && !loading"
+    >
+        <label
+            text="Following are the active accounts where you can make a deposit transaction"
+            textWrap="true"
+            class="h3"
+            style="margin: 0 0 20 0;"
+        ></label>
+        <label
+            text="Note: Always check the available active deposit accounts before making any transaction. Deposit account numbers change when deposits are maxed out"
+            textWrap="true"
+            class="t_red h4"
+            style="margin: 0 0 20 0;"
+        ></label>
+        <FlexBoxLayout flexDirection="column" justifyContent="center" alignItems="center" *ngFor="let account of accounts">
+            <label [text]="account.name" class="h2"></label>
+            <Label [text]="number" *ngFor="let number of account.numbers" class="h3"></Label>
+            <label class="hr m-y-4"></label>
+        </FlexBoxLayout>
+    </FlexBoxLayout>
+
+    <!-- Loading -->
+    <ActivityIndicator busy="true" *ngIf="loading"></ActivityIndicator>
+</FlexBoxLayout>

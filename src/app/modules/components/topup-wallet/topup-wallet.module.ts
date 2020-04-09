@@ -7,6 +7,7 @@ import { NativeScriptRouterModule } from 'nativescript-angular/router';
 import { SharedModule } from "../../shared/shared.module";
 
 import { TopupYourWalletComponent } from '@src/app/components/topup-your-wallet/topup-your-wallet.component';
+import { TopupWalletPopupComponent } from "@src/app/components/topup-your-wallet/topup-wallet-popup/topup-wallet-popup.component";
 
 const routes: Routes = [
     {
@@ -17,7 +18,8 @@ const routes: Routes = [
 
 @NgModule({
     declarations: [
-        TopupYourWalletComponent
+        TopupYourWalletComponent,
+        TopupWalletPopupComponent
     ],
     imports: [
         NativeScriptCommonModule,
@@ -28,7 +30,7 @@ const routes: Routes = [
         NativeScriptRouterModule
     ],
     schemas: [NO_ERRORS_SCHEMA],
-    entryComponents: []
+    entryComponents: [TopupWalletPopupComponent]
 })
 export class TotUpWalletModule {
 

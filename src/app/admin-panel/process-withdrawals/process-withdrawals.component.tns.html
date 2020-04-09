@@ -1,228 +1,151 @@
 <!--The content below is only a placeholder and can be replaced.-->
 <app-action-bar
-  title="PROCESS WITHDRAWALS"
-  [hasMenu]="true"
-  [showGoBackButton]="true"
+    title="PROCESS WITHDRAWALS"
+    [hasMenu]="true"
+    [showGoBackButton]="true"
 ></app-action-bar>
 <ScrollView>
-  <FlexBoxLayout flexDirection="column">
-    <!-- Notice Board Section -->
-    <label
-      text="PROCESS WITHDRAWALS"
-      class="h3 p-10 m-b-0 text-center text-uppercase"
-      letterSpacing=".2"
-      style="background: black; color: white;margin: 0;"
-    ></label>
-    <!-- Coin Part Section -->
-    <FlexBoxLayout
-      width="100%"
-      justifyContent="space-around"
-      style="margin: 0 0 2 0;"
-    >
-      <FlexBoxLayout width="94%" justifyContent="center" alignItems="center" *ngIf="!loadingResult">
-        <DropDown
-          #dropdow
-          width="70%"
-          height="50"
-          class="text-left"
-          itemsTextAlignment="center"
-          [items]="items"
-          [(ngModel)]="selectedIndex"
-          (selectedIndexChanged)="onchange($event)"
-          (opened)="onopen()"
-          (closed)="onclose()"
-          style="border-width: 2;border-color: black;padding: 9 0 0 7;margin: 0;background-color: white;border-radius: 4;font-size: 14;"
-        ></DropDown>
-        <label text="ˇ" style="font-size: 40; margin: 15 0 0 -30;"></label>
-      </FlexBoxLayout>
-      <FlexBoxLayout width="94%" justifyContent="center" alignItems="center" *ngIf="loadingResult">
-        <ActivityIndicator busy="true"></ActivityIndicator>
-      </FlexBoxLayout>
-    </FlexBoxLayout>
+    <FlexBoxLayout flexDirection="column">
 
-    <!-- <FlexBoxLayout
-      width="100%"
-      justifyContent="space-around"
-      style="margin: 0 0 5 0; border-width: 2;"
-      class="bg_forest p-5"
-    >
-      <FlexBoxLayout
-        justifyContent="space-around"
-        alignItems="center"
-        width="100%"
-        class="p-l-5"
-      >
-        <FlexBoxLayout width="230">
-          <label
-            width="100%"
-            text="Date | Time"
-            style="font-size: 14;"
-            class="t_white"
-          ></label>
-        </FlexBoxLayout>
-        <FlexBoxLayout width="215">
-          <label
-            width="100%"
-            text="Account No."
-            style="font-size: 14;"
-            class="t_white"
-          ></label>
-        </FlexBoxLayout>
-        <FlexBoxLayout width="180">
-          <label
-            width="20%"
-            text="Amount"
-            style="font-size: 14;"
-            class="t_white text-right"
-          ></label>
-        </FlexBoxLayout>
-        <FlexBoxLayout width="200" marginLeft="10">
-          <label
-            width="28%"
-            text="."
-            style="font-size: 14;"
-            class="t_white"
-          ></label>
-        </FlexBoxLayout>
-      </FlexBoxLayout>
-    </FlexBoxLayout>
+        <!-- Notice Board Section -->
+        <label
+            text="PROCESS WITHDRAWALS"
+            class="h3 p-10 m-b-0 text-center text-uppercase"
+            letterSpacing=".2"
+            style="background: black; color: white;margin: 0;"
+        ></label>
 
-    <FlexBoxLayout
-      width="100%"
-      justifyContent="space-around"
-      *ngIf="!loadingResult && requests"
-      flexDirection="column"
-    >
-      <FlexBoxLayout
-        justifyContent="space-between"
-        alignItems="center"
-        width="100%"
-        class="p-l-5"
-        *ngFor="let item of requests"
-      >
-        <FlexBoxLayout width="230">
-          <label
-            width="100%"
-            [text]="item.date_time"
-            style="font-size: 14;"
-            class=""
-            [textWrap]="true"
-          ></label>
-        </FlexBoxLayout>
-        <FlexBoxLayout width="215">
-          <label
-            width="100%"
-            [text]="item.account_no"
-            style="font-size: 14;"
-            class=""
-            [textWrap]="true"
-          ></label>
-        </FlexBoxLayout>
-        <FlexBoxLayout width="180" style="background-color: blue;">
-          <label
-            width="100%"
-            [text]="item.amount"
-            style="font-size: 14;"
-            class=" text-right"
-            [textWrap]="true"
-          ></label>
-        </FlexBoxLayout>
+        <!-- DropDown Container -->
         <FlexBoxLayout
-          width="200"
-          marginLeft="10"
-          [ngStyle]="{'ba': expression}"
-          [ngClass]="{'bg_orange': item.status == 'pending', 'bg_red': item.status == 'rejected', 'bg_green': item.status == 'approved'}"
+            width="100%"
+            justifyContent="space-around"
+            style="margin: 0 0 2 0;"
         >
-          <label text="ok" class="h1"></label>
+            <FlexBoxLayout
+                width="94%"
+                justifyContent="center"
+                alignItems="center"
+                *ngIf="!loadingResult"
+            >
+                <DropDown
+                    #dropdow
+                    width="70%"
+                    height="50"
+                    class="text-left"
+                    itemsTextAlignment="center"
+                    [items]="items"
+                    [(ngModel)]="selectedIndex"
+                    (selectedIndexChanged)="onchange($event)"
+                    (opened)="onopen()"
+                    (closed)="onclose()"
+                    style="border-width: 2;border-color: black;padding: 9 0 0 7;margin: 0;background-color: white;border-radius: 4;font-size: 14;"
+                ></DropDown>
+                <label
+                    text="ˇ"
+                    style="font-size: 40; margin: 15 0 0 -30;"
+                ></label>
+            </FlexBoxLayout>
+            <FlexBoxLayout
+                width="94%"
+                justifyContent="center"
+                alignItems="center"
+                *ngIf="loadingResult"
+            >
+                <ActivityIndicator busy="true"></ActivityIndicator>
+            </FlexBoxLayout>
         </FlexBoxLayout>
-        <FlexBoxLayout width="31%"> </FlexBoxLayout>
-      </FlexBoxLayout>
-    </FlexBoxLayout> -->
 
-    <SlackLayout *ngIf="requests">
-      <GridLayout
-        rows="auto"
-        columns="auto, auto, auto, auto"
-        class="bg_forest m-b-10 p-t-10 p-b-10 p-l-10"
-      >
-        <label
-          text="Date | Time"
-          style="font-size: 14;"
-          class="t_white"
-          row="0"
-          col="0"
-          minWidth="115"
-        ></label>
-        <label
-          text="Account No."
-          style="font-size: 14;"
-          class="t_white"
-          row="0"
-          col="1"
-          minWidth="105"
-        ></label>
-        <label
-          text="Amount"
-          style="font-size: 14;"
-          class="t_white"
-          row="0"
-          col="2"
-          minWidth="70"
-        ></label>
-        <label
-          text=""
-          style="font-size: 14;"
-          class="t_white"
-          row="0"
-          col="3"
-        ></label>
-      </GridLayout>
-      <GridLayout
-        rows="auto"
-        columns="auto, auto, auto, *, auto"
-        class="m-b-5 p-l-10"
-        *ngFor="let item of requests"
-        (tap)="showRequestDetail(item.id)"
-      >
-        <label
-          [text]="item.date_time"
-          style="font-size: 14;"
-          row="0"
-          col="0"
-          minWidth="115"
-        ></label>
-        <label
-          [text]="item.account_no"
-          style="font-size: 14;"
-          row="0"
-          col="1"
-          minWidth="100"
-        ></label>
-        <label
-          [text]="item.amount"
-          style="font-size: 14;"
-          class="text-right"
-          row="0"
-          col="2"
-          minWidth="56"
-        ></label>
-        <Label row="0" col="3"></Label>
-        <FlexBoxLayout
-          row="0"
-          col="4"
-          minWidth="100"
-          justifyContent="flex-end"
-          alignItems="flex-end"
-          class="text-right request_show_more_btn m-r-10"
-          style="border-width: 1; border-color: black;"
-          [ngClass]="{'bg_orange': item.status == 'pending', 'bg_red': item.status == 'rejected', 'bg_green': item.status == 'approved'}"
-        >
-          <label [text]="item.status" style="font-size: 14;text-transform: capitalize;"></label>
-        </FlexBoxLayout>
-      </GridLayout>
-    </SlackLayout>
+        <!-- Table Container -->
+        <SlackLayout *ngIf="requests">
+            <!-- Table Headings Row -->
+            <GridLayout
+                rows="auto"
+                columns="auto, auto, auto, auto"
+                class="bg_forest m-b-10 p-t-10 p-b-10 p-l-10"
+            >
+                <label
+                    text="Date | Time"
+                    style="font-size: 14;"
+                    class="t_white"
+                    row="0"
+                    col="0"
+                    minWidth="115"
+                ></label>
+                <label
+                    text="Account No."
+                    style="font-size: 14;"
+                    class="t_white"
+                    row="0"
+                    col="1"
+                    minWidth="105"
+                ></label>
+                <label
+                    text="Amount"
+                    style="font-size: 14;"
+                    class="t_white"
+                    row="0"
+                    col="2"
+                    minWidth="70"
+                ></label>
+                <label
+                    text=""
+                    style="font-size: 14;"
+                    class="t_white"
+                    row="0"
+                    col="3"
+                ></label>
+            </GridLayout>
 
-    <!-- App Footer -->
-    <!-- <app-footer [section_1]="false"></app-footer> -->
-  </FlexBoxLayout>
+            <!-- Table Content Rows -->
+            <GridLayout
+                rows="auto"
+                columns="auto, auto, auto, *, auto"
+                class="m-b-5 p-l-10"
+                *ngFor="let item of requests"
+                (tap)="showRequestDetail(item.id)"
+            >
+                <label
+                    [text]="item.date_time"
+                    style="font-size: 14;"
+                    row="0"
+                    col="0"
+                    minWidth="115"
+                ></label>
+                <label
+                    [text]="item.account_no"
+                    style="font-size: 14;"
+                    row="0"
+                    col="1"
+                    minWidth="100"
+                ></label>
+                <label
+                    [text]="item.amount | number"
+                    style="font-size: 14;"
+                    class="text-right"
+                    row="0"
+                    col="2"
+                    minWidth="56"
+                ></label>
+                <label row="0" col="3"></label>
+                <FlexBoxLayout
+                    row="0"
+                    col="4"
+                    minWidth="100"
+                    justifyContent="flex-end"
+                    alignItems="flex-end"
+                    class="text-right request_show_more_btn m-r-10"
+                    style="border-width: 1; border-color: black;"
+                    [ngClass]="{'bg_orange': item.status == 'pending', 'bg_red': item.status == 'rejected', 'bg_green': item.status == 'approved'}"
+                >
+                    <label
+                        [text]="item.status"
+                        style="font-size: 14;text-transform: capitalize;"
+                    ></label>
+                </FlexBoxLayout>
+            </GridLayout>
+        </SlackLayout>
+
+        <!-- App Footer -->
+        <!-- <app-footer [section_1]="false"></app-footer> -->
+    </FlexBoxLayout>
 </ScrollView>

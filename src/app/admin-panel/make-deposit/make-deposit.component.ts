@@ -15,6 +15,7 @@ export class MakeDepositComponent implements OnInit {
 
 
   amountToDeposit: number = null;
+  trx_id: string = null;
   reciver_number: any;
   reciver: { name: string, number: string, city: string, country: string } = {name: "", number: "", city: "", country: ""};
   select_beneficiary: boolean = false;
@@ -60,6 +61,18 @@ export class MakeDepositComponent implements OnInit {
     return this.amountToDeposit > 0;
   }
 
+  get trxIdAdded() {
+    if (this.trx_id) {
+      if (this.trx_id.length >= 6) {
+        return true;
+      } else {
+        return false;
+      }
+    } else {
+      return false;
+    }
+  }
+
   depositAmount() {
     this.formSubmited = true;
     this._modalService.showModal(
@@ -82,7 +95,8 @@ export class MakeDepositComponent implements OnInit {
       res => {
         // console.log(res);
         if (res == 'deposit') {
-          this.depositNow();
+          this.resetFields();
+          this.formSubmited = false;
         }
         else if (res == 'cancel') {
           this.formSubmited = false;
@@ -92,15 +106,6 @@ export class MakeDepositComponent implements OnInit {
         }
       }
     );
-  }
-
-  depositNow() {
-    // remember select_beneficiary  and other data ok
-    setTimeout(() => {
-      alert('Done');
-      this.resetFields();
-    }, 1000);
-    this.formSubmited = false;
   }
 
   resetFields() {

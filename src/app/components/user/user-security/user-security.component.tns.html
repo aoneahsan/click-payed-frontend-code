@@ -1,0 +1,211 @@
+<!--The content below is only a placeholder and can be replaced.-->
+<app-action-bar
+    title="User Profile"
+    [hasMenu]="true"
+    [showBackButton]="false"
+    [showNotifications]="true"
+></app-action-bar>
+<ScrollView>
+    <FlexBoxLayout flexDirection="column">
+        <!-- Notice Board Section -->
+        <FlexBoxLayout class="bg_forest" style="padding: 20 0 50 0;">
+            <FlexBoxLayout flexDirection="column" class="m-l-20">
+                <GridLayout rows="auto" columns="*, auto">
+                    <FlexBoxLayout
+                        flexDirection="column"
+                        alignItems="flex-start"
+                        class="m-t-0"
+                        row="0"
+                        col="0"
+                    >
+                        <TextField
+                            class="t_white text-left"
+                            [text]="user_name"
+                            style="font-size: 22; margin-left: -10; padding-left: 10; margin-bottom: -4;border-width: 0;background-color: transparent; color: white;"
+                            width="100%"
+                            isUserInteractionEnabled="false"
+                            *ngIf="!editing"
+                        ></TextField>
+                        <TextField
+                            class="t_white text-left"
+                            [text]="user_name"
+                            style="font-size: 22; margin-left: -10; padding-left: 10; margin-bottom: -4;border-width: 0;background-color: transparent; color: white;"
+                            width="100%"
+                            *ngIf="editing"
+                        ></TextField>
+                        <label
+                            class="t_white"
+                            [text]="member_since"
+                            style="font-size: 12;"
+                            [textWrap]="true"
+                        ></label>
+                        <label
+                            [text]="user_earned_coins"
+                            class="t_orange m-b-5"
+                            style="font-size: 14;"
+                        ></label>
+                    </FlexBoxLayout>
+                    <FlexBoxLayout
+                        flexDirection="column"
+                        justifyContent="center"
+                        alignItems="center"
+                        class="m-r-30"
+                        row="0"
+                        col="1"
+                    >
+                        <image
+                            [src]="user_img"
+                            width="120"
+                            height="120"
+                            *ngIf="hasProfileImg"
+                        ></image>
+                        <label
+                            text="&#xf007;"
+                            class="fa text-center t_white"
+                            width="120"
+                            height="120"
+                            style="font-size: 90;"
+                            *ngIf="!hasProfileImg"
+                        ></label>
+                        <button
+                            (tap)="uploadImg()"
+                            text="Upload"
+                            style="font-size: 12; margin: -14 0 0 0;"
+                            class="text-uppercase"
+                            *ngIf="editing"
+                        ></button>
+                    </FlexBoxLayout>
+                </GridLayout>
+                <FlexBoxLayout class="t_white m-t-20" style="font-size: 18;">
+                    <label
+                        text="Personal"
+                        class="m-r-20"
+                        nsRouterLink="/user/profile"
+                    ></label>
+                    <label
+                        text="Achievements"
+                        class="m-r-20"
+                        nsRouterLink="/user/achievements"
+                    ></label>
+                    <label
+                        text="Security"
+                        borderBottomWidth="2"
+                        borderColor="white"
+                        nsRouterLink="/user/security"
+                    ></label>
+                </FlexBoxLayout>
+            </FlexBoxLayout>
+        </FlexBoxLayout>
+
+        <!-- Second Sectoion -->
+        <FlexBoxLayout flexDirection="column" class="section_2_con">
+            
+            <FlexBoxLayout width="100%">
+
+                <FlexBoxLayout width="44%" flexDirection="column">
+                    <label
+                        [textWrap]="true"
+                        text="Change Password"
+                        class="info_name"
+                    ></label>
+                </FlexBoxLayout>
+
+                <FlexBoxLayout width="56%" flexDirection="column">
+                    <FlexBoxLayout
+                        width="100%"
+                        justifyContent="space-around"
+                        alignItems="center"
+                        flexDirection="column"
+                    >
+                        <TextField
+                            #coinsToTransfer
+                            hint="Enter New Password"
+                            [(ngModel)]="coins_to_transfer"
+                            width="100%"
+                            style="border-width: 2; border-radius: 4; border-color: rgba(0, 0, 0, 0.767);"
+                            class="text-center body p-10"
+                        ></TextField>
+                        <TextField
+                            hint="Re-Enter Password"
+                            [(ngModel)]="reciver_number"
+                            width="100%"
+                            style="border-width: 2; border-radius: 4; border-color: rgba(0, 0, 0, 0.767);"
+                            class="text-center body p-10"
+                            [isUserInteractionEnabled]="!userFound"
+                        ></TextField>
+                    </FlexBoxLayout>
+                </FlexBoxLayout>
+
+            </FlexBoxLayout>
+
+            <label class="hr m-y-5"></label>
+
+            <FlexBoxLayout width="100%">
+
+                <FlexBoxLayout width="44%" flexDirection="column">
+                    <label
+                        [textWrap]="true"
+                        text="Change Pin"
+                        class="info_name"
+                    ></label>
+                </FlexBoxLayout>
+
+                <FlexBoxLayout width="56%" flexDirection="column">
+                    <FlexBoxLayout
+                        width="100%"
+                        justifyContent="space-around"
+                        alignItems="center"
+                        flexDirection="column"
+                    >
+                        <TextField
+                            #coinsToTransfer
+                            hint="Enter Current Pin"
+                            [(ngModel)]="current_pin"
+                            width="100%"
+                            style="border-width: 2; border-radius: 4; border-color: rgba(0, 0, 0, 0.767);"
+                            class="text-center body p-10"
+                            keyboardType="number"
+                            minLength="5"
+                            maxLength="5"
+                        ></TextField>
+                        <TextField
+                            hint="Enter New Pin"
+                            [(ngModel)]="new_pin"
+                            width="100%"
+                            style="border-width: 2; border-radius: 4; border-color: rgba(0, 0, 0, 0.767);"
+                            class="text-center body p-10"
+                            keyboardType="number"
+                            [isUserInteractionEnabled]="!userFound"
+                        ></TextField>
+                    </FlexBoxLayout>
+                </FlexBoxLayout>
+                
+            </FlexBoxLayout>
+
+            <FlexBoxLayout
+                width="100%"
+                justifyContent="space-around"
+                alignItems="center"
+                class="m-t-15"
+            >
+                <FlexBoxLayout
+                    width="60%"
+                    justifyContent="space-around"
+                    alignItems="center"
+                    style="border-width: 2; border-color: #289E46; border-radius: 4;"
+                    class="p-5 bg_green"
+                    height="40"
+                >
+                    <label text="UPDATE SECURITY INFO" class="t_white"></label>
+                </FlexBoxLayout>
+            </FlexBoxLayout>
+        </FlexBoxLayout>
+
+        <!-- App Footer -->
+        <!-- <app-footer
+            [section_1]="false"
+            [section_2]="false"
+            [section_3]="false"
+        ></app-footer> -->
+    </FlexBoxLayout>
+</ScrollView>

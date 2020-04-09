@@ -5,12 +5,18 @@
             <Label class="h1 t_white" text="Sign In"></Label>
             <Label class="h2 t_white" text="to your eWallet account"></Label>
         </StackLayout>
-        <StackLayout class="nt-form">
+        <StackLayout class="nt-form" *ngIf="!usePinLogin">
             <TextField width="80%" class="ok t_white -border" [autocorrect]="false" ReturnKeyType="next" textAlignment="center"
                 hint="Enter Email" style="placeholder-color:rgba(255,255,255)"></TextField>
             <TextField width="80%" class="input t_white -border" hint="Enter Password" textAlignment="center" ReturnKeyType="done" style="placeholder-color:rgba(255,255,255)">
             </TextField>
             <Button text="Sign In" width="80%" *ngIf="!formSubmited" class="-primary" (tap)="signInAction()"></Button>
+            <ActivityIndicator [busy]="true" *ngIf="formSubmited"></ActivityIndicator>
+        </StackLayout>
+        <StackLayout class="nt-form" *ngIf="usePinLogin">
+            <TextField width="80%" maxLength="5" minLength="5" keyboardType="phone" [(ngModel)]="loginPin" class="ok t_white -border" [autocorrect]="false" ReturnKeyType="next" textAlignment="center"
+                hint="Enter 5-digit Pin" style="placeholder-color:rgba(255,255,255)"></TextField>
+            <Button text="Login" width="80%" *ngIf="!formSubmited" class="-primary" [isEnabled]="loginPinLength" (tap)="verifyPinLogin()"></Button>
             <ActivityIndicator [busy]="true" *ngIf="formSubmited"></ActivityIndicator>
         </StackLayout>
         <GridLayout rows="auto" columns="auto,auto">

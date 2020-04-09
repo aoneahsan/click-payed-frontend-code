@@ -13,13 +13,18 @@ declare var android:any;
 })
 export class ActionBarComponent implements OnInit {
 
+  // For local Users
   @Input() title = "";
   @Input() showGoBackButton = false;
   @Input() hasMenu = true;
   @Input() showNotifications = false;
-  remaining_balance: string = 'PKR 0';
+
+  remaining_balance: number = 0;
   remaining_coins: number = 0;
   nofitications_count: string = '';
+
+  // For AdminPanel Users
+  @Input() isAdminPanel = false;
 
   constructor(private _page: Page, private _router: RouterExtensions, private _uiService: UIService, private _systemService: SystemService) { }
 
@@ -31,7 +36,7 @@ export class ActionBarComponent implements OnInit {
     );
     this._systemService.getUserBalance().subscribe(
       balance => {
-        this.remaining_balance = "PKR " + balance; 
+        this.remaining_balance = balance; 
       }
     );
     this.nofitications_count = 99 + '+';

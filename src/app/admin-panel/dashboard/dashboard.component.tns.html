@@ -1,79 +1,338 @@
 <!--The content below is only a placeholder and can be replaced.-->
-<app-action-bar title="Transfer Coins" [hasMenu]='true' [showGoBackButton]="true"></app-action-bar>
+<app-action-bar
+    title="ADMIN DASHBOARD"
+    [hasMenu]="true"
+    [showGoBackButton]="true"
+></app-action-bar>
 <ScrollView>
     <FlexBoxLayout flexDirection="column">
         <!-- Notice Board Section -->
-        <Label text="Transfer Coins" class="h3 p-10 m-b-0 text-center text-uppercase" letterSpacing=".2" style="background: black; color: white;margin: 0;"></Label>
-        
+        <label
+            text="ADMIN DASHBOARD"
+            class="h3 p-10 m-b-0 text-center text-uppercase"
+            letterSpacing=".2"
+            style="background: black; color: white;margin: 0;"
+        ></label>
+
         <FlexBoxLayout justifyContent="center" alignItems="center" width="100%">
-            <FlexBoxLayout flexDirection="column" width="48%" justifyContent="center" alignItems="center">
-                <Button text="MAKE A DEPOSIT" height="48" width="96%" class="bg_forest t_white" style="border-radius: 6; border-width: 1;" nsRouterLink="/admin/make-deposit"></Button>
-                <Button text="SET NEW RULES" height="48" width="96%" class="bg_forest t_white" style="border-radius: 6; border-width: 1;"></Button>
+            <FlexBoxLayout
+                flexDirection="column"
+                width="48%"
+                justifyContent="center"
+                alignItems="center"
+            >
+                <button
+                    text="MAKE A DEPOSIT"
+                    height="44"
+                    width="96%"
+                    class="bg_forest t_white"
+                    style="border-radius: 6; border-width: 1;"
+                    nsRouterLink="/admin/make-deposit"
+                ></button>
+                <button
+                    text="SET NEW RULES"
+                    height="44"
+                    width="96%"
+                    class="bg_forest t_white"
+                    style="border-radius: 6; border-width: 1;"
+                    nsRouterLink="/admin/set-rules"
+                ></button>
+                <button
+                    text="USER LIST"
+                    height="44"
+                    width="96%"
+                    class="bg_forest t_white"
+                    style="border-radius: 6; border-width: 1;"
+                    nsRouterLink="/admin/user-list"
+                ></button>
             </FlexBoxLayout>
-            <FlexBoxLayout flexDirection="column" width="48%" justifyContent="center" alignItems="center">
-                <Button text="PROCESS WITHRAWALS" height="48" width="96%" class="bg_forest t_white" style="border-radius: 6; border-width: 1;" nsRouterLink="/admin/process-withdrawals"></Button>
-                <Button text="CREATE NOTIFICATION" height="48" width="96%" class="bg_forest t_white" style="border-radius: 6; border-width: 1;"></Button>
+            <FlexBoxLayout
+                flexDirection="column"
+                width="48%"
+                justifyContent="center"
+                alignItems="center"
+            >
+                <button
+                    text="PROCESS WITHRAWALS"
+                    height="44"
+                    width="96%"
+                    class="bg_forest t_white"
+                    style="border-radius: 6; border-width: 1;"
+                    nsRouterLink="/admin/process-withdrawals"
+                ></button>
+                <button
+                    text="CREATE NOTIFICATION"
+                    height="44"
+                    width="96%"
+                    class="bg_forest t_white"
+                    style="border-radius: 6; border-width: 1;"
+                    nsRouterLink="/admin/create-notification"
+                ></button>
+                <button
+                    text="NOTICE BOARD"
+                    height="44"
+                    width="96%"
+                    class="bg_forest t_white"
+                    style="border-radius: 6; border-width: 1;"
+                    nsRouterLink="/admin/notice-board"
+                ></button>
             </FlexBoxLayout>
         </FlexBoxLayout>
 
-        <FlexBoxLayout justifyContent="center" alignItems="center" width="100%" flexDirection="column">
-            <FlexBoxLayout flexDirection="row" width="96%" class="m-b-5" justifyContent="center" alignItems="center" style="border-width: 2; border-color: black; border-radius: 8; padding: 0 6;">
-                <FlexBoxLayout justifyContent="center" alignItems="center" width="50%">
-
-                </FlexBoxLayout>
-                <FlexBoxLayout justifyContent="center" alignItems="center" width="50%" flexDirection="column">
-                    <Label text="Total Deposits" width="100%" class="text-right t_black" style="font-size: 16;"></Label>
-                    <Label [text]="totalDeposit" width="100%" class="t_forest text-right" style="font-size: 24;"></Label>
-                    <Label text="Show Details" class="t_blue text-right" width="100%" style="font-size: 12;"></Label>
-                </FlexBoxLayout>
-            </FlexBoxLayout>
-
-            <FlexBoxLayout flexDirection="row" width="96%" class="m-b-5" justifyContent="center" alignItems="center" style="border-width: 2; border-color: black; border-radius: 8; padding: 0 6;">
-                <FlexBoxLayout justifyContent="center" alignItems="center" width="50%">
-
-                </FlexBoxLayout>
-                <FlexBoxLayout justifyContent="center" alignItems="center" width="50%" flexDirection="column">
-                    <Label text="Total Withdrawals" width="100%" class="text-right t_black" style="font-size: 16;"></Label>
-                    <Label [text]="totalWithDrawal" width="100%" class="t_red text-right" style="font-size: 24;"></Label>
-                    <Label text="Show Details" class="t_blue text-right" width="100%" style="font-size: 12;"></Label>
-                </FlexBoxLayout>
-            </FlexBoxLayout>
-
-            <FlexBoxLayout flexDirection="row" width="96%" class="m-b-5" justifyContent="center" alignItems="center" style="border-width: 2; border-color: black; border-radius: 8; padding: 0 6;">
-                <FlexBoxLayout justifyContent="center" alignItems="center" width="50%">
-
-                </FlexBoxLayout>
-                <FlexBoxLayout justifyContent="center" alignItems="center" width="50%" flexDirection="column">
-                    <Label text="Total Coins Converted" width="100%" class="text-right t_black" style="font-size: 16;"></Label>
-                    <Label [text]="totalCoinsConverted" width="100%" class="t_gold text-right" style="font-size: 24;"></Label>
-                    <Label text="Show Details" class="t_blue text-right" width="100%" style="font-size: 12;"></Label>
-                </FlexBoxLayout>
-            </FlexBoxLayout>
-
-            <FlexBoxLayout flexDirection="row" width="96%" class="m-b-5" justifyContent="center" alignItems="center" style="border-width: 2; border-color: black; border-radius: 8; padding: 0 6;">
-                <FlexBoxLayout justifyContent="center" alignItems="center" width="50%">
-
-                </FlexBoxLayout>
-                <FlexBoxLayout justifyContent="center" alignItems="center" width="50%" flexDirection="column">
-                    <Label text="Total Coins Redeemed" width="100%" class="text-right t_black" style="font-size: 16;"></Label>
-                    <Label [text]="totalCoinsRedeemed" width="100%" class="t_gold text-right" style="font-size: 24;"></Label>
-                    <Label text="Show Details" class="t_blue text-right" width="100%" style="font-size: 12;"></Label>
-                </FlexBoxLayout>
-            </FlexBoxLayout>
-
-            <FlexBoxLayout flexDirection="row" width="96%" class="m-b-5" justifyContent="center" alignItems="center" style="border-width: 2; border-color: black; border-radius: 8; padding: 0 6;">
-                <FlexBoxLayout justifyContent="center" alignItems="center" width="50%">
-
-                </FlexBoxLayout>
-                <FlexBoxLayout justifyContent="center" alignItems="center" width="50%" flexDirection="column">
-                    <Label text="Total Coins in Circulation" width="100%" class="text-right t_black" style="font-size: 16;"></Label>
-                    <Label [text]="totalCoinsInCirculation" width="100%" class="t_gold text-right" style="font-size: 24;"></Label>
-                    <Label text="Show Details" class="t_blue text-right" width="100%" style="font-size: 12;"></Label>
+        <FlexBoxLayout
+            justifyContent="center"
+            alignItems="center"
+            width="100%"
+            flexDirection="column"
+        >
+            <FlexBoxLayout
+                flexDirection="row"
+                width="96%"
+                class="m-b-5"
+                justifyContent="center"
+                alignItems="center"
+                style="border-width: 2; border-color: black; border-radius: 8; padding: 0 6;"
+            >
+                <FlexBoxLayout
+                    justifyContent="center"
+                    alignItems="center"
+                    width="50%"
+                ></FlexBoxLayout>
+                <FlexBoxLayout
+                    justifyContent="center"
+                    alignItems="center"
+                    width="50%"
+                    flexDirection="column"
+                >
+                    <label
+                        text="Total Deposits"
+                        width="100%"
+                        class="text-right t_black"
+                        style="font-size: 14;"
+                    ></label>
+                    <label
+                        width="100%"
+                        class="t_forest text-right"
+                        style="font-size: 20;"
+                    >
+                        <FormattedString>
+                            <span text="PKR "></span>
+                            <span [text]="totalDeposit | number"></span>
+                        </FormattedString>
+                    </label>
+                    <label
+                        text="Show Details"
+                        class="t_blue text-right"
+                        width="100%"
+                        style="font-size: 12;"
+                    ></label>
                 </FlexBoxLayout>
             </FlexBoxLayout>
 
+            <FlexBoxLayout
+                flexDirection="row"
+                width="96%"
+                class="m-b-5"
+                justifyContent="center"
+                alignItems="center"
+                style="border-width: 2; border-color: black; border-radius: 8; padding: 0 6;"
+            >
+                <FlexBoxLayout
+                    justifyContent="center"
+                    alignItems="center"
+                    width="50%"
+                ></FlexBoxLayout>
+                <FlexBoxLayout
+                    justifyContent="center"
+                    alignItems="center"
+                    width="50%"
+                    flexDirection="column"
+                >
+                    <label
+                        text="Total Withdrawals"
+                        width="100%"
+                        class="text-right t_black"
+                        style="font-size: 14;"
+                    ></label>
+                    <label
+                        width="100%"
+                        class="t_red text-right"
+                        style="font-size: 20;"
+                    >
+                        <FormattedString>
+                            <span text="PKR "></span>
+                            <span [text]="totalWithDrawal | number"></span>
+                        </FormattedString>
+                    </label>
+                    <label
+                        text="Show Details"
+                        class="t_blue text-right"
+                        width="100%"
+                        style="font-size: 12;"
+                    ></label>
+                </FlexBoxLayout>
+            </FlexBoxLayout>
+
+            <FlexBoxLayout
+                flexDirection="row"
+                width="96%"
+                class="m-b-5"
+                justifyContent="center"
+                alignItems="center"
+                style="border-width: 2; border-color: black; border-radius: 8; padding: 0 6;"
+            >
+                <FlexBoxLayout
+                    justifyContent="center"
+                    alignItems="center"
+                    width="50%"
+                ></FlexBoxLayout>
+                <FlexBoxLayout
+                    justifyContent="center"
+                    alignItems="center"
+                    width="50%"
+                    flexDirection="column"
+                >
+                    <label
+                        text="Total Coins Converted"
+                        width="100%"
+                        class="text-right t_black"
+                        style="font-size: 14;"
+                    ></label>
+                    <label
+                        [text]="totalCoinsConverted | number"
+                        width="100%"
+                        class="t_gold text-right"
+                        style="font-size: 20;"
+                    ></label>
+                    <label
+                        text="Show Details"
+                        class="t_blue text-right"
+                        width="100%"
+                        style="font-size: 12;"
+                    ></label>
+                </FlexBoxLayout>
+            </FlexBoxLayout>
+
+            <FlexBoxLayout
+                flexDirection="row"
+                width="96%"
+                class="m-b-5"
+                justifyContent="center"
+                alignItems="center"
+                style="border-width: 2; border-color: black; border-radius: 8; padding: 0 6;"
+            >
+                <FlexBoxLayout
+                    justifyContent="center"
+                    alignItems="center"
+                    width="50%"
+                ></FlexBoxLayout>
+                <FlexBoxLayout
+                    justifyContent="center"
+                    alignItems="center"
+                    width="50%"
+                    flexDirection="column"
+                >
+                    <label
+                        text="Total Coins Redeemed"
+                        width="100%"
+                        class="text-right t_black"
+                        style="font-size: 14;"
+                    ></label>
+                    <label
+                        [text]="totalCoinsRedeemed | number"
+                        width="100%"
+                        class="t_gold text-right"
+                        style="font-size: 20;"
+                    ></label>
+                    <label
+                        text="Show Details"
+                        class="t_blue text-right"
+                        width="100%"
+                        style="font-size: 12;"
+                    ></label>
+                </FlexBoxLayout>
+            </FlexBoxLayout>
+
+            <FlexBoxLayout
+                flexDirection="row"
+                width="96%"
+                class="m-b-5"
+                justifyContent="center"
+                alignItems="center"
+                style="border-width: 2; border-color: black; border-radius: 8; padding: 0 6;"
+            >
+                <FlexBoxLayout
+                    justifyContent="center"
+                    alignItems="center"
+                    width="50%"
+                ></FlexBoxLayout>
+                <FlexBoxLayout
+                    justifyContent="center"
+                    alignItems="center"
+                    width="50%"
+                    flexDirection="column"
+                >
+                    <label
+                        text="Total Coins in Circulation"
+                        width="100%"
+                        class="text-right t_black"
+                        style="font-size: 14;"
+                    ></label>
+                    <label
+                        [text]="totalCoinsInCirculation | number"
+                        width="100%"
+                        class="t_gold text-right"
+                        style="font-size: 20;"
+                    ></label>
+                    <label
+                        text="Show Details"
+                        class="t_blue text-right"
+                        width="100%"
+                        style="font-size: 12;"
+                    ></label>
+                </FlexBoxLayout>
+            </FlexBoxLayout>
+
+            <FlexBoxLayout
+                flexDirection="row"
+                width="96%"
+                class="m-b-5"
+                justifyContent="center"
+                alignItems="center"
+                style="border-width: 2; border-color: black; border-radius: 8; padding: 0 6;"
+            >
+                <FlexBoxLayout
+                    justifyContent="center"
+                    alignItems="center"
+                    width="50%"
+                ></FlexBoxLayout>
+                <FlexBoxLayout
+                    justifyContent="center"
+                    alignItems="center"
+                    width="50%"
+                    flexDirection="column"
+                >
+                    <label
+                        text="Total Wallet Users"
+                        width="100%"
+                        class="text-right t_black"
+                        style="font-size: 14;"
+                    ></label>
+                    <label
+                        [text]="totalwalletusers | number"
+                        width="100%"
+                        class="t_forest text-right"
+                        style="font-size: 20;"
+                    ></label>
+                    <label
+                        text="Show Details"
+                        class="t_blue text-right"
+                        width="100%"
+                        style="font-size: 12;"
+                    ></label>
+                </FlexBoxLayout>
+            </FlexBoxLayout>
         </FlexBoxLayout>
-
 
         <!-- App Footer -->
         <!-- <app-footer [section_1]="false"></app-footer> -->

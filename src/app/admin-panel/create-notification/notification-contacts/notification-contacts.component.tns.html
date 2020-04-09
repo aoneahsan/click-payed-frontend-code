@@ -1,0 +1,100 @@
+<FlexBoxLayout
+    width="auto"
+    height="auto"
+    borderWidth="2"
+    borderRadius="4"
+    borderColor="white"
+    flexDirection="column"
+    justifyContent="center"
+    alignItems="center"
+    style="padding: 30 5;"
+>
+    <!-- modalType = false -->
+    <FlexBoxLayout
+        flexDirection="column"
+        justifyContent="center"
+        alignItems="center"
+        *ngIf="!modalType"
+    >
+        <FlexBoxLayout justifyContent="center" alignItems="center">
+            <label
+                text="CHOOSE CONTACTS"
+                width="70%"
+                style="font-size: 18;"
+            ></label>
+            <button text="Done" (tap)="closeModal('users')" class="-border bg_green t_white"></button>
+        </FlexBoxLayout>
+
+        <label class="hr m-y-5"></label>
+
+        <ScrollLayout>
+            <!-- Table Heading -->
+            <GridLayout rows="auto" columns="auto, *, auto" style="font-size: 14;">
+                <label text="All Contacts" row="0" col="0"></label>
+                <label row="0" col="1"></label>
+                <CheckBox row="0" col="2" [(ngModel)]="selectAllUsers" (tap)="selectUsers(selectAllUsers)"></CheckBox>
+            </GridLayout>
+
+            <!-- Table Content -->
+            <GridLayout rows="auto" columns="auto, *, auto" *ngFor="let user of users" style="font-size: 14;">
+                <label [text]="user.name" row="0" col="0" textWrap="true"></label>
+                <label [text]="user.email" row="0" col="1" class="text-center" textWrap="true"></label>
+                <CheckBox row="0" col="2" [checked]="user.selected"></CheckBox>
+            </GridLayout>
+        </ScrollLayout>
+    </FlexBoxLayout>
+
+    <!-- modalType = true -->
+    <FlexBoxLayout
+        flexDirection="column"
+        justifyContent="center"
+        alignItems="center"
+        *ngIf="modalType"
+        class="m-t-10"
+    >
+        <image src="res://greencheck" width="140" height="140"></image>
+        <FlexBoxLayout
+            justifyContent="center"
+            alignItems="center"
+            style="margin: 0 0 40 0;"
+        >
+            <label
+                text="NOTIFICATION BROADCASTED TO ALL WALLET USERS"
+                class="text-center t_black m-r-5"
+                style="font-size: 16; line-height: 1.3;"
+                width="90%"
+                textWrap="true"
+            ></label>
+        </FlexBoxLayout>
+
+        <FlexBoxLayout
+            justifyContent="center"
+            alignItems="center"
+            style="margin: 0 0 5 0;"
+        >
+            <label
+                text="NOTIFICATION BROADCASTED AT 2255 PST | MAY 20TH 2020"
+                class="text-center t_black m-r-5"
+                style="font-size: 12; line-height: 1.3;"
+                width="90%"
+                textWrap="true"
+            ></label>
+        </FlexBoxLayout>
+        <FlexBoxLayout
+            justifyContent="center"
+            alignItems="center"
+            class="m-t-20"
+            width="98%"
+        >
+            <button
+                width="48%"
+                borderRadius="4"
+                borderWidth="1"
+                (tap)="closeModal('okay')"
+                class="bg_green t_white"
+                text="OKAY!!!"
+                style="font-size: 13;"
+            ></button>
+        </FlexBoxLayout>
+    </FlexBoxLayout>
+</FlexBoxLayout>

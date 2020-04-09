@@ -1,32 +1,106 @@
 <!--The content below is only a placeholder and can be replaced.-->
-<app-action-bar title="Buy Coins" [hasMenu]='true' [showGoBackButton]="true"></app-action-bar>
+<app-action-bar
+    title="Buy Coins"
+    [hasMenu]="true"
+    [showGoBackButton]="true"
+></app-action-bar>
 <ScrollView>
     <FlexBoxLayout flexDirection="column">
         <!-- Notice Board Section -->
-        <Label text="Buy Coins" class="h3 p-10 m-b-0 text-center text-uppercase" letterSpacing=".2" style="background: black; color: white;"></Label>
+        <label
+            text="Buy Coins"
+            class="h3 p-10 m-b-0 text-center text-uppercase"
+            letterSpacing=".2"
+            style="background: black; color: white;"
+        ></label>
         <FlexBoxLayout justifyContent="center" class="p-t-20 p-b-20 h2">
-            <Label text="Coin Rate" class="t_brown"></Label>
-            <Label [text]="pkrToCoinRateText"></Label>
+            <label text="Coin Rate" class="t_brown"></label>
+            <label [text]="pkrToCoinRateText"></label>
         </FlexBoxLayout>
-        <Label text="ENTER AMOUNT TO PURCHASE COINS" class="h4 p-10 m-b-0 text-center text-uppercase bg_forest font-weight-bold" style="color: white;"></Label>
+        <label
+            text="ENTER AMOUNT TO PURCHASE COINS"
+            class="h4 p-10 m-b-0 text-center text-uppercase bg_forest font-weight-bold"
+            style="color: white;"
+        ></label>
         <!-- Coin Part Section -->
-        <FlexBoxLayout width="100%" justifyContent="space-around" style="margin: 30 0 20 0;">
+        <FlexBoxLayout
+            width="100%"
+            justifyContent="space-around"
+            style="margin: 30 0 20 0;"
+        >
             <FlexBoxLayout width="94%" justifyContent="space-around">
                 <GridLayout rows="auto" columns="auto,*" class="coin_btn">
-                    <Label text="PKR" row="0" col="0" fontSize="16" width="52" height="100%" class="text-center" style="border-right-width: 2; padding-top: 10;"></Label>
-                    <TextField [(ngModel)]="rupees_value" row="0" col="1" keyType="number" style="border-width: 0; font-size: 17;padding: 0; margin: 0 0 0 0;" [textWrap]="true" class="text-center" keyboardType="phone"></TextField>
+                    <label
+                        text="PKR"
+                        row="0"
+                        col="0"
+                        fontSize="16"
+                        width="52"
+                        height="100%"
+                        class="text-center"
+                        style="border-right-width: 2; padding-top: 10;"
+                    ></label>
+                    <TextField
+                        [(ngModel)]="rupees_value"
+                        row="0"
+                        col="1"
+                        keyType="number"
+                        style="border-width: 0; font-size: 17;padding: 0; margin: 0 0 0 0;"
+                        [textWrap]="true"
+                        class="text-center"
+                        keyboardType="phone"
+                    ></TextField>
                 </GridLayout>
-                <GridLayout rows="auto" columns="auto,*" class="coin_btn bg_grey">
-                    <Image src="res://coin" row="0" col="0" height="100%" width="40" class="p-r-10 m-r-5" style="border-right-width: 2;"></Image>
-                    <Label [text]="rupees_value * _pkrToCoinsRate" row="0" col="1" style="border-width: 0; font-size: 17; margin-top: 8;" class="text-center"></Label>
+                <GridLayout
+                    rows="auto"
+                    columns="auto,*"
+                    class="coin_btn bg_grey"
+                >
+                    <image
+                        src="res://coin"
+                        row="0"
+                        col="0"
+                        height="100%"
+                        width="40"
+                        class="p-r-10 m-r-5"
+                        style="border-right-width: 2;"
+                    ></image>
+                    <label
+                        [text]="rupees_value * _pkrToCoinsRate"
+                        row="0"
+                        col="1"
+                        style="border-width: 0; font-size: 17; margin-top: 8;"
+                        class="text-center"
+                    ></label>
                 </GridLayout>
             </FlexBoxLayout>
         </FlexBoxLayout>
 
-        <FlexBoxLayout width="100%" justifyContent="space-around" style="margin: 0 0 5 0;">
-            <Button text="PURCHASE COINS" fontSize="14" width="60%" borderRadius="4" class="bg_green t_white p-0"></Button>
+        <FlexBoxLayout
+            width="100%"
+            justifyContent="space-around"
+            style="margin: 0 0 5 0;"
+        >
+            <button
+                text="PURCHASE COINS"
+                fontSize="14"
+                width="60%"
+                borderRadius="4"
+                class="bg_green t_white p-0"
+            ></button>
         </FlexBoxLayout>
-        <Label [text]="remaining_balance" fontSize="14" width="60%" marginBottom="40" borderRadius="4" class="text-center"></Label>
+        <label
+            fontSize="14"
+            width="60%"
+            marginBottom="40"
+            borderRadius="4"
+            class="text-center"
+        >
+            <FormattedString>
+                <span text="Remaining Balance: PKR "></span>
+                <span [text]="remaining_balance | number: '1.2-2'"></span>
+            </FormattedString>
+        </label>
 
         <!-- App Footer -->
         <app-footer [section_1]="false"></app-footer>

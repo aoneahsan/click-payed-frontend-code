@@ -12,6 +12,7 @@ export class FooterComponent implements OnInit {
   @Input() section_2 = true;
   @Input() section_3 = true;
   @Input() section_4 = true;
+  @Input() faq_section = false;
 
   constructor() { }
 

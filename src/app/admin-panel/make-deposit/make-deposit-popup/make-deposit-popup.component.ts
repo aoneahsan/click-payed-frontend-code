@@ -16,6 +16,7 @@ export class MakeDepositPopupComponent implements OnInit {
     amountToDeposit: any,
     select_beneficiary: boolean
   };
+  depositDone: boolean = false;
 
   constructor(private _modalParams: ModalDialogParams) { }
 
@@ -25,7 +26,7 @@ export class MakeDepositPopupComponent implements OnInit {
 
   onHandle(action: "deposit" | 'cancel') {
     if (action == 'deposit') {
-      this._modalParams.closeCallback('deposit');
+      this.depositNow();
     }
     else if (action == 'cancel') {
       this._modalParams.closeCallback('cancel');
@@ -33,6 +34,15 @@ export class MakeDepositPopupComponent implements OnInit {
     else {
       this._modalParams.closeCallback('cancel');
     }
+  }
+  
+  depositNow() {
+    // http to make deposit
+    this.depositDone = true;
+  }
+  
+  closeAfterDepositDone() {
+    this._modalParams.closeCallback('deposit');
   }
 
 }

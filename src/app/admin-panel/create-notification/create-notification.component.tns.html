@@ -1,0 +1,137 @@
+<!--The content below is only a placeholder and can be replaced.-->
+<app-action-bar
+    title="Create Notification"
+    [hasMenu]="true"
+    [showGoBackButton]="true"
+    [isAdminPanel]="true"
+></app-action-bar>
+<ScrollView>
+    <FlexBoxLayout
+        flexDirection="column"
+        justifyContent="flex-start"
+        alignItems="center"
+    >
+        <!-- Notice Board Section -->
+        <label
+            text="Create Notification"
+            class="h3 p-10 m-b-0 text-center text-uppercase"
+            letterSpacing=".2"
+            style="background: black; color: white;margin: 0;"
+            width="100%"
+        ></label>
+
+        <!-- Section # 1 -->
+        <FlexBoxLayout
+            width="94%"
+            flexDirection="column"
+            justifyContent="space-around"
+            alignItems="center"
+        >
+            <!-- TextField for Notification title -->
+            <TextField
+                hint="Type Notification Title Here"
+                width="100%"
+                style="padding: 5 10; font-size: 14; margin: 5 0 4 0;"
+                class="text-center -border"
+                [(ngModel)]="notification_title"
+            ></TextField>
+
+            <!-- TextView for Notification content -->
+            <TextView
+                hint="Type Notification Text Here"
+                width="100%"
+                style="padding: 5 10; font-size: 16; margin: 0 0 4 0;"
+                class="text-center -border"
+                [(ngModel)]="notification_content"
+            ></TextView>
+
+            <!-- Notification Image Container -->
+            <FlexBoxLayout
+                width="160"
+                height="160"
+                class="bg_grey"
+                style="border-width: 2; border-color: black;"
+                justifyContent="center"
+                alignItems="center"
+                *ngIf="img_uploaded"
+            >
+                <image
+                    [src]="notification_img"
+                    width="160"
+                    heigth="160"
+                    stretch="aspectFill"
+                ></image>
+            </FlexBoxLayout>
+            <FlexBoxLayout
+                width="160"
+                height="160"
+                class="bg_grey"
+                style="border-width: 2; border-color: black;"
+                justifyContent="center"
+                alignItems="center"
+                *ngIf="!img_uploaded"
+            >
+                <label text="Image Preview" style="font-size: 18;"></label>
+            </FlexBoxLayout>
+
+            <!-- Upload Image Button Con -->
+            <button
+                text="UPLOAD IMAGE"
+                class="bg_orange t_white"
+                style="font-size: 12;padding: 4 30; border-radius: 4;height: 40;"
+                width="60%"
+                (tap)="uploadImage()"
+            ></button>
+
+            <!-- Download Link TextField Con -->
+            <TextField
+                hint="Create Download Button (Paste Hyperlink Here)"
+                width="92%"
+                class="text-center -border"
+                [(ngModel)]="downloadLink"
+            ></TextField>
+            <label
+                text="If left blank, the download button will not appear"
+                textWrap="true"
+                class="text-center body"
+                style="font-size: 12;"
+            ></label>
+        </FlexBoxLayout>
+
+        <!-- Chosse Contacts Button Con -->
+        <button
+            text="CHOOSE CONTACTS"
+            class="bg_black t_white"
+            style="font-size: 12;padding: 4 30; border-radius: 4;height: 40;"
+            width="60%"
+            (tap)="chooseContacts()"
+        ></button>
+        <label style="font-size: 14;">
+            <FormattedString>
+                <span [text]="selectedContactsCount"></span>
+                <span text="  Contacts Selected"></span>
+            </FormattedString>
+        </label>
+
+        <!-- BROADCAST NOW Button Con -->
+        <button
+            text="BROADCAST NOW"
+            class="bg_green t_white"
+            style="font-size: 12;padding: 4 30; border-radius: 4;height: 40;"
+            width="60%"
+            (tap)="showSuccessMessage()"
+        ></button>
+
+        <!-- VIEW ALL NOTIFICATIONS Button Con -->
+        <button
+            text="VIEW ALL NOTIFICATIONS"
+            class="bg_forest t_white"
+            style="font-size: 12;padding: 4 30; border-radius: 4;height: 40;"
+            nsRouterLink="/admin/notice-board"
+            width="60%"
+        ></button>
+
+        <!-- App Footer -->
+        <!-- <app-footer [section_1]="false"></app-footer> -->
+    </FlexBoxLayout>
+</ScrollView>

@@ -16,6 +16,13 @@
             </TextField>
             <TextField width="80%" class="input -border" hint="Confirm Password" textAlignment="center" ReturnKeyType="done" style="placeholder-color:rgba(255,255,255)">
             </TextField>
+            <Label class="text-center t_white body" width="80%" textWrap="true" (tap)="openTermsandConditions()">
+                <FormattedString>
+                    <Span text="I agree to the "></Span>
+                    <Span text=" Terms & Conditions " class="t_brown" style="font-size: 15; color: rgb(221, 189, 5);"></Span>
+                    <Span text=" of use"></Span>
+                </FormattedString>
+            </Label>
             <Button width="80%" *ngIf="!formSubmited" text="Sign Up" class="-primary" (tap)="signUpAction()"></Button>
             <ActivityIndicator [busy]='true' *ngIf="formSubmited"></ActivityIndicator>
         </StackLayout>

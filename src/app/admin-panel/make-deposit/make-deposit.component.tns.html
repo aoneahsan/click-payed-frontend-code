@@ -1,236 +1,287 @@
 <app-action-bar
-  title="Make a new Deposit"
-  [hasMenu]="true"
-  [showGoBackButton]="true"
+    title="Make a new Deposit"
+    [hasMenu]="true"
+    [showGoBackButton]="true"
 ></app-action-bar>
 <ScrollView>
-  <FlexBoxLayout flexDirection="column">
-    <!-- Notice Board Section -->
-    <Label
-      text="Make a new Deposit"
-      class="h3 p-10 m-b-0 text-center text-uppercase"
-      letterSpacing=".2"
-      style="background: black; color: white;margin: 0;"
-    ></Label>
-    <!-- Coin Part Section -->
-    <FlexBoxLayout
-      width="100%"
-      justifyContent="space-around"
-      style="margin: 14 0 0 0;"
-    >
-      <FlexBoxLayout
-        width="94%"
-        justifyContent="space-between"
-        alignItems="center"
-      >
+    <FlexBoxLayout flexDirection="column">
+        <!-- Notice Board Section -->
+        <label
+            text="Make a new Deposit"
+            class="h3 p-10 m-b-0 text-center text-uppercase"
+            letterSpacing=".2"
+            style="background: black; color: white; margin: 0;"
+        ></label>
+        <!-- Coin Part Section -->
         <FlexBoxLayout
-          width="66%"
-          justifyContent="space-around"
-          alignItems="center"
-          flexDirection="column"
-          marginTop="0"
-        >
-          <TextField
-            hint="Enter a Registered Number"
-            [(ngModel)]="reciver_number"
             width="100%"
-            style="border-width: 2; border-radius: 4;"
-            class="text-center body p-10"
-            keyboardType="phone"
-            [isUserInteractionEnabled]="!userFound"
-          ></TextField>
+            justifyContent="space-around"
+            style="margin: 14 0 0 0;"
+        >
+            <FlexBoxLayout
+                width="94%"
+                justifyContent="space-between"
+                alignItems="center"
+            >
+                <FlexBoxLayout
+                    width="66%"
+                    justifyContent="space-around"
+                    alignItems="center"
+                    flexDirection="column"
+                    marginTop="0"
+                >
+                    <TextField
+                        hint="Enter a Registered Number"
+                        [(ngModel)]="reciver_number"
+                        width="100%"
+                        style="border-width: 2; border-radius: 4;"
+                        class="text-center body p-10"
+                        keyboardType="phone"
+                        [isEnabled]="!userFound"
+                    ></TextField>
+                </FlexBoxLayout>
+                <FlexBoxLayout
+                    width="32%"
+                    justifyContent="space-around"
+                    style="margin: -7.5 0 0 0;"
+                    alignItems="center"
+                    flexDirection="column"
+                    marginTop="0"
+                >
+                    <button
+                        text="SEARCH"
+                        width="100%"
+                        height="42"
+                        fontSize="14"
+                        borderRadius="4"
+                        class="bg_forest t_white p-0"
+                        (tap)="searchPerson()"
+                        *ngIf="!searchForPerson"
+                    ></button>
+                    <ActivityIndicator
+                        [busy]="true"
+                        *ngIf="searchForPerson"
+                    ></ActivityIndicator>
+                </FlexBoxLayout>
+            </FlexBoxLayout>
         </FlexBoxLayout>
+
         <FlexBoxLayout
-          width="32%"
-          justifyContent="space-around"
-          style="margin: -7.5 0 0 0;"
-          alignItems="center"
-          flexDirection="column"
-          marginTop="0"
-        >
-          <Button
-            text="SEARCH"
             width="100%"
-            height="42"
-            fontSize="14"
-            borderRadius="4"
-            class="bg_forest t_white p-0"
-            (tap)="searchPerson()"
-            *ngIf="!searchForPerson"
-          ></Button>
-          <ActivityIndicator
-            [busy]="true"
-            *ngIf="searchForPerson"
-          ></ActivityIndicator>
+            justifyContent="space-around"
+            style="margin: 0 0 5 0; border-width: 2;"
+        >
+            <label
+                text="SEARCH RESULTS"
+                style="font-size: 18; font-weight: 600; letter-spacing: 0.1;"
+                class="text-center"
+            ></label>
         </FlexBoxLayout>
-      </FlexBoxLayout>
+
+        <FlexBoxLayout
+            width="100%"
+            justifyContent="center"
+            alignItems="center"
+            style="margin: 15 0 20 0;"
+            flexDirection="column"
+        >
+            <FlexBoxLayout
+                width="94%"
+                justifyContent="space-between"
+                alignItems="center"
+                flexDirection="row"
+            >
+                <FlexBoxLayout
+                    width="49%"
+                    justifyContent="space-around"
+                    alignItems="center"
+                    flexDirection="column"
+                >
+                    <label
+                        text="Account Name"
+                        width="100%"
+                        style="text-align: left;"
+                    ></label>
+                    <label
+                        [text]="reciver.name"
+                        width="100%"
+                        style="border-width: 2; border-radius: 4;"
+                        class="text-center bg_grey body p-10"
+                    ></label>
+                </FlexBoxLayout>
+                <FlexBoxLayout
+                    width="49%"
+                    justifyContent="space-around"
+                    alignItems="center"
+                    flexDirection="column"
+                >
+                    <label
+                        text="Registered Mobile Number"
+                        width="100%"
+                        style="text-align: left;"
+                    ></label>
+                    <label
+                        [text]="reciver.number"
+                        width="100%"
+                        style="border-width: 2; border-radius: 4;"
+                        class="text-center bg_grey body p-10"
+                    ></label>
+                </FlexBoxLayout>
+            </FlexBoxLayout>
+
+            <FlexBoxLayout
+                width="94%"
+                justifyContent="space-between"
+                alignItems="center"
+                flexDirection="row"
+            >
+                <FlexBoxLayout
+                    width="49%"
+                    justifyContent="space-around"
+                    alignItems="center"
+                    flexDirection="column"
+                >
+                    <label
+                        text="City"
+                        width="100%"
+                        style="text-align: left;"
+                    ></label>
+                    <label
+                        [text]="reciver.city"
+                        width="100%"
+                        style="border-width: 2; border-radius: 4;"
+                        class="text-center bg_grey body p-10"
+                    ></label>
+                </FlexBoxLayout>
+                <FlexBoxLayout
+                    width="49%"
+                    justifyContent="space-around"
+                    alignItems="center"
+                    flexDirection="column"
+                >
+                    <label
+                        text="Country"
+                        width="100%"
+                        style="text-align: left;"
+                    ></label>
+                    <label
+                        [text]="reciver.country"
+                        width="100%"
+                        style="border-width: 2; border-radius: 4;"
+                        class="text-center bg_grey body p-10"
+                    ></label>
+                </FlexBoxLayout>
+            </FlexBoxLayout>
+
+            <FlexBoxLayout
+                width="94%"
+                justifyContent="center"
+                alignItems="center"
+                class="m-t-20"
+            >
+                <FlexBoxLayout
+                    width="44%"
+                    style="border-width: 2; border-radius: 4;"
+                    class="bg_grey text-center"
+                >
+                    <CheckBox
+                        [(ngModel)]="select_beneficiary"
+                        width="65"
+                    ></CheckBox>
+                    <label
+                        text="Select Beneficiary"
+                        width="100%"
+                        class="m-t-5"
+                    ></label>
+                </FlexBoxLayout>
+            </FlexBoxLayout>
+        </FlexBoxLayout>
+
+        <label class="hr m-5" style="border-color: black;"></label>
+
+        <FlexBoxLayout
+            width="100%"
+            justifyContent="space-around"
+            alignItems="center"
+            class="m-t-10 m-b-20"
+        >
+            <FlexBoxLayout
+                width="100%"
+                justifyContent="space-around"
+                alignItems="center"
+                flexDirection="column"
+            >
+                <TextField
+                    #coinsToTransfer
+                    hint="Enter Amount Here"
+                    [(ngModel)]="amountToDeposit"
+                    width="60%"
+                    style="border-width: 2; border-radius: 4;"
+                    class="text-center body p-10"
+                    keyboardType="phone"
+                ></TextField>
+                <label
+                    text="Enter the Amount to be Deposited"
+                    [textWrap]="true"
+                    width="100%"
+                    class="text-center"
+                    marginTop="-18"
+                ></label>
+                <TextField
+                    #trxNo
+                    hint="Enter TRX ID Here"
+                    [(ngModel)]="trx_id"
+                    width="60%"
+                    style="border-width: 2; border-radius: 4;"
+                    class="text-center body p-10"
+                    keyboardType="phone"
+                ></TextField>
+                <label
+                    text="Enter TRX ID - Min 6"
+                    [textWrap]="true"
+                    width="100%"
+                    class="text-center"
+                    marginTop="-18"
+                ></label>
+            </FlexBoxLayout>
+        </FlexBoxLayout>
+
+        <FlexBoxLayout
+            width="100%"
+            justifyContent="space-around"
+            style="margin: 0 0 0 0;"
+        >
+            <button
+                text="Deposit Now"
+                (tap)="depositAmount()"
+                fontSize="14"
+                width="50%"
+                borderRadius="4"
+                class="bg_green t_white p-0"
+                *ngIf="!formSubmited"
+                height="40"
+                [isEnabled]="userFound && coinsEntered && select_beneficiary && trxIdAdded"
+            ></button>
+            <ActivityIndicator
+                [busy]="true"
+                *ngIf="formSubmited"
+            ></ActivityIndicator>
+        </FlexBoxLayout>
+
+        <FlexBoxLayout
+            width="100%"
+            justifyContent="space-around"
+            style="margin: 0 0 0 0;"
+        >
+            <button
+                text="VIEW PENDING REQUESTS"
+                nsRouterLink="/admin/deposit-pending-requests"
+                fontSize="14"
+                width="50%"
+                height="40"
+                borderRadius="4"
+                class="bg_black t_white p-0"
+            ></button>
+        </FlexBoxLayout>
     </FlexBoxLayout>
-
-    <FlexBoxLayout
-      width="100%"
-      justifyContent="space-around"
-      style="margin: 0 0 5 0; border-width: 2;"
-    >
-      <Label
-        text="SEARCH RESULTS"
-        style="font-size: 18; font-weight: 600; letter-spacing: .1;"
-        class="text-center"
-      ></Label>
-    </FlexBoxLayout>
-
-    <FlexBoxLayout
-      width="100%"
-      justifyContent="center"
-      alignItems="center"
-      style="margin: 15 0 20 0;"
-      flexDirection="column"
-    >
-      <FlexBoxLayout
-        width="94%"
-        justifyContent="space-between"
-        alignItems="center"
-        flexDirection="row"
-      >
-        <FlexBoxLayout
-          width="49%"
-          justifyContent="space-around"
-          alignItems="center"
-          flexDirection="column"
-        >
-          <Label
-            text="Account Name"
-            width="100%"
-            style="text-align: left;"
-          ></Label>
-          <Label
-            [text]="reciver.name"
-            width="100%"
-            style="border-width: 2; border-radius: 4;"
-            class="text-center bg_grey body p-10"
-          ></Label>
-        </FlexBoxLayout>
-        <FlexBoxLayout
-          width="49%"
-          justifyContent="space-around"
-          alignItems="center"
-          flexDirection="column"
-        >
-          <Label
-            text="Registered Mobile Number"
-            width="100%"
-            style="text-align: left;"
-          ></Label>
-          <Label
-            [text]="reciver.number"
-            width="100%"
-            style="border-width: 2; border-radius: 4;"
-            class="text-center bg_grey body p-10"
-          ></Label>
-        </FlexBoxLayout>
-      </FlexBoxLayout>
-
-      <FlexBoxLayout
-        width="94%"
-        justifyContent="space-between"
-        alignItems="center"
-        flexDirection="row"
-      >
-        <FlexBoxLayout
-          width="49%"
-          justifyContent="space-around"
-          alignItems="center"
-          flexDirection="column"
-        >
-          <Label text="City" width="100%" style="text-align: left;"></Label>
-          <Label
-            [text]="reciver.city"
-            width="100%"
-            style="border-width: 2; border-radius: 4;"
-            class="text-center bg_grey body p-10"
-          ></Label>
-        </FlexBoxLayout>
-        <FlexBoxLayout
-          width="49%"
-          justifyContent="space-around"
-          alignItems="center"
-          flexDirection="column"
-        >
-          <Label text="Country" width="100%" style="text-align: left;"></Label>
-          <Label
-            [text]="reciver.country"
-            width="100%"
-            style="border-width: 2; border-radius: 4;"
-            class="text-center bg_grey body p-10"
-          ></Label>
-        </FlexBoxLayout>
-      </FlexBoxLayout>
-
-      <FlexBoxLayout
-        width="94%"
-        justifyContent="center"
-        alignItems="center"
-        class="m-t-20"
-      >
-        <FlexBoxLayout
-          width="44%"
-          style="border-width: 2; border-radius: 4;"
-          class="bg_grey text-center"
-        >
-          <CheckBox [(ngModel)]="select_beneficiary" width="65"></CheckBox>
-          <Label text="Select Beneficiary" width="100%" class="m-t-5"></Label>
-        </FlexBoxLayout>
-      </FlexBoxLayout>
-    </FlexBoxLayout>
-
-    <Label class="hr m-5" style="border-color: black;"></Label>
-
-    <FlexBoxLayout
-      width="100%"
-      justifyContent="space-around"
-      alignItems="center"
-      class="m-t-10 m-b-20"
-    >
-      <FlexBoxLayout
-        width="100%"
-        justifyContent="space-around"
-        alignItems="center"
-        flexDirection="column"
-      >
-        <TextField
-          #coinsToTransfer
-          hint="Enter Amount Here"
-          [(ngModel)]="amountToDeposit"
-          width="60%"
-          style="border-width: 2; border-radius: 4;"
-          class="text-center body p-10"
-          keyboardType="phone"
-        ></TextField>
-        <Label
-          text="Enter the Amount to be Deposited"
-          [textWrap]="true"
-          width="100%"
-          class="text-center"
-          marginTop="-4"
-        ></Label>
-      </FlexBoxLayout>
-    </FlexBoxLayout>
-
-    <FlexBoxLayout
-      width="100%"
-      justifyContent="space-around"
-      style="margin: 0 0 5 0;"
-    >
-      <Button
-        text="Deposit Now"
-        (tap)="depositAmount()"
-        fontSize="14"
-        width="50%"
-        borderRadius="4"
-        class="bg_green t_white p-0"
-        *ngIf="!formSubmited"
-        [isEnabled]="userFound && coinsEntered && select_beneficiary"
-      ></Button>
-      <ActivityIndicator [busy]="true" *ngIf="formSubmited"></ActivityIndicator>
-    </FlexBoxLayout>
-  </FlexBoxLayout>
 </ScrollView>

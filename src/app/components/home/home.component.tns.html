@@ -49,17 +49,15 @@
             </FlexBoxLayout>
         </FlexBoxLayout>
 
-        <FlexBoxLayout width="100%" justifyContent="space-around" class="m-t-10">
+        <!-- <FlexBoxLayout width="100%" justifyContent="space-around" class="m-t-10">
             <FlexBoxLayout width="94%" justifyContent="space-around">
                 <FlexBoxLayout width="48%" style="height: 40;padding: 0 10;" justifyContent="center" flexDirection="column" alignItems="center" class="topup_btn" nsRouterLink="/admin/dashboard">
                     <Label text="Admin Panel" class="text-left"></Label>
                 </FlexBoxLayout>
             </FlexBoxLayout>
-        </FlexBoxLayout>
+        </FlexBoxLayout> -->
 
         <!-- App Footer -->
-        <StackLayout style="margin-top: 50;">
-            <app-footer [section_1]="false"></app-footer>
-        </StackLayout>
+        <app-footer [section_1]="false" [faq_section]="true"></app-footer>
     </FlexBoxLayout>
 </ScrollView>

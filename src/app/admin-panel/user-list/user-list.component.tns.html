@@ -1,0 +1,141 @@
+<!--The content below is only a placeholder and can be replaced.-->
+<app-action-bar
+    title="User List"
+    [hasMenu]="true"
+    [showGoBackButton]="true"
+    [isAdminPanel]="true"
+></app-action-bar>
+<ScrollView>
+    <FlexBoxLayout
+        flexDirection="column"
+        justifyContent="flex-start"
+        alignItems="center"
+    >
+        <!-- Notice Board Section -->
+        <label
+            text="User List"
+            class="h3 p-10 m-b-0 text-center text-uppercase"
+            letterSpacing=".2"
+            style="background: black; color: white;margin: 0;"
+            width="100%"
+        ></label>
+
+        <!-- Section # 1 -->
+        <FlexBoxLayout
+            width="94%"
+            justifyContent="space-around"
+            alignItems="center"
+            style="padding: 15 0;"
+        >
+            <TextField
+                hint="Type Keywords Here"
+                width="70%"
+                class="-border text-center"
+            ></TextField>
+            <button
+                text="SEARCH"
+                width="30%"
+                class="bg_green t_white -rounded"
+                height="44"
+            ></button>
+        </FlexBoxLayout>
+
+        <!-- Section # 2 -->
+        <!-- Table Container -->
+        <SlackLayout *ngIf="users">
+            <!-- Table Headings Row -->
+            <GridLayout
+                rows="auto"
+                columns="auto, auto, auto, auto, auto"
+                class="m-b-10 p-t-10 p-b-10 p-l-10"
+                width="100%"
+                style="border-width: 2; font-weight: 700;"
+            >
+                <label
+                    text="#"
+                    style="font-size: 14;"
+                    row="0"
+                    col="0"
+                    minWidth="40"
+                ></label>
+                <label
+                    text="User Name"
+                    style="font-size: 14;"
+                    row="0"
+                    col="1"
+                    minWidth="125"
+                ></label>
+                <label
+                    text="Rgd No."
+                    style="font-size: 14;"
+                    row="0"
+                    col="2"
+                    minWidth="115"
+                ></label>
+                <label
+                    text="Status"
+                    style="font-size: 14;"
+                    row="0"
+                    col="3"
+                    minWidth="70"
+                ></label>
+                <label
+                    text="Action"
+                    style="font-size: 14;"
+                    row="0"
+                    col="4"
+                    class="p-l-10"
+                    minWidth="80"
+                ></label>
+            </GridLayout>
+
+            <!-- Table Content Rows -->
+            <GridLayout
+                rows="auto"
+                columns="auto, auto, auto, auto, auto"
+                class="m-b-5 p-l-10"
+                width="100%"
+                *ngFor="let user of users"
+                (tap)="showPerson(user.id)"
+            >
+                <label
+                    [text]="user.id"
+                    style="font-size: 14;"
+                    row="0"
+                    col="0"
+                    minWidth="40"
+                ></label>
+                <label
+                    [text]="user.name"
+                    style="font-size: 14;"
+                    row="0"
+                    col="1"
+                    minWidth="125"
+                ></label>
+                <label
+                    [text]="user.phone_no"
+                    style="font-size: 14;"
+                    row="0"
+                    col="2"
+                    minWidth="115"
+                ></label>
+                <label
+                    [text]="user.status"
+                    style="font-size: 14;text-transform: capitalize;"
+                    row="0"
+                    col="3"
+                    minWidth="70"
+                    [ngClass]="{'t_red': user.status == 'disabled', 't_green': user.status == 'active'}"
+                ></label>
+                <label
+                    text="RESET"
+                    style="font-size: 14;text-transform: capitalize;"
+                    row="0"
+                    col="4"
+                    minWidth="80"
+                    class="p-l-10"
+                ></label>
+            </GridLayout>
+        </SlackLayout>
+    </FlexBoxLayout>
+</ScrollView>

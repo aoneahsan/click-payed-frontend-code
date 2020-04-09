@@ -1,4 +1,7 @@
 import { Routes } from '@angular/router';
+import { TextComponentComponent } from './text/text-component/text-component.component';
+import { NewNotificationComponent } from './shared/ui/new-notification/new-notification.component';
+import { CompatibleGamesComponent } from './components/compatible-games/compatible-games.component';
 
 export const routes: Routes = [
   {
@@ -15,7 +18,7 @@ export const routes: Routes = [
     loadChildren: './modules/auth/auth.module#AuthModule'
   },
   {
-    path: 'buy-coins',
+    path: 'buy-coins', 
     loadChildren: './modules/components/buy-coins/buy-coins.module#BuyCoinsModule'
   },
   {
@@ -46,5 +49,21 @@ export const routes: Routes = [
   {
     path: 'admin/dashboard',
     loadChildren: './modules/adminpanel/adminpanel.module#AdminPanelModule'
+  },
+  {
+    path: 'notification',
+    // path: 'notification/:id',
+    component: NewNotificationComponent
+  },
+
+
+  // Text Component
+  {
+    path: 'textcom',
+    component: TextComponentComponent
+  },
+  {
+    path: 'compatible-games',
+    component: CompatibleGamesComponent
   }
 ];

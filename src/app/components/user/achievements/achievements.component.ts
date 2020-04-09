@@ -21,6 +21,8 @@ export class AchievementsComponent implements OnInit {
   achievements_records: {name: string, coin_spend: number, coin_earned: number}[] = [];
   coin_spend_total: number = 0;
   coin_earned_total: number = 0;
+  
+  hasProfileImg: boolean = false;
 
   constructor(private _authService: AuthService) {}
 

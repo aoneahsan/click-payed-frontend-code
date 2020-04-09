@@ -12,26 +12,28 @@ import { SharedModule } from '@src/app/modules/shared/shared.module';
 // import { TNSCheckBoxModule } from '@nstudio/nativescript-checkbox/angular';
 
 // Components Modules
-import { AuthModule } from './modules/auth/auth.module';
-import { AdminPanelModule } from './modules/adminpanel/adminpanel.module';
-import { UserProfileModule } from './modules/components/user-profile/user-profile.module';
-import { BuyCoinsModule } from './modules/components/buy-coins/buy-coins.module';
-import { RedeemCoinsModule } from './modules/components/redeem-coins/redeem-coins.module';
-import { RequestWithdrawalModule } from './modules/components/request-withdrawal/request-withdrawal.module';
-import { TotUpWalletModule } from './modules/components/topup-wallet/topup-wallet.module';
-import { TransactionHistoryModule } from './modules/components/transaction-history/transaction-history.module';
-import { TransferCoinsModule } from './modules/components/transfer-coins/transfer-coins.module';
-import { HomeModule } from './modules/components/home/home.module';
+import { AuthModule } from '@src/app/modules/auth/auth.module';
+import { AdminPanelModule } from '@src/app/modules/adminpanel/adminpanel.module';
+import { UserProfileModule } from '@src/app/modules/components/user-profile/user-profile.module';
+import { BuyCoinsModule } from '@src/app/modules/components/buy-coins/buy-coins.module';
+import { RedeemCoinsModule } from '@src/app/modules/components/redeem-coins/redeem-coins.module';
+import { RequestWithdrawalModule } from '@src/app/modules/components/request-withdrawal/request-withdrawal.module';
+import { TotUpWalletModule } from '@src/app/modules/components/topup-wallet/topup-wallet.module';
+import { TransactionHistoryModule } from '@src/app/modules/components/transaction-history/transaction-history.module';
+import { TransferCoinsModule } from '@src/app/modules/components/transfer-coins/transfer-coins.module';
+import { HomeModule } from '@src/app/modules/components/home/home.module';
 
 // Compoenents
 import { AppComponent } from '@src/app/app.component';
+import { TextComponentComponent } from '@src/app/text/text-component/text-component.component';
 
 // Uncomment and add to NgModule imports  if you need to use the HTTP wrapper
 // import { NativeScriptHttpClientModule } from 'nativescript-angular/http-client';
 
 @NgModule({
   declarations: [
-    AppComponent
+    AppComponent,
+    TextComponentComponent
   ],
   imports: [
     // NativeScriptUISideDrawerModule,

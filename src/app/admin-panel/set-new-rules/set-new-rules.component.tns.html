@@ -1,0 +1,274 @@
+<!--The content below is only a placeholder and can be replaced.-->
+<app-action-bar
+    title="SET RULES"
+    [hasMenu]="true"
+    [showGoBackButton]="true"
+    [isAdminPanel]="true"
+></app-action-bar>
+<ScrollView>
+    <FlexBoxLayout
+        flexDirection="column"
+        justifyContent="flex-start"
+        alignItems="center"
+    >
+        <!-- Notice Board Section -->
+        <label
+            text="SET RULES"
+            class="h3 p-10 m-b-0 text-center text-uppercase"
+            letterSpacing=".2"
+            style="background: black; color: white; margin: 0;"
+            width="100%"
+        ></label>
+
+        <!-- Section # 1 -->
+        <label
+            text="AGENCY CHARGES & COMMISSION RULES"
+            class="h3 p-10 m-b-0 text-center text-uppercase t_white bg_forest"
+            letterSpacing=""
+            style="margin: 0;"
+            width="100%"
+        ></label>
+        <FlexBoxLayout
+            width="94%"
+            flexDirection="row"
+            justifyContent="space-around"
+            alignItems="center"
+            class="p-t-5"
+        >
+            <label
+                text="Agency Service Charge (%)"
+                width="55%"
+                style="font-size: 13;"
+                textWrap="true"
+            ></label>
+            <TextField
+                width="45%"
+                class="-border text-center"
+                height="40"
+                hint="20"
+                style="border-radius: 4;"
+                keyboardType="phone"
+            ></TextField>
+        </FlexBoxLayout>
+        <label
+            class="hr m-y-5 t_black"
+            style="
+                border-width: 2;
+                border-color: black;
+                height: 2;
+                background-color: black;
+            "
+        ></label>
+
+        <FlexBoxLayout
+            width="94%"
+            flexDirection="row"
+            justifyContent="space-around"
+            alignItems="center"
+            class=""
+        >
+            <label
+                text="Referral Commission (%)"
+                width="55%"
+                style="font-size: 13;"
+                textWrap="true"
+            ></label>
+            <TextField
+                width="45%"
+                class="-border text-center"
+                height="40"
+                hint="20"
+                style="border-radius: 4;"
+                keyboardType="phone"
+            ></TextField>
+        </FlexBoxLayout>
+        <FlexBoxLayout
+            width="94%"
+            flexDirection="row"
+            justifyContent="space-around"
+            alignItems="center"
+            class="p-b-5"
+        >
+            <label
+                text="Required minimum deposit for referral activation"
+                width="55%"
+                style="font-size: 13;"
+                textWrap="true"
+            ></label>
+            <TextField
+                width="45%"
+                class="-border text-center"
+                height="40"
+                hint="20"
+                style="border-radius: 4;"
+                keyboardType="phone"
+            ></TextField>
+        </FlexBoxLayout>
+
+        <!-- Section # 2 -->
+        <label
+            text="EDITOR SECTION"
+            class="h3 p-10 m-b-0 text-center text-uppercase t_white bg_forest"
+            letterSpacing=".2"
+            style="margin: 0;"
+            width="100%"
+        ></label>
+        <label
+            text="MAKE A NEW EDITOR"
+            class="h4 p-4 m-b-0 text-center text-uppercase"
+            letterSpacing=""
+            style="margin: 0; border-width: 2;"
+            width="100%"
+        ></label>
+
+        <!-- Editors -->
+        <FlexBoxLayout
+            flexDirection="column"
+            justifyContent="space-around"
+            alignItems="center"
+            *ngIf="editors"
+            class="editors p-t-5"
+        >
+            <GridLayout
+                rows="auto"
+                columns="auto, auto, auto, auto, auto"
+                *ngFor="let editor of editors"
+                class="editors__single"
+            >
+                <Checkbox
+                    [checked]="editor.checked"
+                    (tap)="editorSelected(editor)"
+                    row="0"
+                    col="0"
+                ></Checkbox>
+                <label
+                    [text]="editor.name"
+                    minWidth="100"
+                    class="editor__name"
+                    row="0"
+                    col="1"
+                    textWrap="true"
+                    style="margin: 10 0 0 0;"
+                ></label>
+                <label
+                    [text]="editor.number"
+                    minWidth="100"
+                    class="editor__number text-center"
+                    row="0"
+                    col="2"
+                    textWrap="true"
+                    style="margin: 10 0 0 0;"
+                ></label>
+                <button
+                    text="EDIT ROLE"
+                    row="0"
+                    col="3"
+                    class="-border bg_black t_white editor__btn"
+                    style="height: 40; font-size: 10; margin: 0;"
+                    textWrap="true"
+                ></button>
+                <button
+                    text="REMOVE"
+                    row="0"
+                    col="4"
+                    class="-border bg_red t_white editor__btn"
+                    style="height: 40; font-size: 10; margin: 0;"
+                    textWrap="true"
+                ></button>
+            </GridLayout>
+        </FlexBoxLayout>
+        <ActivityIndicator busy="true" *ngIf="!editors"></ActivityIndicator>
+
+        <label
+            text="MAKE A NEW EDITOR"
+            class="h4 p-4 m-b-0 text-center text-uppercase"
+            letterSpacing=""
+            style="margin: 0; border-width: 2;"
+            width="100%"
+        ></label>
+
+        <FlexBoxLayout
+            width="94%"
+            flexDirection="row"
+            justifyContent="space-around"
+            alignItems="center"
+            class="p-b-5"
+        >
+            <TextField
+                width="68%"
+                class="-border text-center"
+                height="40"
+                hint="Enter a Registered Mobile Number Here"
+                style="border-radius: 4; margin: 0;"
+                [(ngModel)]="searchPersonNumber"
+                keyboardType="phone"
+            ></TextField>
+            <button
+                text="SEARCH"
+                width="30%"
+                style="font-size: 13; margin: 0;"
+                textWrap="true"
+                class="bg_forest t_white"
+                (tap)="searchForPerson()"
+                [isEnabled]="personNumberAdded"
+            ></button>
+        </FlexBoxLayout>
+
+        <label
+            text="SEARCH RESULTS"
+            class="h4 p-4 m-b-0 text-center text-uppercase"
+            letterSpacing=""
+            style="margin: 0; border-width: 2;"
+            width="100%"
+            *ngIf="personFound"
+        ></label>
+        <FlexBoxLayout
+            width="94%"
+            flexDirection="row"
+            justifyContent="space-around"
+            alignItems="center"
+            class="p-b-5"
+            *ngIf="personFound"
+        >
+            <GridLayout
+                rows="auto"
+                columns="auto, auto, *, auto"
+                class="editors__single"
+            >
+                <Checkbox
+                    [checked]="searchedPerson.checked"
+                    (tap)="makeEditor(searchedPerson)"
+                    row="0"
+                    col="0"
+                ></Checkbox>
+                <label
+                    [text]="searchedPerson.name"
+                    minWidth="100"
+                    class="editor__name"
+                    row="0"
+                    col="1"
+                    textWrap="true"
+                    style="margin: 10 0 0 0;"
+                ></label>
+                <label
+                    [text]="searchedPerson.number"
+                    minWidth="100"
+                    class="editor__number text-center"
+                    row="0"
+                    col="2"
+                    textWrap="true"
+                    style="margin: 10 0 0 0;"
+                ></label>
+                <button
+                    text="MAKE AS EDITOR"
+                    row="0"
+                    col="3"
+                    class="-border bg_green t_white editor__btn"
+                    style="height: 40; font-size: 10; margin: 0;padding: 0 16;"
+                    textWrap="true"
+                    (tap)="makeEditor(searchedPerson)"
+                ></button>
+            </GridLayout>
+        </FlexBoxLayout>
+    </FlexBoxLayout>
+</ScrollView>

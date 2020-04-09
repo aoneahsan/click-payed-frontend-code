@@ -21,7 +21,7 @@ export class BuyCoinsComponent implements OnInit, OnDestroy {
     this._remaining_balance_Sub = this._systemService
       .getUserBalance()
       .subscribe(balance => {
-        this._remaining_balance = "Remaining Balance: PKR " + balance;
+        this._remaining_balance = balance;
       });
     this._pkrToCoinsRate = this._systemService.getPkrToCoinRate();
     this.pkrToCoinRateText = ' | PKR 1 = ' + this._pkrToCoinsRate + ' Coins';

@@ -1,0 +1,202 @@
+<FlexBoxLayout
+    width="330"
+    height="auto"
+    borderWidth="2"
+    borderRadius="4"
+    borderColor="white"
+    flexDirection="column"
+    justifyContent="center"
+    alignItems="center"
+    style="padding: 30 5;"
+>
+    <!-- Before Request Approved -->
+    <FlexBoxLayout
+        flexDirection="column"
+        justifyContent="center"
+        alignItems="center"
+        *ngIf="!requestApproved"
+    >
+        <!-- <Label text="PLEASE CONFIRM THAT YOU WISH TO DEPOSIT" style="font-size: 20;" [textWrap]="true" class="text-center" width="90%"></Label> -->
+        <FlexBoxLayout justifyContent="center" alignItems="center">
+            <label class="h2">
+                <FormattedString>
+                    <Span text="TRX ID: "></Span>
+                    <Span [text]="modalData.trx_id"></Span>
+                </FormattedString>
+            </label>
+        </FlexBoxLayout>
+        <FlexBoxLayout
+            justifyContent="center"
+            alignItems="center"
+            class="m-t-0 m-b-0"
+        >
+            <label
+                text="FOR AMOUNT"
+                class="text-center t_black font-weight-blod"
+                style="font-size: 14;"
+            ></label>
+        </FlexBoxLayout>
+        <FlexBoxLayout
+            justifyContent="center"
+            alignItems="center"
+            class="m-t-0 m-b-10"
+        >
+            <label
+                text="PKR"
+                class="text-center t_black m-r-5"
+                style="font-size: 20;"
+            ></label>
+            <label
+                [text]="modalData.amount | number: '1.2-2'"
+                class="text-center t_black"
+                style="font-size: 24;"
+            ></label>
+        </FlexBoxLayout>
+        <label
+            text="FOR THE WALLET WITHDRAWAL REQUEST OF"
+            style="font-size: 14; font-weight: 400; text-align: center;"
+            textWrap="true"
+        ></label>
+        <FlexBoxLayout
+            justifyContent="center"
+            alignItems="center"
+            flexDirection="column"
+            class="m-t-10 m-b-0"
+        >
+            <label
+                [text]="modalData.account_name"
+                class="text-center"
+                style="font-size: 24;"
+            ></label>
+            <label
+                [text]="modalData.account_no"
+                class="text-center t_blue"
+                style="font-size: 24;"
+            ></label>
+        </FlexBoxLayout>
+
+        <FlexBoxLayout
+            justifyContent="center"
+            alignItems="center"
+            flexDirection="column"
+            class="m-t-10 m-b-0"
+        >
+            <label
+                text="DEPOSIT REQUESTED AT"
+                class="text-center"
+                style="font-size: 10;"
+            ></label>
+            <label
+                [text]="modalData.date_time"
+                class="text-center"
+                style="font-size: 12;"
+            ></label>
+        </FlexBoxLayout>
+        <FlexBoxLayout justifyContent="center" alignItems="center">
+            <TextView
+                hint="Optional Note Type Here"
+                width="200"
+                height="80"
+                [(ngModel)]="additional_note"
+                class="text-center"
+                style="border-width: 1; border-color: black; border-radius: 4; margin: 10 0 10 0;"
+            ></TextView>
+        </FlexBoxLayout>
+        <FlexBoxLayout
+            justifyContent="center"
+            alignItems="center"
+            class="m-t-10"
+            width="98%"
+        >
+            <button
+                width="48%"
+                borderRadius="4"
+                borderWidth="1"
+                (tap)="onHandle('approve')"
+                class="bg_green t_white"
+                text="APPROVE"
+                style="font-size: 13;"
+            ></button>
+            <button
+                width="48%"
+                borderRadius="4"
+                borderWidth="1"
+                (tap)="onHandle('reject')"
+                class="bg_orange t_white"
+                text="REJECT"
+                style="font-size: 13;"
+            ></button>
+        </FlexBoxLayout>
+    </FlexBoxLayout>
+
+    <!-- After Request Approved -->
+    <FlexBoxLayout
+        flexDirection="column"
+        justifyContent="center"
+        alignItems="center"
+        *ngIf="requestApproved"
+        class="m-t-10"
+    >
+        <image src="res://greencheck" width="140" height="140"></image>
+        <FlexBoxLayout
+            justifyContent="center"
+            alignItems="center"
+            class="m-t-0 m-b-0"
+        >
+            <label
+                text="PKR"
+                class="text-center t_black m-r-5"
+                style="font-size: 18;"
+            ></label>
+            <label
+                [text]="modalData.amount"
+                class="text-center t_black"
+                style="font-size: 24;"
+            ></label>
+        </FlexBoxLayout>
+        <label
+            text="CREDITED TO EXTERNAL WALLET ACCOUNT OF"
+            style="font-size: 14; font-weight: 400; text-align: center;"
+            textWrap="true"
+        ></label>
+        <FlexBoxLayout
+            justifyContent="center"
+            alignItems="center"
+            flexDirection="column"
+            class="m-t-15 m-b-20"
+        >
+            <label
+                [text]="modalData.account_name"
+                class="text-center"
+                style="font-size: 24;"
+            ></label>
+            <label
+                [text]="modalData.account_no"
+                class="text-center t_blue"
+                style="font-size: 24;"
+            ></label>
+        </FlexBoxLayout>
+        <label
+            [text]="request_approved_date_time"
+            width="80%"
+            style="font-size: 12; font-weight: 400; text-align: center;"
+            textWrap="true"
+        ></label>
+        <FlexBoxLayout
+            justifyContent="center"
+            alignItems="center"
+            class="m-t-20"
+            width="98%"
+        >
+            <button
+                width="48%"
+                borderRadius="4"
+                borderWidth="1"
+                (tap)="aprovedMessagePopupHandler()"
+                class="bg_green t_white"
+                text="OKAY!!!"
+                style="font-size: 13;"
+            ></button>
+        </FlexBoxLayout>
+    </FlexBoxLayout>
+</FlexBoxLayout>
