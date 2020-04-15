@@ -6,7 +6,7 @@ import { CompatibleGamesComponent } from './components/compatible-games/compatib
 export const routes: Routes = [
   {
     path: '',
-    redirectTo: '/home',
+    redirectTo: '/sign-in',
     pathMatch: 'full',
   },
   {
