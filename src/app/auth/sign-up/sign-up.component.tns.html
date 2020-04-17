@@ -1,35 +1,121 @@
-<app-action-bar title="Sign Up" [showGoBackButton]="false" [hasMenu]="false"></app-action-bar>
+<app-action-bar
+    title="Sign Up"
+    [showGoBackButton]="false"
+    [hasMenu]="false"
+></app-action-bar>
 <ScrollView>
-    <FlexboxLayout class="main_con" flexDirection="column" justifyContent="center" alignItems="center">
+    <FlexboxLayout
+        class="main_con"
+        flexDirection="column"
+        justifyContent="center"
+        alignItems="center"
+    >
         <StackLayout class="text-center m-b-0" style="margin: -100 0 0 0;">
-            <Label class="h1 t_white" text="Sign Up"></Label>
-            <Label class="h2 t_white" text="Create Your eWallet Account"></Label>
+            <label class="h1 t_white" text="Sign Up"></label>
+            <label
+                class="h2 t_white"
+                text="Create Your eWallet Account"
+            ></label>
         </StackLayout>
         <StackLayout class="nt-form" style="margin: -10 0 0 0;">
-            <TextField width="80%" class="ok -border" [autocorrect]="false" ReturnKeyType="next" textAlignment="center"
-                hint="Enter Name" style="placeholder-color:rgba(255,255,255)"></TextField>
-            <TextField width="80%" class="ok -border" [autocorrect]="false" ReturnKeyType="next" textAlignment="center"
-                hint="Enter Number" style="placeholder-color:rgba(255,255,255)"></TextField>
-            <TextField width="80%" class="ok -border" [autocorrect]="false" ReturnKeyType="next" textAlignment="center"
-                hint="Enter Email" style="placeholder-color:rgba(255,255,255)"></TextField>
-            <TextField width="80%" class="input -border" hint="Enter Password" textAlignment="center" ReturnKeyType="done" style="placeholder-color:rgba(255,255,255)">
-            </TextField>
-            <TextField width="80%" class="input -border" hint="Confirm Password" textAlignment="center" ReturnKeyType="done" style="placeholder-color:rgba(255,255,255)">
-            </TextField>
-            <Label class="text-center t_white body" width="80%" textWrap="true" (tap)="openTermsandConditions()">
+            <label
+                class="h4 text-center t_red"
+                [text]="errorMessage"
+                *ngIf="errorOccured"
+                width="80%"
+            ></label>
+            <TextField
+                width="80%"
+                class="ok -border"
+                [autocorrect]="false"
+                ReturnKeyType="next"
+                textAlignment="center"
+                hint="Enter Name"
+                [(ngModel)]="user_name"
+                style="placeholder-color: rgba(255, 255, 255);"
+            ></TextField>
+            <TextField
+                width="80%"
+                class="ok -border"
+                [autocorrect]="false"
+                ReturnKeyType="next"
+                textAlignment="center"
+                hint="Enter Number (03000000000)"
+                [(ngModel)]="user_number"
+                style="placeholder-color: rgba(255, 255, 255);"
+            ></TextField>
+            <TextField
+                width="80%"
+                class="ok -border"
+                [autocorrect]="false"
+                ReturnKeyType="next"
+                textAlignment="center"
+                hint="Enter Email"
+                [(ngModel)]="user_email"
+                style="placeholder-color: rgba(255, 255, 255);"
+            ></TextField>
+            <TextField
+                width="80%"
+                class="input -border"
+                hint="Enter Password (Min 6)"
+                textAlignment="center"
+                ReturnKeyType="done"
+                [(ngModel)]="user_password"
+                style="placeholder-color: rgba(255, 255, 255);"
+            ></TextField>
+            <TextField
+                width="80%"
+                class="input -border"
+                hint="Confirm Password"
+                textAlignment="center"
+                ReturnKeyType="done"
+                [(ngModel)]="user_password_confirm"
+                style="placeholder-color: rgba(255, 255, 255);"
+            ></TextField>
+            <label
+                class="text-center t_white body"
+                width="80%"
+                textWrap="true"
+                (tap)="openTermsandConditions()"
+            >
                 <FormattedString>
-                    <Span text="I agree to the "></Span>
-                    <Span text=" Terms & Conditions " class="t_brown" style="font-size: 15; color: rgb(221, 189, 5);"></Span>
-                    <Span text=" of use"></Span>
+                    <span text="I agree to the "></span>
+                    <span
+                        text=" Terms & Conditions "
+                        class="t_brown"
+                        style="font-size: 15; color: rgb(221, 189, 5);"
+                    ></span>
+                    <span text=" of use"></span>
                 </FormattedString>
-            </Label>
-            <Button width="80%" *ngIf="!formSubmited" text="Sign Up" class="-primary" (tap)="signUpAction()"></Button>
-            <ActivityIndicator [busy]='true' *ngIf="formSubmited"></ActivityIndicator>
+            </label>
+            <button
+                width="80%"
+                *ngIf="!formSubmited"
+                text="Sign Up"
+                class="-primary"
+                (tap)="signUpAction()"
+                [isEnabled]="dataEntered"
+            ></button>
+            <ActivityIndicator
+                [busy]="true"
+                *ngIf="formSubmited"
+            ></ActivityIndicator>
         </StackLayout>
-        <Label class="body t_white" text="Already have a account?"></Label>
+        <label class="body t_white" text="Already have a account?"></label>
         <GridLayout rows="auto" columns="auto,auto">
-            <Label class="body t_white text-right m-r-5" row="0" col="0" text="Signin into your eWallet account"></Label>
-            <Label class="body t_orange text-left" row="0" col="1" text="Here" (tap)="signInPage()"></Label>
+            <label
+                class="body t_white text-right m-r-5"
+                row="0"
+                col="0"
+                text="Signin into your eWallet account"
+            ></label>
+            <label
+                class="body t_orange text-left"
+                row="0"
+                col="1"
+                text="Here"
+                (tap)="signInPage()"
+            ></label>
         </GridLayout>
     </FlexboxLayout>
 </ScrollView>

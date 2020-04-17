@@ -16,6 +16,15 @@ export class SignUpComponent implements OnInit {
 
   formSubmited: boolean = false;
 
+  user_name: string = null;
+  user_number: string = null;
+  user_email: string = null;
+  user_password: string = null;
+  user_password_confirm: string = null;
+
+  errorOccured: boolean = false;
+  errorMessage: string = null;
+
   constructor(
     private _router: RouterExtensions,
     private _authService: AuthService,
@@ -23,6 +32,17 @@ export class SignUpComponent implements OnInit {
     private _vcRef: ViewContainerRef,
     private _uiService: UIService
   ) { }
+
+  get dataEntered() {
+    if (this.user_name && this.user_number && this.user_email && this.user_password) {
+      if ((this.user_number.length > 10) && (this.user_password.length >= 6)) {
+        if (this.user_password == this.user_password_confirm) {
+          return true;
+        }
+      }
+    }
+    return false;
+  }
 
   ngOnInit() {
   }
@@ -34,29 +54,43 @@ export class SignUpComponent implements OnInit {
 
   signUpAction() {
     this.formSubmited = true;
-    // this._authService.signUp(); //send http and following code in subscribe()
-    this._modalService.showModal(
-      SignupPopupComponent,
-      {
-        fullscreen: false,
-        viewContainerRef: this._uiService.getAppVCRef() ? this._uiService.getAppVCRef() : this._vcRef,
-        context: { data: "value" }
-      }
-    ).then(
+    let data = {
+      name: this.user_name,
+      email: this.user_email,
+      password: this.user_password,
+      phone_number: this.user_number
+    };
+    this._authService.signUp(data).subscribe(
       res => {
-        console.log(res);
-        if (res == 'complete') {
-          this.goToProfile();
-        }
-        else if (res == 'skip') {
-          this.goToHome();
-        }
-        else if (res == undefined) {
-          this.goToHome();
-        }
+        this._modalService.showModal(
+          SignupPopupComponent,
+          {
+            fullscreen: false,
+            viewContainerRef: this._uiService.getAppVCRef() ? this._uiService.getAppVCRef() : this._vcRef,
+            context: { data: "value" }
+          }
+        ).then(
+          res => {
+            console.log(res);
+            if (res == 'complete') {
+              this.goToProfile();
+            }
+            else if (res == 'skip') {
+              this.goToHome();
+            }
+            else if (res == undefined) {
+              this.goToHome();
+            }
+          }
+        );
+      },
+      err => {
+        alert(err.error.message);
+        this.errorOccured = true;
+        this.errorMessage = err.error.message;
+        this.formreset();
       }
-    );
-    this.formSubmited = false;
+    )
   }
 
   goToHome() {
@@ -79,5 +113,11 @@ export class SignUpComponent implements OnInit {
     };
 
     alert(options);
+  }
+
+  formreset() {
+    this.user_password = null;
+    this.user_password_confirm = null;
+    this.formSubmited = false;
   }
 }

@@ -1,50 +1,180 @@
 <!--The content below is only a placeholder and can be replaced.-->
-<app-action-bar [title]="title" [hasMenu]='true' [showBackButton]="false" [showNotifications]="true"></app-action-bar>
+<app-action-bar
+    [title]="title"
+    [hasMenu]="true"
+    [showBackButton]="false"
+    [showNotifications]="true"
+    *ngIf="!loadinPageData_s"
+></app-action-bar>
+<app-action-bar
+    [title]=""
+    [hasMenu]="false"
+    [showBackButton]="false"
+    [showNotifications]="false"
+    *ngIf="loadinPageData_s"
+></app-action-bar>
 <ScrollView>
-    <FlexBoxLayout flexDirection="column">
+    <FlexBoxLayout flexDirection="column" *ngIf="!loadinPageData_s">
         <!-- Banner Section -->
-        <Image height="200" src="res://banner" loadMode="async" stretch="aspectFill"></Image>
+        <image
+            height="200"
+            src="res://banner"
+            loadMode="async"
+            stretch="aspectFill"
+        ></image>
 
         <!-- Notice Board Section -->
-        <Label text="Notice Board" class="h3 p-5 text-center" letterSpacing=".5" style="background: #C73B0E; color: white;margin-bottom: 0;"></Label>
-        <Label text="Currently we are accepting balance top-ups via easypaisa and jazzcash only. For any assistance, please reach us via our customer service WhatsApp" class="text-center m-t-0 p-10 p-l-30 p-r-30" [textWrap]="true" style="font-size: 14;border-width: 2;"></Label>
-        
+        <label
+            text="Notice Board"
+            class="h3 p-5 text-center"
+            letterSpacing=".5"
+            style="background: #c73b0e; color: white; margin-bottom: 0;"
+        ></label>
+        <label
+            text="Currently we are accepting balance top-ups via easypaisa and jazzcash only. For any assistance, please reach us via our customer service WhatsApp"
+            class="text-center m-t-0 p-10 p-l-30 p-r-30"
+            [textWrap]="true"
+            style="font-size: 14; border-width: 2;"
+        ></label>
+
         <!-- Coin Part Section -->
-        <FlexBoxLayout width="100%" justifyContent="space-around" class="m-t-15">
+        <FlexBoxLayout
+            width="100%"
+            justifyContent="space-around"
+            class="m-t-15"
+        >
             <FlexBoxLayout width="94%" justifyContent="space-around">
-                <FlexBoxLayout flexDirection="row" justifyContent="center" alignItems="center" class="coin_btn" nsRouterLink="/buy-coins">
-                    <Image src="res://coin" height="20" width="20" class="m-r-5"></Image>
-                    <Label text="Buy Coins" class="text-left" [textWrap]="true"></Label>
+                <FlexBoxLayout
+                    flexDirection="row"
+                    justifyContent="center"
+                    alignItems="center"
+                    class="coin_btn"
+                    nsRouterLink="/buy-coins"
+                    pageTransition="slide"
+                >
+                    <image
+                        src="res://coin"
+                        height="20"
+                        width="20"
+                        class="m-r-5"
+                    ></image>
+                    <label
+                        text="Buy Coins"
+                        class="text-left"
+                        [textWrap]="true"
+                    ></label>
                 </FlexBoxLayout>
-                <FlexBoxLayout flexDirection="row" justifyContent="center" alignItems="center" class="coin_btn" nsRouterLink="/redeem-coins">
-                    <Image src="res://coin" height="20" width="20" class="m-l-5 m-r-5"></Image>
-                    <Label text="Redeem Coins" class="text-left" [textWrap]="true"></Label>
+                <FlexBoxLayout
+                    flexDirection="row"
+                    justifyContent="center"
+                    alignItems="center"
+                    class="coin_btn"
+                    nsRouterLink="/redeem-coins"
+                    pageTransition="slide"
+                >
+                    <image
+                        src="res://coin"
+                        height="20"
+                        width="20"
+                        class="m-l-5 m-r-5"
+                    ></image>
+                    <label
+                        text="Redeem Coins"
+                        class="text-left"
+                        [textWrap]="true"
+                    ></label>
                 </FlexBoxLayout>
-                <FlexBoxLayout flexDirection="row" justifyContent="center" alignItems="center" class="coin_btn" nsRouterLink="/transfer-coins">
-                    <Image src="res://coin" height="20" width="20" class="m-l-5 m-r-5"></Image>
-                    <Label text="Transfer Coins" class="text-left" [textWrap]="true"></Label>
+                <FlexBoxLayout
+                    flexDirection="row"
+                    justifyContent="center"
+                    alignItems="center"
+                    class="coin_btn"
+                    nsRouterLink="/transfer-coins"
+                    pageTransition="slide"
+                >
+                    <image
+                        src="res://coin"
+                        height="20"
+                        width="20"
+                        class="m-l-5 m-r-5"
+                    ></image>
+                    <label
+                        text="Transfer Coins"
+                        class="text-left"
+                        [textWrap]="true"
+                    ></label>
                 </FlexBoxLayout>
             </FlexBoxLayout>
         </FlexBoxLayout>
 
         <!-- Four Button Section top-up, withdraw, etc -->
-        <FlexBoxLayout width="100%" justifyContent="space-around" class="m-t-15">
-            <FlexBoxLayout width="94%" justifyContent="space-around" alignItems="center">
-                <FlexBoxLayout width="48%" style="height: 40;padding: 0 10;" justifyContent="center" flexDirection="column" alignItems="center" class="topup_btn" nsRouterLink="/topup-your-wallet">
-                    <Label text="Topup Your Wallet" class="text-left"></Label>
+        <FlexBoxLayout
+            width="100%"
+            justifyContent="space-around"
+            class="m-t-15"
+        >
+            <FlexBoxLayout
+                width="94%"
+                justifyContent="space-around"
+                alignItems="center"
+            >
+                <FlexBoxLayout
+                    width="48%"
+                    style="height: 40; padding: 0 10;"
+                    justifyContent="center"
+                    flexDirection="column"
+                    alignItems="center"
+                    class="topup_btn"
+                    nsRouterLink="/topup-your-wallet"
+                    pageTransition="slide"
+                >
+                    <label text="Topup Your Wallet" class="text-left"></label>
                 </FlexBoxLayout>
-                <FlexBoxLayout width="48%" style="height: 40;padding: 0 10;" justifyContent="center" flexDirection="column" alignItems="center" class="topup_btn" nsRouterLink="/request-withdrawal">
-                    <Label text="Request a Withdrawal" class="text-left"></Label>
+                <FlexBoxLayout
+                    width="48%"
+                    style="height: 40; padding: 0 10;"
+                    justifyContent="center"
+                    flexDirection="column"
+                    alignItems="center"
+                    class="topup_btn"
+                    nsRouterLink="/request-withdrawal"
+                    pageTransition="slide"
+                >
+                    <label
+                        text="Request a Withdrawal"
+                        class="text-left"
+                    ></label>
                 </FlexBoxLayout>
             </FlexBoxLayout>
         </FlexBoxLayout>
-        <FlexBoxLayout width="100%" justifyContent="space-around" class="m-t-10">
+        <FlexBoxLayout
+            width="100%"
+            justifyContent="space-around"
+            class="m-t-10"
+        >
             <FlexBoxLayout width="94%" justifyContent="space-around">
-                <FlexBoxLayout width="48%" style="height: 40;padding: 0 10;" justifyContent="center" flexDirection="column" alignItems="center" class="topup_btn" nsRouterLink="/transaction-history">
-                    <Label text="Transaction History" class="text-left"></Label>
+                <FlexBoxLayout
+                    width="48%"
+                    style="height: 40; padding: 0 10;"
+                    justifyContent="center"
+                    flexDirection="column"
+                    alignItems="center"
+                    class="topup_btn"
+                    nsRouterLink="/transaction-history"
+                    pageTransition="slide"
+                >
+                    <label text="Transaction History" class="text-left"></label>
                 </FlexBoxLayout>
-                <FlexBoxLayout width="48%" style="height: 40;padding: 0 10;" justifyContent="center" flexDirection="column" alignItems="center" class="topup_btn" (tap)="offersAndPromotions()">
-                    <Label text="Offers & Promotions" class="text-left"></Label>
+                <FlexBoxLayout
+                    width="48%"
+                    style="height: 40; padding: 0 10;"
+                    justifyContent="center"
+                    flexDirection="column"
+                    alignItems="center"
+                    class="topup_btn"
+                    (tap)="offersAndPromotions()"
+                >
+                    <label text="Offers & Promotions" class="text-left"></label>
                 </FlexBoxLayout>
             </FlexBoxLayout>
         </FlexBoxLayout>
@@ -59,5 +189,13 @@
 
         <!-- App Footer -->
         <app-footer [section_1]="false" [faq_section]="true"></app-footer>
+    </FlexBoxLayout>
+    <FlexBoxLayout
+        justifyContent="center"
+        alignItems="center"
+        *ngIf="loadinPageData_s"
+        height="100vh"
+    >
+        <ActivityIndicator busy="true"></ActivityIndicator>
     </FlexBoxLayout>
 </ScrollView>

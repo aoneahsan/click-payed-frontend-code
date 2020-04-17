@@ -14,19 +14,33 @@ export class SignInComponent implements OnInit {
 
   formSubmited: boolean = false;
   usePinLogin: boolean = false;
+  user_number: string = null;
+  user_password: string = null;
 
   loginPin: string;
 
+  errorOccured: boolean = false;
+  errorMessage: string = null;
+
   constructor(private _router: RouterExtensions, private _authService: AuthService) { }
 
+  get userDataEntered() {
+    if (!!this.user_number && !!this.user_password) {
+      return true;
+    }
+    else {
+      return false;
+    }
+  }
+
   ngOnInit() {
-    if (hasKey('pinLoginEnabled')) {
-      // alert("pinLoginEnabled");
-      this.usePinLogin = true;
-    }
-    else{
-      // alert("pinLoginEnabled not");
-    }
+    // if (hasKey('pinLoginEnabled')) {
+    //   // alert("pinLoginEnabled");
+    //   this.usePinLogin = true;
+    // }
+    // else{
+    //   // alert("pinLoginEnabled not");
+    // }
   }
 
   signUpPage() {
@@ -41,7 +55,23 @@ export class SignInComponent implements OnInit {
 
   signInAction() {
     this.formSubmited = true;
-    this._authService.signIn();
+    let data = {
+      email: this.user_number,
+      password: this.user_password
+    };
+    this._authService.signIn(data).subscribe(
+      res => {
+        console.log('SignIn Component Response', res);
+        this._router.navigate(['/home'], {clearHistory: true});
+        this.formReset();
+      },
+      err => {
+        // console.log('SignIn Component Error', err);
+        this.errorMessage = err.error.message;
+        this.errorOccured = true;
+        this.formReset();
+      }
+    );
   }
 
   verifyPinLogin() {
@@ -69,5 +99,11 @@ export class SignInComponent implements OnInit {
       return false;
     }
   }  
+
+  formReset() {
+    this.user_number = null;
+    this.user_password = null;
+    this.formSubmited = false;
+  }
 
 }

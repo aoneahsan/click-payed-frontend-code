@@ -6,28 +6,49 @@ import { BehaviorSubject } from "rxjs";
 })
 export class SystemService {
 
-    userBalance = new BehaviorSubject<number>(2000);
-    userCoins = new BehaviorSubject<number>(20000);
-    pkrToCoinsRate = 10; // send http request to get rate from server
-
+    // Api Root Url
     // apiRootURL: string = 'http://localhost:8000/api/';   // development apiRootURL Local Laravel URL
-
-    apiRootURL: string = 'https://coin-payed-laravel.ahsan/api/';   // development apiRootURL Valet Link Laravel URL
-
+    _apiRootURL: string = 'https://0f6e41d9.ngrok.io/api/';   // development apiRootURL Valet Link Laravel URL
     // apiRootURL: string = 'https://click-payed-245c5.firebaseio.com/text.json';   // development apiRootURL Firebase URL
+
+    _loadingPageData = new BehaviorSubject<boolean>(false);
+
+    _userBalance = new BehaviorSubject<number>(0);
+    _userCoins = new BehaviorSubject<number>(0);
+    _pkrToCoinsRate = 10; // send http request to get rate from server
 
     constructor() { }
 
     getApiRootURL() {
-        return this.apiRootURL;
+        return this._apiRootURL;
+    }
+
+    getLoadinPageDataStatus() {
+        return this._loadingPageData;
+    }
+
+    loadingPageDataTrue() {
+        this._loadingPageData.next(true);
+    }
+
+    loadingPageDataFalse() {
+        this._loadingPageData.next(false);
     }
 
     getUserBalance() {
-        return this.userBalance;
+        return this._userBalance;
+    }
+    
+    getUserCoins() {
+        return this._userCoins;
     }
 
     setUserBalance(data) {
-        this.userBalance.next(data);
+        this._userBalance.next(data);
+    }
+
+    setUserCoins(data) {
+        this._userCoins.next(data);
     }
 
     afterWithdrawalRemainingBalance(remainingUserCoins: number, amountToWithdraw: number) {
@@ -35,16 +56,9 @@ export class SystemService {
         this.setUserCoins(newCoins);
     }
 
-    getUserCoins() {
-        return this.userCoins;
-    }
-
-    setUserCoins(data) {
-        this.userCoins.next(data);
-    }
 
     getPkrToCoinRate() {
-        return this.pkrToCoinsRate;
+        return this._pkrToCoinsRate;
     }
 
 }

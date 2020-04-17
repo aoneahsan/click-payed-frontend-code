@@ -15,19 +15,31 @@
                     style="margin: 0 0 0 0;"
                     nsRouterLink="/home"
                     clearHistory="true"
+                    pageTransition="slide"
                 ></image>
                 <FlexBoxLayout
                     flexDirection="column"
-                    style="border-left-width: 2;border-color: #333; padding: 4 0 4 6; margin: 6 0 6 6;"
+                    style="
+                        border-left-width: 2;
+                        border-color: #333;
+                        padding: 4 0 4 6;
+                        margin: 6 0 6 6;
+                        z-index: 1000;
+                    "
                 >
                     <label
                         text="Available Balance"
-                        class="t_forest"
-                        style="margin: 0 0 -15 0;font-size: 14;"
+                        class="t_forest text-left"
+                        style="margin: 0 0 -15 4; font-size: 14;"
                     ></label>
                     <label
-                        class="t_black"
-                        style="margin: -10 0 -22 -18;font-size: 18;font-weight: 900;"
+                        class="t_black text-left"
+                        style="
+                            margin: -10 0 -22 4;
+                            font-size: 18;
+                            font-weight: 900;
+                            z-index: 100;
+                        "
                     >
                         <FormattedString>
                             <span text="PKR "></span>
@@ -36,7 +48,7 @@
                             ></span>
                         </FormattedString>
                     </label>
-                    <FlexBoxLayout style="margin: 0 0 -4 0;">
+                    <FlexBoxLayout style="margin: 0 0 -4 4;">
                         <image
                             src="res://coin"
                             width="20"
@@ -46,7 +58,11 @@
                         <label
                             [text]="remaining_coins | number"
                             class="t_brown"
-                            style="margin: 0 0 0 0;font-size: 15;font-weight: 600;"
+                            style="
+                                margin: 0 0 0 0;
+                                font-size: 15;
+                                font-weight: 600;
+                            "
                         ></label>
                     </FlexBoxLayout>
                 </FlexBoxLayout>
@@ -67,7 +83,7 @@
                         nsRouterLink="/notification"
                         style="margin: 0 -26 0 0; font-size: 24; color: #333;"
                     ></label>
-                    <SlackLayout style="" orientation="horizontal">
+                    <SlackLayout orientation="horizontal">
                         <label
                             [text]="nofitications_count"
                             class="t_black text-center"
@@ -79,6 +95,7 @@
                         text="&#xf2bd;"
                         class="fa"
                         nsRouterLink="/user/profile"
+                        pageTransition="slide"
                         style="font-size: 24; color: #333; margin: 0 -2;"
                     ></label>
                     <label

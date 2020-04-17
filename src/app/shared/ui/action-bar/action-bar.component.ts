@@ -1,8 +1,11 @@
 import { Component, OnInit, Input } from '@angular/core';
+
 import { Page, isAndroid } from 'tns-core-modules/ui/page';
 import { RouterExtensions } from 'nativescript-angular/router';
-import { UIService } from '../ui.service';
+
+import { UIService } from './../ui.service';
 import { SystemService } from '@src/app/services/system.service';
+import { AuthService } from '@src/app/services/auth/auth.service';
 
 declare var android:any;
 
@@ -26,7 +29,13 @@ export class ActionBarComponent implements OnInit {
   // For AdminPanel Users
   @Input() isAdminPanel = false;
 
-  constructor(private _page: Page, private _router: RouterExtensions, private _uiService: UIService, private _systemService: SystemService) { }
+  constructor(
+    private _page: Page,
+    private _router: RouterExtensions, 
+    private _uiService: UIService, 
+    private _systemService: SystemService,
+    private _authService: AuthService
+  ) { }
 
   ngOnInit() {
     this._systemService.getUserCoins().subscribe(
@@ -77,7 +86,8 @@ export class ActionBarComponent implements OnInit {
 
   logout() {
     // send http using service remove app setting (local keys), and then navigate
-    this._router.navigate(['/sign-in'], {clearHistory: true});
+    this._systemService.loadingPageDataTrue();
+    this._authService.logout();
   }
 
 }

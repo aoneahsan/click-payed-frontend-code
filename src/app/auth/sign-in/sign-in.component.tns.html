@@ -6,11 +6,12 @@
             <Label class="h2 t_white" text="to your eWallet account"></Label>
         </StackLayout>
         <StackLayout class="nt-form" *ngIf="!usePinLogin">
+            <Label width="80%" class="h4 text-center t_red" [text]="errorMessage" *ngIf="errorOccured"></Label>
             <TextField width="80%" class="ok t_white -border" [autocorrect]="false" ReturnKeyType="next" textAlignment="center"
-                hint="Enter Email" style="placeholder-color:rgba(255,255,255)"></TextField>
-            <TextField width="80%" class="input t_white -border" hint="Enter Password" textAlignment="center" ReturnKeyType="done" style="placeholder-color:rgba(255,255,255)">
+                hint="Enter Email" style="placeholder-color:rgba(255,255,255)" [(ngModel)]="user_number"></TextField>
+            <TextField width="80%" class="input t_white -border" hint="Enter Password" textAlignment="center" ReturnKeyType="done" style="placeholder-color:rgba(255,255,255)" [(ngModel)]="user_password">
             </TextField>
-            <Button text="Sign In" width="80%" *ngIf="!formSubmited" class="-primary" (tap)="signInAction()"></Button>
+            <Button text="Sign In" width="80%" *ngIf="!formSubmited" class="-primary" (tap)="signInAction()" [isEnabled]="userDataEntered"></Button>
             <ActivityIndicator [busy]="true" *ngIf="formSubmited"></ActivityIndicator>
         </StackLayout>
         <StackLayout class="nt-form" *ngIf="usePinLogin">

@@ -1,5 +1,5 @@
 import { Injectable } from "@angular/core";
-import { CanActivate, ActivatedRouteSnapshot, RouterStateSnapshot, UrlTree, CanLoad, Route, UrlSegment, CanActivateChild } from "@angular/router";
+import { CanLoad, Route, UrlSegment, ActivatedRouteSnapshot, RouterStateSnapshot, UrlTree, CanActivate, CanActivateChild } from "@angular/router";
 import { Observable } from "rxjs";
 
 import { RouterExtensions } from "nativescript-angular/router";
@@ -11,9 +11,9 @@ import { take, map } from "rxjs/operators";
     providedIn: 'root'
 })
 
-export class AuthGuard implements CanActivate, CanActivateChild, CanLoad{
+export class UnAuthGuard implements CanActivate, CanActivateChild, CanLoad {
 
-    constructor(private _authService: AuthService, private _router: RouterExtensions) {}
+    constructor(private _authService: AuthService, private _router: RouterExtensions) { }
 
     canActivate(route: ActivatedRouteSnapshot, state: RouterStateSnapshot): Observable<boolean | UrlTree> | Promise<boolean | UrlTree> | boolean | UrlTree {
         return this._authService._user.pipe(
@@ -21,10 +21,10 @@ export class AuthGuard implements CanActivate, CanActivateChild, CanLoad{
             map(
                 user => {
                     const isAuth = !!user;
-                    if (isAuth) {
+                    if (!isAuth) {
                         return true;
                     } else {
-                        this._router.navigate(['/sign-in']);
+                        this._router.navigate(['/home']);
                         return false;
                     }
                 }
@@ -42,15 +42,10 @@ export class AuthGuard implements CanActivate, CanActivateChild, CanLoad{
             map(
                 user => {
                     const isAuth = !!user;
-                    if (isAuth) {
-                        if (route.path == 'home' && (user.role == 'admin' || user.role == 'editor')) {
-                            this._router.navigate(['/admin/dashboard']);
-                            return false;
-                        } else {
-                            return true;
-                        }
+                    if (!isAuth) {
+                        return true;
                     } else {
-                        this._router.navigate(['/sign-in']);
+                        this._router.navigate(['/home']);
                         return false;
                     }
                 }
