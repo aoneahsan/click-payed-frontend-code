@@ -27,23 +27,6 @@ export class UserService {
         );
     }
 
-    updateUserAccountData() {
-        this._systemService.loadingPageDataTrue();
-        this._userAccountSub = this.userAccountData().subscribe(
-            data => {
-                // console.log("App.Component.ts  ==  userAccountDataSub  ==  responsedata = ", data.data);
-                this._systemService.setUserCoins(data.data.coins);
-                this._systemService.setUserBalance(data.data.balance);
-                this._systemService.loadingPageDataFalse();
-            },
-            err => {
-                // console.log("App.Component.ts  ==  userAccountDataSub  ==  error = ", err);
-                this._systemService.loadingPageDataFalse();
-                // alert("Error Occured While Fetching Account Data, Reload App");
-            }
-        );
-    }
-
     userDetailsData() {
         return this._http.get<any>(
             this._systemService.getApiRootURL() + 'get_user_details_data'
@@ -59,9 +42,23 @@ export class UserService {
         );
     }
 
+    searchPersonByNumber(number) {
+        return this._http.post<any>(
+            this._systemService.getApiRootURL() + 'search_person_by_number',
+            number
+        );
+    }
+
     buyCoinsRequest(data) {
         return this._http.post<any>(
             this._systemService.getApiRootURL() + 'buy_coins',
+            data
+        );
+    }
+
+    redeemCoinsRequest(data) {
+        return this._http.post<any>(
+            this._systemService.getApiRootURL() + 'redeem_coins',
             data
         );
     }

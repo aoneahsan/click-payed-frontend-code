@@ -20,6 +20,7 @@ export class AppComponent implements OnInit, OnDestroy {
   // private drawer: RadSideDrawer;
   // drawerSub: Subscription;
 
+  _user_Sub: Subscription;
   _userAccountDataSub: Subscription;
 
   constructor(
@@ -28,7 +29,7 @@ export class AppComponent implements OnInit, OnDestroy {
     private _authService: AuthService,
     private _systemService: SystemService,
     private _userService: UserService
-  ) {}
+  ) { }
 
   ngOnInit() {
     // login User Automatically
@@ -48,19 +49,25 @@ export class AppComponent implements OnInit, OnDestroy {
 
     // Get User Coins and Balance
     this._systemService.loadingPageDataTrue();
-    this._userAccountDataSub = this._userService.userAccountData().subscribe(
-      data => {
-        // console.log("App.Component.ts  ==  userAccountDataSub  ==  responsedata = ", data.data);
-        this._systemService.setUserCoins(data.data.coins);
-        this._systemService.setUserBalance(data.data.balance);
-        this._systemService.loadingPageDataFalse();
-      },
-      err => {
-        // console.log("App.Component.ts  ==  userAccountDataSub  ==  error = ", err);
-        this._systemService.loadingPageDataFalse();
-        alert("Error Occured While Fetching Account Data, Reload App");
+    this._user_Sub = this._authService._user.subscribe(
+      user => {
+        if (user) {
+          this._userAccountDataSub = this._userService.userAccountData().subscribe(
+            data => {
+              // console.log("App.Component.ts  ==  userAccountDataSub  ==  responsedata = ", data.data);
+              this._systemService.setUserCoins(data.data.coins);
+              this._systemService.setUserBalance(data.data.balance);
+              this._systemService.loadingPageDataFalse();
+            },
+            err => {
+              console.log("App.Component.ts  ==  userAccountDataSub  ==  error = ", err);
+              this._systemService.loadingPageDataFalse();
+              alert("Error Occured While Fetching Account Data, Reload App");
+            }
+          );
+        }
       }
-    );
+    )
   }
 
   // ngAfterViewInit() {
@@ -78,6 +85,9 @@ export class AppComponent implements OnInit, OnDestroy {
     // }
     if (this._userAccountDataSub) {
       this._userAccountDataSub.unsubscribe();
+    }
+    if (this._user_Sub) {
+      this._user_Sub.unsubscribe();
     }
   }
 

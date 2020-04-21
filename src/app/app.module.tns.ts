@@ -27,7 +27,7 @@ import { HomeModule } from '@src/app/modules/components/home/home.module';
 import { AppComponent } from '@src/app/app.component';
 import { TextComponentComponent } from '@src/app/text/text-component/text-component.component';
 import { HTTP_INTERCEPTORS, HttpClientModule } from '@angular/common/http';
-import { AuthInterceptorService } from './interceptors/auth-interceptor.service';
+import { AuthInterceptorService } from '@src/app/interceptors/auth-interceptor.service';
 
 // Uncomment and add to NgModule imports  if you need to use the HTTP wrapper
 // import { NativeScriptHttpClientModule } from 'nativescript-angular/http-client';

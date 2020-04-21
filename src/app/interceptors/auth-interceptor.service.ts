@@ -16,7 +16,7 @@ export class AuthInterceptorService implements HttpInterceptor {
                 user => {
                     // console.log("AuthInterceptor  ==  User  =  ", user);
                     if (!user) {
-                        console.log("the Last request sending  =  req  = ", req);
+                        // console.log("the Last request sending  =  req  = ", req);
                         return next.handle(req);
                     }
                     // console.log("AuthInterceptor  ==  user.tokken = ", user.tokken);

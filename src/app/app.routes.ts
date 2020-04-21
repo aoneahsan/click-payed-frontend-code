@@ -4,11 +4,12 @@ import { NewNotificationComponent } from './shared/ui/new-notification/new-notif
 import { CompatibleGamesComponent } from './components/compatible-games/compatible-games.component';
 import { AuthGuard } from './route-guards/auth/auth-guard.service';
 import { UnAuthGuard } from './route-guards/auth/unauth-guard.service';
+import { CompatibleGameInfoComponent } from './components/compatible-games/compatible-game-info/compatible-game-info.component';
 
 export const routes: Routes = [
   {
     path: '',
-    redirectTo: '/buy-coins',
+    redirectTo: 'transfer-coins',
     pathMatch: 'full',
   },
   {
@@ -79,6 +80,11 @@ export const routes: Routes = [
   {
     path: 'compatible-games',
     component: CompatibleGamesComponent,
+    canActivate: [AuthGuard]
+  },
+  {
+    path: 'compatible-game-info/:gameId',
+    component: CompatibleGameInfoComponent,
     canActivate: [AuthGuard]
   }
 ];

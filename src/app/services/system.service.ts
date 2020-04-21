@@ -8,7 +8,7 @@ export class SystemService {
 
     // Api Root Url
     // apiRootURL: string = 'http://localhost:8000/api/';   // development apiRootURL Local Laravel URL
-    _apiRootURL: string = 'https://0f6e41d9.ngrok.io/api/';   // development apiRootURL Valet Link Laravel URL
+    _apiRootURL: string = 'https://6418bbe7.ngrok.io/api/';   // development apiRootURL Valet Link Laravel URL
     // apiRootURL: string = 'https://click-payed-245c5.firebaseio.com/text.json';   // development apiRootURL Firebase URL
 
     _loadingPageData = new BehaviorSubject<boolean>(false);

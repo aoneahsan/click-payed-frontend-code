@@ -1,0 +1,91 @@
+<FlexBoxLayout
+    width="auto"
+    height="auto"
+    borderWidth="2"
+    borderRadius="4"
+    borderColor="white"
+    flexDirection="column"
+    justifyContent="center"
+    alignItems="center"
+    style="padding: 30 5;"
+>
+    <FlexBoxLayout
+        flexDirection="column"
+        justifyContent="center"
+        alignItems="center"
+        *ngIf="!processingRequest"
+    >
+        <label
+            [text]="gametitle"
+            style="font-size: 20;"
+            [textWrap]="true"
+            class="text-center"
+            width="90%"
+        ></label>
+        <label
+            text="Are You Sure You Want To Pay"
+            style="font-size: 14;"
+            [textWrap]="true"
+            class="text-center"
+            width="90%"
+        ></label>
+        <label
+            text="500 Coins"
+            class="t_brown m-y-10"
+            style="font-size: 16;"
+        ></label>
+        <label style="font-size: 17;" class="t_black m-b-20" [textWrap]="true">
+            <FormattedString>
+                <span text="For "></span>
+                <span [text]="gametitle"></span>
+                <span text="?"></span>
+            </FormattedString>
+        </label>
+        <label
+            text="YOUR REMAINING COINS WILL BE"
+            [textWrap]="true"
+            style="font-size: 13;"
+        ></label>
+        <FlexBoxLayout
+            justifyContent="center"
+            alignItems="center"
+            class="m-t-15 m-b-20"
+        >
+            <image
+                src="res://coin"
+                width="30"
+                height="30"
+                class="m-r-5"
+            ></image>
+            <label
+                [text]="_remaining_coins | number: '1.2'"
+                class="text-center t_orange"
+                style="font-size: 24;"
+            ></label>
+        </FlexBoxLayout>
+        <FlexBoxLayout
+            justifyContent="center"
+            alignItems="center"
+            width="98%"
+        >
+            <button
+                width="70%"
+                borderRadius="4"
+                borderWidth="1"
+                (tap)="onHandle()"
+                class="bg_green t_white"
+                text="PAY NOW & ENTER"
+                style="font-size: 13;"
+            ></button>
+        </FlexBoxLayout>
+    </FlexBoxLayout>
+    <FlexBoxLayout
+        flexDirection="column"
+        justifyContent="center"
+        alignItems="center"
+        width="100%"
+        *ngIf="processingRequest"
+    >
+        <ActivityIndicator busy="true"></ActivityIndicator>
+    </FlexBoxLayout>
+</FlexBoxLayout>

@@ -73,9 +73,12 @@
             ></label>
         </FlexBoxLayout>
 
-
         <!-- Section # 2 -->
-        <FlexBoxLayout width="100%" height="3" style="background-color: black;"></FlexBoxLayout>
+        <FlexBoxLayout
+            width="100%"
+            height="3"
+            style="background-color: black;"
+        ></FlexBoxLayout>
 
         <!-- Section # 3 -->
         <FlexBoxLayout
@@ -83,7 +86,7 @@
             flexDirection="row"
             justifyContent="space-between"
             alignItems="center"
-            class="all_games_con bg_grey "
+            class="all_games_con bg_grey"
             flexWrap="wrap"
             *ngIf="loadedGames"
         >
@@ -102,20 +105,46 @@
                     alignItems="center"
                     width="100%"
                     class="game_inner_con"
-                    (tap)="downloadGame(game)"
-                >
+                    >
+                    <!-- (tap)="downloadGame(game)" -->
                     <image
                         [src]="game.img"
                         width="80%"
                         class="game_img m-b-10"
                     ></image>
-                    <label [text]="game.name" class="game_name" textWrap="true"></label>
+                    <label
+                        [text]="game.name"
+                        class="game_name"
+                        textWrap="true"
+                    ></label>
                     <!-- <label></label> -->
-                    <Button text="DOWNLOAD" (tap)="downloadGame(game)" class="bg_black t_white -border -rounded gmae_btn" height="32" width="100%"></Button>
+                    <button
+                        *ngIf="game.status == 'coming-soon'"
+                        text="DOWNLOAD"
+                        (tap)="downloadGame(game)"
+                        class="bg_black t_white -border -rounded gmae_btn"
+                        height="32"
+                        width="100%"
+                    ></button>
+                    <button
+                        *ngIf="game.status == 'available'"
+                        text="PLAY NOW"
+                        (tap)="openGameInfoPage(game)"
+                        class="bg_green t_white -border -rounded gmae_btn"
+                        height="32"
+                        width="100%"
+                    ></button>
                 </FlexBoxLayout>
             </FlexBoxLayout>
         </FlexBoxLayout>
-        <FlexBoxLayout justifyContent="center" alignItems="center" width="100%" height="100%" style="padding: 100 0 0 0;" *ngIf="!loadedGames">
+        <FlexBoxLayout
+            justifyContent="center"
+            alignItems="center"
+            width="100%"
+            height="100%"
+            style="padding: 100 0 0 0;"
+            *ngIf="!loadedGames"
+        >
             <ActivityIndicator busy="true"></ActivityIndicator>
         </FlexBoxLayout>
     </FlexBoxLayout>

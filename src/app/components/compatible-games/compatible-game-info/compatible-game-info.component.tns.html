@@ -1,0 +1,177 @@
+<!--The content below is only a placeholder and can be replaced.-->
+<app-action-bar
+    title="COMPATIBLE APPS & GAMES"
+    [hasMenu]="true"
+    [showGoBackButton]="true"
+    [isAdminPanel]="true"
+></app-action-bar>
+<ScrollView>
+    <FlexBoxLayout
+        flexDirection="column"
+        justifyContent="flex-start"
+        alignItems="center"
+    >
+        <!-- COMPATIBLE APPS & GAMES Section -->
+        <label
+            text="COMPATIBLE APPS & GAMES"
+            class="h3 p-10 m-b-0 text-center text-uppercase"
+            letterSpacing=".2"
+            style="background: black; color: white; margin: 0;"
+            width="100%"
+        ></label>
+
+        <!-- Section # 1 -->
+        <FlexBoxLayout
+            width="100%"
+            flexDirection=""
+            justifyContent="center"
+            alignItems="center"
+            class=""
+            *ngIf="game"
+        >
+            <label
+                style="padding: 30 0;"
+                [ngClass]="{'selected': game.game_type == 'android'}"
+                text="ANDROID"
+                width="32.33333%"
+                class="text-center"
+            ></label>
+            <label
+                style="
+                    border-width: 2;
+                    background-color: black;
+                    margin-left: -1;
+                "
+                width="3"
+                height="50"
+            ></label>
+            <label
+                style="padding: 30 0;"
+                [ngClass]="{'selected': game.game_type == 'ios'}"
+                text="IOS"
+                width="32.33333%"
+                class="text-center"
+            ></label>
+            <label
+                style="
+                    border-width: 2;
+                    background-color: black;
+                    margin-right: -1;
+                    z-index: 12;
+                "
+                width="3"
+                height="50"
+            ></label>
+            <label
+                style="padding: 30 0;"
+                [ngClass]="{'selected': game.game_type == 'web'}"
+                text="WEB"
+                width="32.33333%"
+                class="text-center"
+            ></label>
+        </FlexBoxLayout>
+
+        <!-- Section # 2 -->
+        <FlexBoxLayout
+            width="100%"
+            height="3"
+            style="background-color: black;"
+        ></FlexBoxLayout>
+
+        <!-- Section # 3 -->
+        <FlexBoxLayout
+            justifyContent="center"
+            alignItems="center"
+            width="100%"
+            *ngIf="!loadingGameData"
+            flexDirection="column"
+        >
+            <FlexBoxLayout
+                justifyContent="center"
+                alignItems="center"
+                width="100%"
+            >
+                <image [src]="game.img" width="100%" height="240"></image>
+            </FlexBoxLayout>
+            <FlexBoxLayout
+                justifyContent="center"
+                alignItems="center"
+                width="94%"
+                flexDirection="column"
+            >
+                <label
+                    [text]="game.text"
+                    width="100%"
+                    class="text-center t_black"
+                    style="font-size: 14;"
+                    textWrap="true"
+                ></label>
+                <button
+                    text="ENTER PUBG COMPETITION NOW"
+                    class="bg_green t_white -border -rounded"
+                    width="70%"
+                    height="38"
+                    style="border-color: black; border-width: 1;"
+                    (tap)="enterGamePopup()"
+                ></button>
+                <button
+                    text="HOW TO PLAY? READ PUBG SECTION"
+                    class="t_black -border -rounded"
+                    width="70%"
+                    height="38"
+                    style="border-color: black; border-width: 1;"
+                ></button>
+                <button
+                    text="BACK TO GAMES"
+                    nsRouterLink="/compatible-games"
+                    pageTransition="slide"
+                    class="t_black -border -rounded"
+                    width="70%"
+                    height="38"
+                    style="border-color: black; border-width: 1;"
+                ></button>
+                <label
+                    class="text-center m-b-15 m-t-15"
+                    width="80%"
+                    textWrap="true"
+                    style="font-size: 16;"
+                >
+                    <FormattedString>
+                        <span text="ENTRY FEE FOR EACH BATTLE IS "></span>
+                        <span text=" 500COINS " class="t_green"></span>
+                        <span
+                            text=" WINNER GETS 1500COINS FROM EACH BATTLE"
+                        ></span>
+                    </FormattedString>
+                </label>
+                <label
+                    nsRouterLink="/totup-your-wallet"
+                    pageTransition="slide"
+                    class="text-center"
+                    width="70%"
+                    textWrap="true"
+                    style="font-size: 16;"
+                >
+                    <FormattedString>
+                        <span text="Out of coins? "></span>
+                        <span
+                            text=" Top-up your wallet now"
+                            class="t_blue"
+                        ></span>
+                    </FormattedString>
+                </label>
+            </FlexBoxLayout>
+        </FlexBoxLayout>
+
+        <FlexBoxLayout
+            justifyContent="center"
+            alignItems="center"
+            width="100%"
+            height="100%"
+            style="padding: 100 0 0 0;"
+            *ngIf="loadingGameData"
+        >
+            <ActivityIndicator busy="true"></ActivityIndicator>
+        </FlexBoxLayout>
+    </FlexBoxLayout>
+</ScrollView>
