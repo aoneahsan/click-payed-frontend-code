@@ -62,30 +62,40 @@ export class SignUpComponent implements OnInit {
     };
     this._authService.signUp(data).subscribe(
       res => {
-        this._modalService.showModal(
-          SignupPopupComponent,
-          {
-            fullscreen: false,
-            viewContainerRef: this._uiService.getAppVCRef() ? this._uiService.getAppVCRef() : this._vcRef,
-            context: { data: "value" }
-          }
-        ).then(
-          res => {
-            console.log(res);
-            if (res == 'complete') {
-              this.goToProfile();
-            }
-            else if (res == 'skip') {
+        // this._modalService.showModal(
+        //   SignupPopupComponent,
+        //   {
+        //     fullscreen: false,
+        //     viewContainerRef: this._uiService.getAppVCRef() ? this._uiService.getAppVCRef() : this._vcRef,
+        //     context: { data: "value" }
+        //   }
+        // ).then(
+        //   res => {
+        //     console.log(res);
+        //     if (res == 'complete') {
+        //       this.goToProfile();
+        //     }
+        //     else if (res == 'skip') {
               this.goToHome();
-            }
-            else if (res == undefined) {
-              this.goToHome();
-            }
-          }
-        );
+        //     }
+        //     else if (res == undefined) {
+        //       this.goToHome();
+        //     }
+        //   }
+        // );
       },
       err => {
-        alert(err.error.message);
+        // console.log(err);
+        const _title = err.error.message;
+        let _message = '';
+        if (err.error.errors.phone_number && err.error.errors.email) {
+          _message = 'Email and Phone Number Already Exists!';
+        } else if (err.error.errors.phone_number){
+          _message = 'Phone Number Already Exists!';
+        } else if (err.error.errors.email){
+          _message = 'Email Already Exists!';
+        }
+        alert({title: _title, message: _message, okButtonText: "Okay!!!"});
         this.errorOccured = true;
         this.errorMessage = err.error.message;
         this.formreset();

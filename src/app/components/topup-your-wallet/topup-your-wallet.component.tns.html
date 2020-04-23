@@ -92,17 +92,20 @@
                     <TextField
                         width="70%"
                         height="50"
-                        hint="Enter Transaction No."
-                        [(ngModel)]="transactionNo"
+                        hint="Enter Transaction No. (6 Digits)"
+                        [(ngModel)]="_trxID"
                         class="-border text-center"
+                        keyboardType="phone"
                         style="border-color: black; border-width: 2;margin: 16 0 0 0;color: gray;"
                     ></TextField>
                     <TextField
                         width="70%"
                         height="50"
                         hint="Enter Deposited Amount"
-                        [(ngModel)]="depositAmount"
+                        [(ngModel)]="_depositedAmount"
                         class="-border text-center"
+                        keyboardType="phone"
+                        maxLength="6"
                         style="border-color: black; border-width: 2;margin: 16 0 0 0;color: gray;"
                     ></TextField>
                     <button
@@ -110,7 +113,11 @@
                         text="SUBMIT DEPOSITED TRANSACTION"
                         class="bg_green t_white"
                         style="padding: 0 10;"
+                        [isEnabled]="_formDataEnteredStatus"
+                        (tap)="submitTopupRequest()"
+                        *ngIf="!_formSubmited"
                     ></button>
+                    <ActivityIndicator busy="true" *ngIf="_formSubmited"></ActivityIndicator>
                     <label text="Still confused about how to make your deposit request?" textWrap="true"></label>
                     <Label text="Click Here" (tap)="openDetailPopup()" style="font-size: 14;" class="t_blue"></Label>
                 </FlexBoxLayout>

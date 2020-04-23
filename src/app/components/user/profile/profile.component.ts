@@ -1,21 +1,20 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, OnDestroy } from '@angular/core';
+import { Subscription } from 'rxjs';
 
 import { RouterExtensions } from 'nativescript-angular/router';
 
-import { isAndroid } from "tns-core-modules/platform";
-import * as application from "tns-core-modules/application";
-import { knownFolders, path as _path, File } from "tns-core-modules/file-system";
-import { AndroidApplication, AndroidActivityBackPressedEventData } from "tns-core-modules/application";
-
-import { AuthService } from '@src/app/services/auth/auth.service';
+import { SystemService } from '@src/app/services/system.service';
 import { UserService } from '@src/app/services/user/user.service';
 
-// Plugin
-import * as imagepicker from "nativescript-imagepicker";
+import { UserProfileData } from './../../../interface/user/userprofiledata-interface';
 
+// import { isAndroid } from "tns-core-modules/platform";
+// import * as application from "tns-core-modules/application";
+// import { AndroidApplication, AndroidActivityBackPressedEventData } from "tns-core-modules/application";
+// import { knownFolders, path as _path, File } from "tns-core-modules/file-system";
+// import * as imagepicker from "nativescript-imagepicker";
 // var fileSystem = require('file-system');
-const imageSourceModule = require("tns-core-modules/image-source");
-
+// const imageSourceModule = require("tns-core-modules/image-source");
 
 @Component({
   selector: 'app-profile',
@@ -23,119 +22,168 @@ const imageSourceModule = require("tns-core-modules/image-source");
   styleUrls: ['./profile.component.scss']
 })
 
-export class ProfileComponent implements OnInit {
+export class ProfileComponent implements OnInit, OnDestroy {
 
-  user_name: string = '';
-  member_since: string = '';
-  user_img: string = '';
-  user_earned_coins: string = "";
-  user_balance: string = "";
-  user_email: string = '';
-  user_phone_no: string = '';
-  user_city: string = '';
-  user_country: string = '';
-  user_referal_code: string = '';
-  isJazzCashPreferred: boolean = null;
+  isJazzCashPreferred: boolean = false;
+  _user_img: any = null;
+
+  _userData: UserProfileData = null;
+  _userData_Sub: Subscription;
+
+  _newUpdatedUserData: UserProfileData = null;
+  _newUpdatedUserData_Sub: Subscription;
 
   editing: boolean = false;
   hasProfileImg: boolean = false;
 
+  loadinPageData_s: boolean = true;
+  loadinPageDataSub: Subscription;
+
   constructor(
-    private _authService: AuthService,
     private _router: RouterExtensions,
-    private _userService: UserService
+    private _userService: UserService,
+    private _systemService: SystemService
   ) { }
 
+  get _formDataEntered() {
+    if (this.editing) {
+      if (this._newUpdatedUserData.city && this._newUpdatedUserData.country && this._newUpdatedUserData.name) {
+        return true;
+      }
+    }
+    return false;
+  }
+
   ngOnInit(): void {
+    this.loadinPageDataSub = this._systemService.getLoadinPageDataStatus().subscribe(
+      status => {
+        this.loadinPageData_s = status;
+      }
+    );
     // get user info from auth service using observable
-    this.user_name = 'Salman Ahmad';
-    this.member_since = 'Member Since ' + new Date();
-    this.user_img = 'res://profile';
-    this.user_earned_coins = "Total Coins Earned: " + 15000;
-    this.user_balance = "PKR 2000";
-    this.user_phone_no = "03006543216";
-    this.user_email = "salman123@gmail.com";
-    this.user_city = 'Lahore';
-    this.user_country = 'Pakistan';
-    this.user_referal_code = "QFX413";
-    this.isJazzCashPreferred = false;
+    this.getUserProfileData();
 
     // back button to home code
-    if (!isAndroid) {
-      return;
-    }
-    application.android.on(AndroidApplication.activityBackPressedEvent, (data: AndroidActivityBackPressedEventData) => {
-      // if (this.router.isActive("/articles", false)) { // check a specific one
-      data.cancel = true; // prevents default back button behavior
-      this._router.navigate(['/home']);
-      // this.logout();
-      // }
-    });
+    // if (!isAndroid) {
+    //   return;
+    // }
+    // application.android.on(AndroidApplication.activityBackPressedEvent, (data: AndroidActivityBackPressedEventData) => {
+    //   // if (this.router.isActive("/articles", false)) { // check a specific one
+    //   data.cancel = true; // prevents default back button behavior
+    //   this._router.navigate(['/home']);
+    //   // this.logout();
+    //   // }
+    // });
+  }
+
+  getUserProfileData() {
+    this._systemService.loadingPageDataTrue();
+    this._userData_Sub = this._userService.getProfileData().subscribe(
+      res => {
+        this._systemService.loadingPageDataFalse();
+        console.log('UserProfileComponent == getUserProfileData == response = ', res);
+        this._userData = res.data;
+        this._newUpdatedUserData = this._userData;
+      },
+      err => {
+        this._systemService.loadingPageDataFalse();
+        console.log('UserProfileComponent == getUserProfileData == error = ', err);
+        alert("Error Occured While fetching Profile Data, Try Again!");
+      }
+    )
   }
 
   enableEditing() {
     this.editing = true;
   }
 
-  disableEditing() {
-    this.editing = false;
+  disableEditingAndUpdateProfile() {
+    this._systemService.loadingPageDataTrue();
+    this._newUpdatedUserData_Sub = this._userService.updateProfileData(this._newUpdatedUserData).subscribe(
+      res => {
+        console.log("ProfileComponent == updateProfileData == response = ", res);
+        this._systemService.loadingPageDataFalse();
+        this.editing = false;
+      },
+      err => {
+        console.log("ProfileComponent == updateProfileData == error = ", err);
+        this._systemService.loadingPageDataFalse();
+        this.editing = false;
+        alert('Error Occured While Updating Profile Data, Try Againg!');
+      }
+    )
   }
 
-  uploadImg() {
-    var that = this;
-    var context = imagepicker.create({
-      mode: "single" // allow choosing single image
-    });
-    context
-      .authorize()
-      .then(function () {
-        return context.present();
-      })
-      .then(function (selection) {
-        selection.forEach(function (selected) {
+  // uploadImg() {
+  //   var that = this;
+  //   var context = imagepicker.create({
+  //     mode: "single" // allow choosing single image
+  //   });
+  //   context
+  //     .authorize()
+  //     .then(function () {
+  //       return context.present();
+  //     })
+  //     .then(function (selection) {
+  //       selection.forEach(function (selected) {
 
-          let file;
+  //         let _file;
 
-          if (selected.android) {
+  //         if (selected.android) {
 
-            file = File.fromPath(selected.android);
-            // viewModel.uploadFile(file);
-            that.hasProfileImg = true;
-            that.user_img = file._path;
-            // that._userService.updateProfile(file).subscribe(
-            //   result => {
-            //     console.log("Profile Img Uploading Complete", result);
-            //   },
-            //   err => {
-            //     console.log('Error Occured While Uploading Profile Photo', err);
-            //   }
-            // );
-            // console.log("selected.android - file - this is selected file:", file);
-            // console.log("that.hasProfileImg = ", that.hasProfileImg);
-            // console.log("that.user_img", that.user_img);
-          } else {
+  //           _file = File.fromPath(selected.android);
+  //           // viewModel.uploadFile(file);
+  //           that.hasProfileImg = true;
+  //           that._user_img = _file._path;
+  //           const data = {
+  //             file: _file
+  //           }
+  //           that._userService.updateProfile(data).subscribe(
+  //             result => {
+  //               console.log("Profile Img Uploading Complete ", result);
+  //             },
+  //             err => {
+  //               console.log('Error Occured While Uploading Profile Photo', err);
+  //             }
+  //           );
+  //           // console.log("selected.android - file - this is selected file:", file);
+  //           // console.log("that.hasProfileImg = ", that.hasProfileImg);
+  //           // console.log("that._user_img", that._user_img);
+  //         } else {
 
-            imageSourceModule.fromAsset(selected).then((imageSource) => {
+  //           imageSourceModule.fromAsset(selected).then((imageSource) => {
 
-              const folder = knownFolders.documents().path;
-              const fileName = "Photo.png";
-              const path = _path.join(folder, fileName);
-              const saved = imageSource.saveToFile(path, "png");
+  //             const folder = knownFolders.documents().path;
+  //             const fileName = "Photo.png";
+  //             const path = _path.join(folder, fileName);
+  //             const saved = imageSource.saveToFile(path, "png");
 
-              if (saved) {
-                console.log("Image saved successfully!");
-                file = File.fromPath(path);
-                //viewModel.uploadFile(file);
-              } else {
-                console.log("Error! - image couldnt save.");
-              }
-            });
-          }
-        });
-      }).catch(function (e) {
-        console.log(e);
-        // process error
-      });
+  //             if (saved) {
+  //               console.log("Image saved successfully!");
+  //               _file = File.fromPath(path);
+  //               //viewModel.uploadFile(file);
+  //             } else {
+  //               console.log("Error! - image couldnt save.");
+  //             }
+  //           });
+  //         }
+  //       });
+  //     }).catch(function (e) {
+  //       console.log(e);
+  //       // process error
+  //     });
+  // }
+
+  ngOnDestroy() {
+    if (this.loadinPageDataSub) {
+      this.loadinPageDataSub.unsubscribe();
+    }
+    if (this._newUpdatedUserData_Sub) {
+      this._newUpdatedUserData_Sub.unsubscribe();
+    }
+    if (this._userData_Sub) {
+      this._userData_Sub.unsubscribe();
+    }
   }
 
 }

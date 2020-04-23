@@ -51,6 +51,7 @@
           (selectedIndexChanged)="onchange($event)"
           (opened)="onopen()"
           (closed)="onclose()"
+          hint="Select Amount to WidtDrawal"
           style="border-width: 2;border-color: black;padding: 6 0 0 0;margin: 0;background-color: white;border-radius: 4;font-size: 20;"
         ></DropDown>
         <label text="ˇ" style="font-size: 40; margin: 15 0 0 -30;"></label>
@@ -90,7 +91,11 @@
         height="40"
         borderRadius="4"
         class="bg_green t_white p-0"
+        *ngIf="!_formSubmited"
+        [isEnabled]="_formDataEnteredStatus"
+        (tap)="submitForm()"
       ></button>
+      <ActivityIndicator busy="true" *ngIf="_formSubmited"></ActivityIndicator>
     </FlexBoxLayout>
     <FlexBoxLayout width="100%" flexDirection="column" justifyContent="center" alignItems="center">
       <label

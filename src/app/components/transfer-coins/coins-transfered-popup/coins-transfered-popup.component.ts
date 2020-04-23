@@ -8,18 +8,14 @@ import { Subscription } from 'rxjs';
   templateUrl: './coins-transfered-popup.component.html',
   styleUrls: ['./coins-transfered-popup.component.scss']
 })
-export class CoinsTransferedPopupComponent implements OnInit, OnDestroy {
+export class CoinsTransferedPopupComponent implements OnInit {
 
   remainingCoins: number;
   remainingCoinsSub: Subscription;
   constructor(private _modalParams: ModalDialogParams, private _systemService: SystemService) { }
 
   ngOnInit() {
-    this.remainingCoinsSub = this._systemService.getUserCoins().subscribe(
-      coins => {
-        this.remainingCoins = coins;
-      }
-    );
+    this.remainingCoins = (this._modalParams.context as { data: { remainingCoins: any } }).data.remainingCoins;
   }
 
   onHandle(action: "ok") {
@@ -28,12 +24,6 @@ export class CoinsTransferedPopupComponent implements OnInit, OnDestroy {
     }
     else {
       this._modalParams.closeCallback('ok');
-    }
-  }
-
-  ngOnDestroy(): void {
-    if (this.remainingCoinsSub) {
-      this.remainingCoinsSub.unsubscribe();
     }
   }
 

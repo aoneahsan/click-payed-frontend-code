@@ -37,6 +37,8 @@ export class TransferCoinsComponent implements OnInit, OnDestroy {
   formSubmited: boolean = false;
   remainingUserCoins: number = 0;
 
+  _userAccountDataSub: Subscription;
+
   constructor(
     private _systemService: SystemService,
     private _modalService: ModalDialogService,
@@ -98,26 +100,6 @@ export class TransferCoinsComponent implements OnInit, OnDestroy {
     }
   }
 
-  coinToTransferChanged() {
-    if (this.coins_to_transfer <= this.remainingUserCoins) {
-      const data = {
-        revicer_id: this._reciverUserData.id
-      }
-      this._userService.transferCoinsRequest(data).subscribe(
-        res => {
-          
-        },
-        err => {
-          console.log('Transfer Coins Compo  ==  coinToTransferChanged  ==  error = ', err);
-          alert('Error Occured, Try Again');
-        }
-      )
-    } else {
-      alert("Don't Have Enough Coins!");
-      this.coins_to_transfer = null;
-    }
-  }
-
   transferCoins() {
     this.formSubmited = true;
     this._modalService.showModal(
@@ -153,33 +135,81 @@ export class TransferCoinsComponent implements OnInit, OnDestroy {
   }
 
   transferNow() {
-    setTimeout(() => {
-      this.coinToTransferChanged();
-      this._modalService.showModal(
-        CoinsTransferedPopupComponent,
-        {
-          fullscreen: false,
-          viewContainerRef: this._uiService.getAppVCRef() ? this._uiService.getAppVCRef() : this._viewRf,
-          context: {
-            data: {
-              remainingCoins: this.remainingUserCoins
-            }
-          }
-        }
-      ).then(
+    if (this.coins_to_transfer <= this.remainingUserCoins) {
+      const data = {
+        revicer_id: this._reciverUserData.id,
+        coins_to_transfer: this.coins_to_transfer
+      }
+      this._userService.transferCoinsRequest(data).subscribe(
         res => {
-          // console.log(res);
-          if (res == 'ok') {
-            this.resetFields();
-          }
-          else if (res == undefined) {
-            this.resetFields();
-          }
+          this._modalService.showModal(
+            CoinsTransferedPopupComponent,
+            {
+              fullscreen: false,
+              viewContainerRef: this._uiService.getAppVCRef() ? this._uiService.getAppVCRef() : this._viewRf,
+              context: {
+                data: {
+                  remainingCoins: (this.remainingUserCoins - this.coins_to_transfer)
+                }
+              }
+            }
+          ).then(
+            res => {
+              if (res == 'ok') {
+                this.resetFields();
+                this._systemService.loadingPageDataTrue();
+                this._userAccountDataSub = this._userService.userAccountData().subscribe(
+                  data => {
+                    // console.log("App.Component.ts  ==  userAccountDataSub  ==  responsedata = ", data.data);
+                    this._systemService.setUserCoins(data.data.coins);
+                    this._systemService.setUserBalance(data.data.balance);
+                    this._systemService.loadingPageDataFalse();
+                  },
+                  err => {
+                    console.log("App.Component.ts  ==  userAccountDataSub  ==  error = ", err);
+                    this._systemService.loadingPageDataFalse();
+                    alert("Error Occured While Fetching Account Data, Reload App");
+                  }
+                );
+              }
+              else if (res == undefined) {
+                this.resetFields();
+              }
+            }
+          );
+        },
+        err => {
+          console.log('Transfer Coins Compo  ==  coinToTransferChanged  ==  error = ', err);
+          alert('Error Occured, Try Again');
+          this.formSubmited = false;
         }
-      );
-    }, 1000);
-    this.formSubmited = false;
+      )
+    } else {
+      alert("Don't Have Enough Coins!");
+      this.coins_to_transfer = null;
+      this.formSubmited = false;
+    }
   }
+
+  // coinToTransferChanged() {
+  //   if (this.coins_to_transfer <= this.remainingUserCoins) {
+  //     const data = {
+  //       revicer_id: this._reciverUserData.id
+  //     }
+  //     this._userService.transferCoinsRequest(data).subscribe(
+  //       res => {
+
+  //       },
+  //       err => {
+  //         console.log('Transfer Coins Compo  ==  coinToTransferChanged  ==  error = ', err);
+  //         alert('Error Occured, Try Again');
+  //       }
+  //     )
+  //   } else {
+  //     alert("Don't Have Enough Coins!");
+  //     this.coins_to_transfer = null;
+  //   }
+  // }
 
   resetFields() {
     this.coins_to_transfer = null;
@@ -196,6 +226,9 @@ export class TransferCoinsComponent implements OnInit, OnDestroy {
     }
     if (this.loadinPageDataSub) {
       this.loadinPageDataSub.unsubscribe();
+    }
+    if (this._userAccountDataSub) {
+      this._userAccountDataSub.unsubscribe();
     }
   }
 

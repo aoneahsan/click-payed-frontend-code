@@ -4,9 +4,17 @@
     [hasMenu]="true"
     [showBackButton]="false"
     [showNotifications]="true"
-></app-action-bar>
+    *ngIf="!loadinPageData_s"
+    ></app-action-bar>
+    <app-action-bar
+        [title]=""
+        [hasMenu]="false"
+        [showBackButton]="false"
+        [showNotifications]="false"
+        *ngIf="loadinPageData_s"
+    ></app-action-bar>
 <ScrollView>
-    <FlexBoxLayout flexDirection="column">
+    <FlexBoxLayout flexDirection="column" *ngIf="!loadinPageData_s && _userData">
         <!-- Notice Board Section -->
         <FlexBoxLayout class="bg_forest" style="padding: 0 0 50 0;">
             <FlexBoxLayout flexDirection="column" class="m-l-20">
@@ -20,7 +28,7 @@
                     >
                         <TextField
                             class="t_white text-left"
-                            [text]="user_name"
+                            [text]="_userData.name | uppercase"
                             style="font-size: 22; margin-left: -10; padding-left: 10; margin-bottom: -4;border-width: 0;background-color: transparent; color: white;"
                             width="100%"
                             isUserInteractionEnabled="false"
@@ -28,14 +36,14 @@
                         ></TextField>
                         <TextField
                             class="t_white text-left"
-                            [text]="user_name"
+                            [text]="_userData.name"
                             style="font-size: 22; margin-left: -10; padding-left: 10; margin-bottom: -4;border-width: 0;background-color: transparent; color: white;"
                             width="100%"
                             *ngIf="editing"
                         ></TextField>
                         <label
                             class="t_white"
-                            [text]="member_since"
+                            [text]="_userData.member_since"
                             style="font-size: 12;"
                             [textWrap]="true"
                         ></label>
@@ -59,10 +67,13 @@
                             text="Update Profile"
                             style="background-color: transparent; border-color: white; border-width: 2; padding: 0 10; margin: 0; border-radius: 4;"
                             class="t_white"
-                            (tap)="disableEditing()"
+                            (tap)="disableEditingAndUpdateProfile()"
                             *ngIf="editing"
+                            [isEnabled]="_formDataEntered"
                         ></button>
                     </FlexBoxLayout>
+                    
+                    <!-- Profile Image Section -->
                     <FlexBoxLayout
                         flexDirection="column"
                         justifyContent="center"
@@ -71,7 +82,7 @@
                         row="0"
                         col="1"
                     >
-                        <image
+                        <!-- <image
                             [src]="user_img"
                             width="120"
                             height="120"
@@ -91,7 +102,7 @@
                             style="font-size: 12; margin: -14 0 0 0;"
                             class="text-uppercase"
                             *ngIf="editing"
-                        ></button>
+                        ></button> -->
                     </FlexBoxLayout>
                 </GridLayout>
                 <FlexBoxLayout class="t_white m-t-20" style="font-size: 18;">
@@ -106,10 +117,10 @@
                         class="m-r-20"
                         nsRouterLink="/user/achievements"
                     ></label>
-                    <label
+                    <!-- <label
                         text="Security"
                         nsRouterLink="/user/security"
-                    ></label>
+                    ></label> -->
                 </FlexBoxLayout>
             </FlexBoxLayout>
         </FlexBoxLayout>
@@ -125,8 +136,9 @@
                     ></label>
                     <label
                         [textWrap]="true"
-                        [text]="user_name"
+                        [text]="_userData.name | uppercase"
                         class="info_value"
+                        *ngIf="!editing"
                     ></label>
                 </FlexBoxLayout>
 
@@ -138,8 +150,9 @@
                     ></label>
                     <label
                         [textWrap]="true"
-                        [text]="user_balance"
+                        [text]="_userData.balance | number: '1.2'"
                         class="info_value"
+                        *ngIf="!editing"
                     ></label>
                 </FlexBoxLayout>
             </FlexBoxLayout>
@@ -152,8 +165,9 @@
                     ></label>
                     <label
                         [textWrap]="true"
-                        [text]="user_phone_no"
+                        [text]="_userData.phone_number"
                         class="info_value"
+                        *ngIf="!editing"
                     ></label>
                 </FlexBoxLayout>
 
@@ -166,8 +180,9 @@
                     <label
                         [textWrap]="true"
                         fontSize="13"
-                        [text]="user_email"
+                        [text]="_userData.email"
                         class="info_value m-t-5"
+                        *ngIf="!editing"
                     ></label>
                 </FlexBoxLayout>
             </FlexBoxLayout>
@@ -180,8 +195,9 @@
                     ></label>
                     <label
                         [textWrap]="true"
-                        [text]="user_city"
+                        [text]="_userData.city ? _userData.city : 'Not Entered'"
                         class="info_value"
+                        *ngIf="!editing"
                     ></label>
                 </FlexBoxLayout>
 
@@ -193,21 +209,22 @@
                     ></label>
                     <label
                         [textWrap]="true"
-                        [text]="user_country"
+                        [text]="_userData.country ? _userData.country : 'Not Entered'"
                         class="info_value"
+                        *ngIf="!editing"
                     ></label>
                 </FlexBoxLayout>
             </FlexBoxLayout>
 
-            <label class="hr m-y-10"></label>
-
-            <label
+            <!-- Prefered Payment Method EasyPaisa/Jazzcash Section -->
+            
+            <!-- <label class="hr m-y-10"></label> -->
+            <!-- <label
                 text="Preferred Payout Method"
                 style="font-size: 16;"
                 class="info_name"
-            ></label>
-
-            <FlexBoxLayout width="100%" class="m-t-15">
+            ></label> -->
+            <!-- <FlexBoxLayout width="100%" class="m-t-15">
                 <FlexBoxLayout width="38%" flexDirection="column" class="p-t-5">
                     <FlexBoxLayout alignItems="center">
                         <label
@@ -237,11 +254,12 @@
                         style="font-size: 14;"
                     ></label>
                 </FlexBoxLayout>
-            </FlexBoxLayout>
+            </FlexBoxLayout> -->
 
             <label class="hr m-y-10"></label>
 
-            <FlexBoxLayout width="100%" class="m-t-0" flexDirection="column">
+            <!-- Referal Code Section -->
+            <FlexBoxLayout width="100%" class="m-t-0" flexDirection="column" *ngIf="_userData.referal_code">
                 <label
                     class="body text-center"
                     width="100%"
@@ -252,7 +270,7 @@
                             text="Referral Code | "
                             style="color: #bababa;"
                         ></span>
-                        <span [text]="user_referal_code"></span>
+                        <span [text]="_userData.referal_code"></span>
                     </FormattedString>
                 </label>
                 <Label text="Get 5% instant commission on all referral deposits" textWrap="true" class="body text-center" style="font-size: 12;"></Label>
@@ -294,5 +312,13 @@
             [section_2]="false"
             [section_3]="false"
         ></app-footer> -->
+    </FlexBoxLayout>
+    <FlexBoxLayout
+        justifyContent="center"
+        alignItems="center"
+        *ngIf="loadinPageData_s"
+        height="100vh"
+    >
+        <ActivityIndicator busy="true"></ActivityIndicator>
     </FlexBoxLayout>
 </ScrollView>

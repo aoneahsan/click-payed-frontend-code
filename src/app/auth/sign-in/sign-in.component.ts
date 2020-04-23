@@ -66,7 +66,7 @@ export class SignInComponent implements OnInit {
         this.formReset();
       },
       err => {
-        // console.log('SignIn Component Error', err);
+        console.log('SignIn Component Error', err);
         this.errorMessage = err.error.message;
         this.errorOccured = true;
         this.formReset();

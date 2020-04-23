@@ -20,10 +20,10 @@
             <Button text="Login" width="80%" *ngIf="!formSubmited" class="-primary" [isEnabled]="loginPinLength" (tap)="verifyPinLogin()"></Button>
             <ActivityIndicator [busy]="true" *ngIf="formSubmited"></ActivityIndicator>
         </StackLayout>
-        <GridLayout rows="auto" columns="auto,auto">
+        <!-- <GridLayout rows="auto" columns="auto,auto">
             <Label class="body t_white text-right m-r-5" row="0" col="0" text="Forgot Password?"></Label>
             <Label class="body t_orange text-left" row="0" col="1" text="Click Here" (tap)="forgotPasswordPage()"></Label>
-        </GridLayout>
+        </GridLayout> -->
         <Label class="body t_white" text="Don't have a account?"></Label>
         <GridLayout rows="auto" columns="auto,auto">
             <Label class="body t_white text-right m-r-5" row="0" col="0" text="Signup for new eWallet account"></Label>

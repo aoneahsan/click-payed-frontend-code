@@ -3,6 +3,7 @@ import { Routes } from '@angular/router';
 
 import { NativeScriptCommonModule } from 'nativescript-angular/common';
 import { NativeScriptRouterModule } from 'nativescript-angular/router';
+import { NativeScriptFormsModule } from 'nativescript-angular/forms';
 
 import { DropDownModule } from 'nativescript-drop-down/angular';
 
@@ -25,7 +26,8 @@ const routes: Routes = [
         NativeScriptCommonModule,
         NativeScriptRouterModule.forChild(routes),
         SharedModule,
-        DropDownModule
+        DropDownModule,
+        NativeScriptFormsModule
     ],
     exports: [
         NativeScriptRouterModule
