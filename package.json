@@ -1,7 +1,7 @@
 {
   "name": "click-payed",
   "nativescript": {
-    "id": "org.nativescript.clickpayed",
+    "id": "com.coinpayed.app",
     "tns-ios": {
       "version": "6.3.0"
     },

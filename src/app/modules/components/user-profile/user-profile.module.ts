@@ -1,3 +1,4 @@
+import { NativeScriptFormsModule } from 'nativescript-angular/forms';
 import { NgModule, NO_ERRORS_SCHEMA } from "@angular/core";
 import { Routes } from '@angular/router';
 
@@ -37,7 +38,8 @@ const routes: Routes = [
         NativeScriptCommonModule,
         NativeScriptRouterModule.forChild(routes),
         SharedModule,
-        NativeScriptHttpClientModule
+        NativeScriptHttpClientModule,
+        NativeScriptFormsModule
     ],
     exports: [
         NativeScriptRouterModule

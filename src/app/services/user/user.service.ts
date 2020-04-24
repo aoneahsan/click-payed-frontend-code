@@ -1,15 +1,20 @@
+import { UserProfileData } from './../../interface/user/userprofiledata-interface';
 import { Injectable } from "@angular/core";
 import { HttpClient } from "@angular/common/http";
 
 import { SystemService } from "../system.service";
-import { Subscription } from "rxjs";
+import { Subscription, BehaviorSubject } from "rxjs";
 
 @Injectable({
     providedIn: 'root'
 })
 export class UserService {
 
+    // User Account Component Variables
     _userAccountSub: Subscription;
+
+    // User Profile Component Variables
+    _userProfileData = new BehaviorSubject<UserProfileData>(null); 
 
     constructor(private _systemService: SystemService, private _http: HttpClient) { }
 
@@ -43,7 +48,8 @@ export class UserService {
         );
     }
 
-    getProfileData() {
+    getProfileDataFromServer() {
+        console.log("UserService.ts == getProfileDataFromServer == called");
         const data = 'ok';
         return this._http.post<any>(
             this._systemService.getApiRootURL() + 'get_user_profile_data',
@@ -51,7 +57,15 @@ export class UserService {
         );
     }
 
-    updateProfileData(data) {
+    getProfileData() {
+        return this._userProfileData;
+    }
+
+    setProfileData(data: UserProfileData) {
+        this._userProfileData.next(data);
+    }
+
+    updateProfileDataInServer(data) {
         // console.log(data);
         // console.log("api URL", this._systemService.getApiRootURL() + "upload");
         return this._http.post<any>(

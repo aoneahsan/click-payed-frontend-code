@@ -5,16 +5,19 @@
     [showBackButton]="false"
     [showNotifications]="true"
     *ngIf="!loadinPageData_s"
-    ></app-action-bar>
-    <app-action-bar
-        [title]=""
-        [hasMenu]="false"
-        [showBackButton]="false"
-        [showNotifications]="false"
-        *ngIf="loadinPageData_s"
-    ></app-action-bar>
+></app-action-bar>
+<app-action-bar
+    [title]=""
+    [hasMenu]="false"
+    [showBackButton]="false"
+    [showNotifications]="false"
+    *ngIf="loadinPageData_s"
+></app-action-bar>
 <ScrollView>
-    <FlexBoxLayout flexDirection="column" *ngIf="!loadinPageData_s && _userData">
+    <FlexBoxLayout
+        flexDirection="column"
+        *ngIf="!loadinPageData_s && _userData"
+    >
         <!-- Notice Board Section -->
         <FlexBoxLayout class="bg_forest" style="padding: 0 0 50 0;">
             <FlexBoxLayout flexDirection="column" class="m-l-20">
@@ -29,34 +32,49 @@
                         <TextField
                             class="t_white text-left"
                             [text]="_userData.name | uppercase"
-                            style="font-size: 22; margin-left: -10; padding-left: 10; margin-bottom: -4;border-width: 0;background-color: transparent; color: white;"
+                            style="
+                                font-size: 22;
+                                margin-left: -10;
+                                padding-left: 10;
+                                margin-bottom: -4;
+                                border-width: 0;
+                                background-color: transparent;
+                                color: white;
+                            "
                             width="100%"
                             isUserInteractionEnabled="false"
-                            *ngIf="!editing"
                         ></TextField>
-                        <TextField
+                        <!-- <TextField
                             class="t_white text-left"
                             [text]="_userData.name"
                             style="font-size: 22; margin-left: -10; padding-left: 10; margin-bottom: -4;border-width: 0;background-color: transparent; color: white;"
                             width="100%"
                             *ngIf="editing"
-                        ></TextField>
+                        ></TextField> -->
                         <label
                             class="t_white"
                             [text]="_userData.member_since"
                             style="font-size: 12;"
                             [textWrap]="true"
                         ></label>
-                        <label
-                            [text]="user_earned_coins"
-                            class="t_orange m-b-5"
-                            style="font-size: 14;"
-                        ></label>
+                        <label class="t_orange m-b-5" style="font-size: 14;">
+                            <FormattedString>
+                                <span text="Total Earned Coins: "></span>
+                                <span [text]="_userData.coins"></span>
+                            </FormattedString>
+                        </label>
                         <button
                             width="auto"
                             height="36"
                             text="Edit Profile"
-                            style="background-color: transparent; border-color: white; border-width: 2; padding: 0 10; margin: 0; border-radius: 4;"
+                            style="
+                                background-color: transparent;
+                                border-color: white;
+                                border-width: 2;
+                                padding: 0 10;
+                                margin: 0;
+                                border-radius: 4;
+                            "
                             class="t_white"
                             (tap)="enableEditing()"
                             *ngIf="!editing"
@@ -65,14 +83,21 @@
                             width="auto"
                             height="36"
                             text="Update Profile"
-                            style="background-color: transparent; border-color: white; border-width: 2; padding: 0 10; margin: 0; border-radius: 4;"
+                            style="
+                                background-color: transparent;
+                                border-color: white;
+                                border-width: 2;
+                                padding: 0 10;
+                                margin: 0;
+                                border-radius: 4;
+                            "
                             class="t_white"
-                            (tap)="disableEditingAndUpdateProfile()"
+                            (tap)="UpdateProfileAnddisableEditing()"
                             *ngIf="editing"
                             [isEnabled]="_formDataEntered"
                         ></button>
                     </FlexBoxLayout>
-                    
+
                     <!-- Profile Image Section -->
                     <FlexBoxLayout
                         flexDirection="column"
@@ -140,6 +165,12 @@
                         class="info_value"
                         *ngIf="!editing"
                     ></label>
+                    <TextField
+                        [(ngModel)]="_newUpdatedUserData.name"
+                        class="info_value"
+                        [autocorrect]="false"
+                        *ngIf="editing"
+                    ></TextField>
                 </FlexBoxLayout>
 
                 <FlexBoxLayout width="50%" flexDirection="column">
@@ -152,7 +183,6 @@
                         [textWrap]="true"
                         [text]="_userData.balance | number: '1.2'"
                         class="info_value"
-                        *ngIf="!editing"
                     ></label>
                 </FlexBoxLayout>
             </FlexBoxLayout>
@@ -167,7 +197,6 @@
                         [textWrap]="true"
                         [text]="_userData.phone_number"
                         class="info_value"
-                        *ngIf="!editing"
                     ></label>
                 </FlexBoxLayout>
 
@@ -182,7 +211,6 @@
                         fontSize="13"
                         [text]="_userData.email"
                         class="info_value m-t-5"
-                        *ngIf="!editing"
                     ></label>
                 </FlexBoxLayout>
             </FlexBoxLayout>
@@ -199,6 +227,12 @@
                         class="info_value"
                         *ngIf="!editing"
                     ></label>
+                    <TextField
+                        [(ngModel)]="_newUpdatedUserData.city"
+                        class="info_value"
+                        [autocorrect]="false"
+                        *ngIf="editing"
+                    ></TextField>
                 </FlexBoxLayout>
 
                 <FlexBoxLayout width="50%" flexDirection="column">
@@ -213,11 +247,17 @@
                         class="info_value"
                         *ngIf="!editing"
                     ></label>
+                    <TextField
+                        [(ngModel)]="_newUpdatedUserData.country"
+                        class="info_value"
+                        [autocorrect]="false"
+                        *ngIf="editing"
+                    ></TextField>
                 </FlexBoxLayout>
             </FlexBoxLayout>
 
             <!-- Prefered Payment Method EasyPaisa/Jazzcash Section -->
-            
+
             <!-- <label class="hr m-y-10"></label> -->
             <!-- <label
                 text="Preferred Payout Method"
@@ -259,7 +299,12 @@
             <label class="hr m-y-10"></label>
 
             <!-- Referal Code Section -->
-            <FlexBoxLayout width="100%" class="m-t-0" flexDirection="column" *ngIf="_userData.referal_code">
+            <FlexBoxLayout
+                width="100%"
+                class="m-t-0"
+                flexDirection="column"
+                *ngIf="_userData.referal_code"
+            >
                 <label
                     class="body text-center"
                     width="100%"
@@ -273,7 +318,12 @@
                         <span [text]="_userData.referal_code"></span>
                     </FormattedString>
                 </label>
-                <Label text="Get 5% instant commission on all referral deposits" textWrap="true" class="body text-center" style="font-size: 12;"></Label>
+                <label
+                    text="Get 5% instant commission on all referral deposits"
+                    textWrap="true"
+                    class="body text-center"
+                    style="font-size: 12;"
+                ></label>
             </FlexBoxLayout>
 
             <FlexBoxLayout
@@ -286,7 +336,11 @@
                     width="48%"
                     justifyContent="space-around"
                     alignItems="center"
-                    style="border-width: 2; border-color: rgba(0, 0, 0, 0.801); border-radius: 4;"
+                    style="
+                        border-width: 2;
+                        border-color: rgba(0, 0, 0, 0.801);
+                        border-radius: 4;
+                    "
                     class="p-5"
                 >
                     <image src="res://whatsapp" width="25" heigth="25"></image>
@@ -297,7 +351,11 @@
                     width="48%"
                     justifyContent="space-around"
                     alignItems="center"
-                    style="border-width: 2; border-color: rgba(0, 0, 0, 0.801); border-radius: 4;"
+                    style="
+                        border-width: 2;
+                        border-color: rgba(0, 0, 0, 0.801);
+                        border-radius: 4;
+                    "
                     class="p-5"
                 >
                     <image src="res://whatsapp" width="25" heigth="25"></image>

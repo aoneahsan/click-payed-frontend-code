@@ -29,6 +29,7 @@ export class ProfileComponent implements OnInit, OnDestroy {
 
   _userData: UserProfileData = null;
   _userData_Sub: Subscription;
+  _userDataFromServer_Sub: Subscription;
 
   _newUpdatedUserData: UserProfileData = null;
   _newUpdatedUserData_Sub: Subscription;
@@ -77,41 +78,57 @@ export class ProfileComponent implements OnInit, OnDestroy {
   }
 
   getUserProfileData() {
-    this._systemService.loadingPageDataTrue();
     this._userData_Sub = this._userService.getProfileData().subscribe(
-      res => {
-        this._systemService.loadingPageDataFalse();
-        console.log('UserProfileComponent == getUserProfileData == response = ', res);
-        this._userData = res.data;
-        this._newUpdatedUserData = this._userData;
-      },
-      err => {
-        this._systemService.loadingPageDataFalse();
-        console.log('UserProfileComponent == getUserProfileData == error = ', err);
-        alert("Error Occured While fetching Profile Data, Try Again!");
+      data => {
+        if (!data) {
+          this._systemService.loadingPageDataTrue();
+          this._userDataFromServer_Sub = this._userService.getProfileDataFromServer().subscribe(
+            res => {
+              this._systemService.loadingPageDataFalse();
+              // console.log('ProfileComponent == getUserProfileData == getProfileDataFromServer == response = ', res);
+              this._userService.setProfileData(res.data);
+            },
+            err => {
+              this._systemService.loadingPageDataFalse();
+              console.log('ProfileComponent == getUserProfileData == getProfileDataFromServer == error = ', err);
+              alert("Error Occured While fetching Profile Data, Try Again!");
+            }
+          );
+        }
+        else {
+          this._userData = data;
+          this._newUpdatedUserData = this._userData;
+        }
       }
-    )
+    );
   }
 
   enableEditing() {
     this.editing = true;
   }
 
-  disableEditingAndUpdateProfile() {
-    this._systemService.loadingPageDataTrue();
-    this._newUpdatedUserData_Sub = this._userService.updateProfileData(this._newUpdatedUserData).subscribe(
-      res => {
-        console.log("ProfileComponent == updateProfileData == response = ", res);
-        this._systemService.loadingPageDataFalse();
-        this.editing = false;
-      },
-      err => {
-        console.log("ProfileComponent == updateProfileData == error = ", err);
-        this._systemService.loadingPageDataFalse();
-        this.editing = false;
-        alert('Error Occured While Updating Profile Data, Try Againg!');
+  UpdateProfileAnddisableEditing() {
+    if (this.editing) {
+      if (this._newUpdatedUserData.city && this._newUpdatedUserData.country && this._newUpdatedUserData.name) {
+        this._systemService.loadingPageDataTrue();
+        this._newUpdatedUserData_Sub = this._userService.updateProfileDataInServer(this._newUpdatedUserData).subscribe(
+          res => {
+            console.log("ProfileComponent == updateProfileData == response = ", res);
+            this._systemService.loadingPageDataFalse();
+            this.editing = false;
+          },
+          err => {
+            console.log("ProfileComponent == updateProfileData == error = ", err);
+            this._systemService.loadingPageDataFalse();
+            this.editing = false;
+            alert('Error Occured While Updating Profile Data, Try Againg!');
+          }
+        );
       }
-    )
+    }
+    else {
+      return;
+    }
   }
 
   // uploadImg() {
@@ -183,6 +200,9 @@ export class ProfileComponent implements OnInit, OnDestroy {
     }
     if (this._userData_Sub) {
       this._userData_Sub.unsubscribe();
+    }
+    if (this._userDataFromServer_Sub) {
+      this._userDataFromServer_Sub.unsubscribe();
     }
   }
 

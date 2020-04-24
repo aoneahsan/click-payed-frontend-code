@@ -4,9 +4,20 @@
     [hasMenu]="true"
     [showBackButton]="false"
     [showNotifications]="true"
+    *ngIf="!loadinPageData_s"
+></app-action-bar>
+<app-action-bar
+    [title]=""
+    [hasMenu]="false"
+    [showBackButton]="false"
+    [showNotifications]="false"
+    *ngIf="loadinPageData_s"
 ></app-action-bar>
 <ScrollView>
-    <FlexBoxLayout flexDirection="column">
+    <FlexBoxLayout
+        flexDirection="column"
+        *ngIf="!loadinPageData_s && _userData"
+    >
         <!-- Notice Board Section -->
         <FlexBoxLayout class="bg_forest" style="padding: 20 0 50 0;">
             <FlexBoxLayout flexDirection="column" class="m-l-20">
@@ -20,30 +31,31 @@
                     >
                         <TextField
                             class="t_white text-left"
-                            [text]="user_name"
-                            style="font-size: 22; margin-left: -10; padding-left: 10; margin-bottom: -4;border-width: 0;background-color: transparent; color: white;"
+                            [text]="_userData.name | uppercase"
+                            style="
+                                font-size: 22;
+                                margin-left: -10;
+                                padding-left: 10;
+                                margin-bottom: -4;
+                                border-width: 0;
+                                background-color: transparent;
+                                color: white;
+                            "
                             width="100%"
                             isUserInteractionEnabled="false"
-                            *ngIf="!editing"
-                        ></TextField>
-                        <TextField
-                            class="t_white text-left"
-                            [text]="user_name"
-                            style="font-size: 22; margin-left: -10; padding-left: 10; margin-bottom: -4;border-width: 0;background-color: transparent; color: white;"
-                            width="100%"
-                            *ngIf="editing"
                         ></TextField>
                         <label
                             class="t_white"
-                            [text]="member_since"
+                            [text]="_userData.member_since"
                             style="font-size: 12;"
                             [textWrap]="true"
                         ></label>
-                        <label
-                            [text]="user_earned_coins"
-                            class="t_orange m-b-5"
-                            style="font-size: 14;"
-                        ></label>
+                        <label class="t_orange m-b-5" style="font-size: 14;">
+                            <FormattedString>
+                                <span text="Total Earned Coins: "></span>
+                                <span [text]="_userData.coins"></span>
+                            </FormattedString>
+                        </label>
                     </FlexBoxLayout>
                     <FlexBoxLayout
                         flexDirection="column"
@@ -97,7 +109,7 @@
         </FlexBoxLayout>
 
         <!-- Second Sectoion -->
-        <FlexBoxLayout flexDirection="column" class="section_2_con">
+        <FlexBoxLayout flexDirection="column" class="section_2_con" *ngIf="achievements_records">
             <FlexBoxLayout
                 width="100%"
                 justifyContent="space-around"
@@ -205,6 +217,9 @@
                 </FlexBoxLayout>
             </FlexBoxLayout>
         </FlexBoxLayout>
+        <FlexBoxLayout flexDirection="column" class="section_2_con" *ngIf="!achievements_records">
+            <Label text="Your Acihements Will Show Here" width="100%" class="text-center" style="color: grey; font-size: 16;" textWrap="true"></Label>
+        </FlexBoxLayout>
 
         <!-- App Footer -->
         <app-footer
@@ -212,5 +227,13 @@
             [section_2]="false"
             [section_3]="false"
         ></app-footer>
+    </FlexBoxLayout>
+    <FlexBoxLayout
+        justifyContent="center"
+        alignItems="center"
+        *ngIf="loadinPageData_s"
+        height="100vh"
+    >
+        <ActivityIndicator busy="true"></ActivityIndicator>
     </FlexBoxLayout>
 </ScrollView>

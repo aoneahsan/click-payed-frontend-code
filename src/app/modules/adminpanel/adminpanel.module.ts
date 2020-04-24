@@ -35,6 +35,10 @@ const routes: Routes = [
         component: MakeDepositComponent
     },
     {
+        path: 'admin/deposit-pending-requests',
+        component: DepositPendingRequestsComponent
+    },
+    {
         path: 'admin/process-withdrawals',
         component: ProcessWithdrawalsComponent
     },
@@ -57,10 +61,6 @@ const routes: Routes = [
     {
         path: 'admin/notice-board',
         component: NoticeBoardComponent
-    },
-    {
-        path: 'admin/deposit-pending-requests',
-        component: DepositPendingRequestsComponent
     }
 ]
 

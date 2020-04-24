@@ -9,7 +9,7 @@ import { CompatibleGameInfoComponent } from './components/compatible-games/compa
 export const routes: Routes = [
   {
     path: '',
-    redirectTo: 'user/profile',
+    redirectTo: 'admin/deposit-pending-requests',
     pathMatch: 'full',
   },
   {

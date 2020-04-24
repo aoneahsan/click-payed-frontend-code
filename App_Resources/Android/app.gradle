@@ -8,7 +8,7 @@
 android {  
   defaultConfig {  
     generatedDensities = []
-    applicationId = "org.nativescript.clickpayed" 
+    applicationId = "com.coinpayed.app" 
     
     //override supported platforms
     // ndk {
