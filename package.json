@@ -41,10 +41,12 @@
     "nativescript-checkbox": "^3.0.3",
     "nativescript-drop-down": "^5.0.4",
     "nativescript-imagepicker": "^7.1.0",
+    "nativescript-plugin-firebase": "^10.5.2",
     "nativescript-ui-sidedrawer": "^8.0.0",
     "reflect-metadata": "~0.1.12",
     "rxjs": "~6.4.0",
     "tns-core-modules": "~6.3.0",
+    "tns-platform-declarations": "^6.5.1",
     "tslib": "1.10.0",
     "zone.js": "~0.9.1"
   },

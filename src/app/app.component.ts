@@ -1,13 +1,16 @@
 import { Component, OnInit, OnDestroy, ViewContainerRef } from '@angular/core';
+import { Subscription } from 'rxjs';
 
 // import { RadSideDrawerComponent } from 'nativescript-ui-sidedrawer/angular/side-drawer-directives';
 // import { RadSideDrawer } from 'nativescript-ui-sidedrawer';
-// import { Subscription } from 'rxjs';
+
 import { UIService } from './shared/ui/ui.service';
 import { AuthService } from './services/auth/auth.service';
 import { SystemService } from './services/system.service';
 import { UserService } from './services/user/user.service';
-import { Subscription } from 'rxjs';
+
+// Plugins
+import * as firebase from 'nativescript-plugin-firebase';
 
 @Component({
   selector: 'app-root',
@@ -34,6 +37,9 @@ export class AppComponent implements OnInit, OnDestroy {
   ngOnInit() {
     // login User Automatically
     this._authService.autoLogin();
+
+    // Starting FireBase Plugin
+    this.initFirebasePlugin();
 
     // SideDrawer Code
     // this.drawerSub = this._uiService.drawerState.subscribe(
@@ -77,6 +83,28 @@ export class AppComponent implements OnInit, OnDestroy {
   logout() {
     this._authService.logout();
     this._uiService.toggleDrawerState();
+  }
+
+  initFirebasePlugin() {
+    firebase.init({
+      showNotifications: true,
+      showNotificationsWhenInForeground: true,
+
+      onPushTokenReceivedCallback: (token) => {
+        console.log('[Firebase] onPushTokenReceivedCallback:', { token });
+      },
+
+      onMessageReceivedCallback: (message: firebase.Message) => {
+        console.log('[Firebase] onMessageReceivedCallback:', { message });
+      }
+    })
+      .then(() => {
+        console.log('[Firebase] Initialized');
+      })
+      .catch(error => {
+        console.log('[Firebase] Initialize', { error });
+      });
+
   }
 
   ngOnDestroy() {

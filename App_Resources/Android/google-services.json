@@ -1,34 +1,34 @@
 {
   "project_info": {
-    "project_number": "241958212226",
-    "firebase_url": "https://click-payed-245c5.firebaseio.com",
-    "project_id": "click-payed-245c5",
-    "storage_bucket": "click-payed-245c5.appspot.com"
+    "project_number": "1096907554873",
+    "firebase_url": "https://coinpayed.firebaseio.com",
+    "project_id": "coinpayed",
+    "storage_bucket": "coinpayed.appspot.com"
   },
   "client": [
     {
       "client_info": {
-        "mobilesdk_app_id": "1:241958212226:android:ac40b2276ecbb4cd2dda9b",
+        "mobilesdk_app_id": "1:1096907554873:android:819e1bcfd419a156f78de8",
         "android_client_info": {
-          "package_name": "com.coinpayed.android"
+          "package_name": "com.coinpayed.app"
         }
       },
       "oauth_client": [
         {
-          "client_id": "241958212226-6vmnbims721t3rukh08m1ef4j75n9rgt.apps.googleusercontent.com",
+          "client_id": "1096907554873-60g2115197a4tg7upiblfddsqop4hr5t.apps.googleusercontent.com",
           "client_type": 3
         }
       ],
       "api_key": [
         {
-          "current_key": "AIzaSyBVB8O_KTKE6YKwSXpZwV3ZTtaKJfxJA2w"
+          "current_key": "AIzaSyBwMqNyhQ6TjbAbn8OsjaSw-uFvWWQZ2V4"
         }
       ],
       "services": {
         "appinvite_service": {
           "other_platform_oauth_client": [
             {
-              "client_id": "241958212226-6vmnbims721t3rukh08m1ef4j75n9rgt.apps.googleusercontent.com",
+              "client_id": "1096907554873-60g2115197a4tg7upiblfddsqop4hr5t.apps.googleusercontent.com",
               "client_type": 3
             }
           ]
