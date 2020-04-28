@@ -1,4 +1,5 @@
-import { Component, OnInit, Input } from '@angular/core';
+import { Component, OnInit, Input, OnDestroy } from '@angular/core';
+import { Subscription } from 'rxjs';
 
 import { Page, isAndroid } from 'tns-core-modules/ui/page';
 import { RouterExtensions } from 'nativescript-angular/router';
@@ -6,6 +7,7 @@ import { RouterExtensions } from 'nativescript-angular/router';
 import { UIService } from './../ui.service';
 import { SystemService } from '@src/app/services/system.service';
 import { AuthService } from '@src/app/services/auth/auth.service';
+import { UserService } from '@src/app/services/user/user.service';
 
 declare var android:any;
 
@@ -14,7 +16,7 @@ declare var android:any;
   templateUrl: './action-bar.component.html',
   styleUrls: ['./action-bar.component.scss']
 })
-export class ActionBarComponent implements OnInit {
+export class ActionBarComponent implements OnInit, OnDestroy {
 
   // For local Users
   @Input() title = "";
@@ -26,6 +28,8 @@ export class ActionBarComponent implements OnInit {
   remaining_coins: number = 0;
   nofitications_count: string = '';
 
+  _deleteFirebaseToken_Sub: Subscription;
+
   // For AdminPanel Users
   @Input() isAdminPanel = false;
 
@@ -34,7 +38,8 @@ export class ActionBarComponent implements OnInit {
     private _router: RouterExtensions, 
     private _uiService: UIService, 
     private _systemService: SystemService,
-    private _authService: AuthService
+    private _authService: AuthService,
+    private _userService: UserService
   ) { }
 
   ngOnInit() {
@@ -88,6 +93,20 @@ export class ActionBarComponent implements OnInit {
     // send http using service remove app setting (local keys), and then navigate
     this._systemService.loadingPageDataTrue();
     this._authService.logout();
+    this._deleteFirebaseToken_Sub = this._userService.deleteUserFirebaseToken().subscribe(
+      res => {
+        // console.log("ActionBarComponent == logout == deleteUserFirebaseTokken == response = ", res);
+      },
+      err => {
+        console.log("ActionBarComponent == logout == deleteUserFirebaseTokken == error = ", err);
+      }
+    )
+  }
+
+  ngOnDestroy(): void {
+    if (this._deleteFirebaseToken_Sub) {
+      this._deleteFirebaseToken_Sub.unsubscribe();
+    }
   }
 
 }

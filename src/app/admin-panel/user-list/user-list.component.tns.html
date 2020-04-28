@@ -4,19 +4,28 @@
     [hasMenu]="true"
     [showGoBackButton]="true"
     [isAdminPanel]="true"
+    *ngIf="!loadinPageData_s"
+></app-action-bar>
+<app-action-bar
+    [title]=""
+    [hasMenu]="false"
+    [showBackButton]="false"
+    [showNotifications]="false"
+    *ngIf="loadinPageData_s"
 ></app-action-bar>
 <ScrollView>
     <FlexBoxLayout
         flexDirection="column"
         justifyContent="flex-start"
         alignItems="center"
+        *ngIf="!loadinPageData_s"
     >
         <!-- Notice Board Section -->
         <label
             text="User List"
             class="h3 p-10 m-b-0 text-center text-uppercase"
             letterSpacing=".2"
-            style="background: black; color: white;margin: 0;"
+            style="background: black; color: white; margin: 0;"
             width="100%"
         ></label>
 
@@ -121,7 +130,7 @@
                 ></label>
                 <label
                     [text]="user.status"
-                    style="font-size: 14;text-transform: capitalize;"
+                    style="font-size: 14; text-transform: capitalize;"
                     row="0"
                     col="3"
                     minWidth="70"
@@ -129,7 +138,7 @@
                 ></label>
                 <label
                     text="RESET"
-                    style="font-size: 14;text-transform: capitalize;"
+                    style="font-size: 14; text-transform: capitalize;"
                     row="0"
                     col="4"
                     minWidth="80"
@@ -137,5 +146,13 @@
                 ></label>
             </GridLayout>
         </SlackLayout>
+    </FlexBoxLayout>
+    <FlexBoxLayout
+        justifyContent="center"
+        alignItems="center"
+        *ngIf="loadinPageData_s"
+        height="100vh"
+    >
+        <ActivityIndicator busy="true"></ActivityIndicator>
     </FlexBoxLayout>
 </ScrollView>

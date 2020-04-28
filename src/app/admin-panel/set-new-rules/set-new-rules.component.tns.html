@@ -4,12 +4,21 @@
     [hasMenu]="true"
     [showGoBackButton]="true"
     [isAdminPanel]="true"
+    *ngIf="!loadinPageData_s"
+></app-action-bar>
+<app-action-bar
+    [title]=""
+    [hasMenu]="false"
+    [showBackButton]="false"
+    [showNotifications]="false"
+    *ngIf="loadinPageData_s"
 ></app-action-bar>
 <ScrollView>
     <FlexBoxLayout
         flexDirection="column"
         justifyContent="flex-start"
         alignItems="center"
+        *ngIf="!loadinPageData_s"
     >
         <!-- Notice Board Section -->
         <label
@@ -264,11 +273,19 @@
                     row="0"
                     col="3"
                     class="-border bg_green t_white editor__btn"
-                    style="height: 40; font-size: 10; margin: 0;padding: 0 16;"
+                    style="height: 40; font-size: 10; margin: 0; padding: 0 16;"
                     textWrap="true"
                     (tap)="makeEditor(searchedPerson)"
                 ></button>
             </GridLayout>
         </FlexBoxLayout>
+    </FlexBoxLayout>
+    <FlexBoxLayout
+        justifyContent="center"
+        alignItems="center"
+        *ngIf="loadinPageData_s"
+        height="100vh"
+    >
+        <ActivityIndicator busy="true"></ActivityIndicator>
     </FlexBoxLayout>
 </ScrollView>

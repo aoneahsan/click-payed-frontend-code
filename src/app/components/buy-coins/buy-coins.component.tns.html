@@ -53,7 +53,12 @@
                         row="0"
                         col="1"
                         keyType="number"
-                        style="border-width: 0; font-size: 17;padding: 0; margin: 0 0 0 0;"
+                        style="
+                            border-width: 0;
+                            font-size: 17;
+                            padding: 0;
+                            margin: 0 0 0 0;
+                        "
                         [textWrap]="true"
                         class="text-center"
                         hint="50"
@@ -100,7 +105,10 @@
                 (tap)="formSubmited()"
                 *ngIf="!_formSubmited"
             ></button>
-            <ActivityIndicator busy="true" *ngIf="_formSubmited"></ActivityIndicator>
+            <ActivityIndicator
+                busy="true"
+                *ngIf="_formSubmited"
+            ></ActivityIndicator>
         </FlexBoxLayout>
         <label
             fontSize="14"

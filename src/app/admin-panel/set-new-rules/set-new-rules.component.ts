@@ -1,10 +1,12 @@
-import { Component, OnInit, ViewContainerRef } from '@angular/core';
+import { Component, OnInit, ViewContainerRef, OnDestroy } from '@angular/core';
 
 import { ModalDialogService } from 'nativescript-angular/common';
 
 import { UIService } from '@src/app/shared/ui/ui.service';
 
 import { SetRulesPopupComponent } from './set-rules-popup/set-rules-popup.component';
+import { Subscription } from 'rxjs';
+import { SystemService } from '@src/app/services/system.service';
 
 interface Editor {
   id,
@@ -18,14 +20,22 @@ interface Editor {
   templateUrl: './set-new-rules.component.html',
   styleUrls: ['./set-new-rules.component.scss']
 })
-export class SetNewRulesComponent implements OnInit {
+export class SetNewRulesComponent implements OnInit, OnDestroy {
+
+  loadinPageData_s: boolean = true;
+  loadinPageDataSub: Subscription;
 
   editors: Editor[] = null;
 
   searchPersonNumber: string = null;
   searchedPerson: Editor = null;
 
-  constructor(private _modalService: ModalDialogService, private _uiService: UIService, private _viewRef: ViewContainerRef) { }
+  constructor(
+    private _modalService: ModalDialogService,
+    private _uiService: UIService,
+    private _viewRef: ViewContainerRef,
+    private _systemService: SystemService
+  ) { }
 
   get personNumberAdded() {
     if (this.searchPersonNumber) {
@@ -44,6 +54,11 @@ export class SetNewRulesComponent implements OnInit {
   }
 
   ngOnInit() {
+    this.loadinPageDataSub = this._systemService.getLoadinPageDataStatus().subscribe(
+      status => {
+        this.loadinPageData_s = status;
+      }
+    );
     // send http to get editors from server
     setTimeout(() => {
       this.editors = [
@@ -78,6 +93,12 @@ export class SetNewRulesComponent implements OnInit {
         context: 'searchedPerson'
       }
     )
+  }
+
+  ngOnDestroy() {
+    if (this.loadinPageDataSub) {
+      this.loadinPageDataSub.unsubscribe();
+    }
   }
 
 }

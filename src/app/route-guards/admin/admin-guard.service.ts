@@ -24,15 +24,15 @@ export class AdminGuard implements CanActivate, CanActivateChild, CanLoad{
                     if (isAuth) {
                         const userRole = user.role;
                         if (userRole == 'admin') {
-                            this._router.navigate(['/admin/dashboard']);
-                            return false;
+                            return true;
                         }
                         else if (userRole == 'editor') {
                             this._router.navigate(['/admin/dashboard']);
                             return false;
                         }
                         else if (userRole == 'user') {
-                            return true;
+                            this._router.navigate(['/home']);
+                            return false;
                         }
                     } else {
                         this._router.navigate(['/sign-in']);
@@ -56,18 +56,17 @@ export class AdminGuard implements CanActivate, CanActivateChild, CanLoad{
                     if (isAuth) {
                         const userRole = user.role;
                         if (userRole == 'admin') {
-                            this._router.navigate(['/admin/dashboard']);
-                            return false;
-                        }
-                        else if (userRole == 'editor') {
-                            this._router.navigate(['/admin/dashboard']);
-                            return false;
-                        }
-                        else if (userRole == 'user') {
                             return true;
                         }
+                        else if (userRole == 'editor') {
+                            return true;
+                        }
+                        else if (userRole == 'user') {
+                            this._router.navigate(['/home']);
+                            return false;
+                        }
                     } else {
-                        this._router.navigate(['/home']);
+                        this._router.navigate(['/sign-in']);
                         return false;
                     }
                 }

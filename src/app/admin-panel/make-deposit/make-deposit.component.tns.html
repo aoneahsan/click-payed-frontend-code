@@ -2,9 +2,17 @@
     title="Make a new Deposit"
     [hasMenu]="true"
     [showGoBackButton]="true"
+    *ngIf="!loadinPageData_s"
+></app-action-bar>
+<app-action-bar
+    [title]=""
+    [hasMenu]="false"
+    [showBackButton]="false"
+    [showNotifications]="false"
+    *ngIf="loadinPageData_s"
 ></app-action-bar>
 <ScrollView>
-    <FlexBoxLayout flexDirection="column">
+    <FlexBoxLayout flexDirection="column" *ngIf="!loadinPageData_s">
         <!-- Notice Board Section -->
         <label
             text="Make a new Deposit"
@@ -283,5 +291,13 @@
                 class="bg_black t_white p-0"
             ></button>
         </FlexBoxLayout>
+    </FlexBoxLayout>
+    <FlexBoxLayout
+        justifyContent="center"
+        alignItems="center"
+        *ngIf="loadinPageData_s"
+        height="100vh"
+    >
+        <ActivityIndicator busy="true"></ActivityIndicator>
     </FlexBoxLayout>
 </ScrollView>

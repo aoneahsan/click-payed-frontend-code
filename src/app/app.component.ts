@@ -26,6 +26,8 @@ export class AppComponent implements OnInit, OnDestroy {
   _user_Sub: Subscription;
   _userAccountDataSub: Subscription;
 
+  _saveFirebaseToken_Sub: Subscription;
+
   constructor(
     private _uiService: UIService,
     private _vcRef: ViewContainerRef,
@@ -37,9 +39,6 @@ export class AppComponent implements OnInit, OnDestroy {
   ngOnInit() {
     // login User Automatically
     this._authService.autoLogin();
-
-    // Starting FireBase Plugin
-    this.initFirebasePlugin();
 
     // SideDrawer Code
     // this.drawerSub = this._uiService.drawerState.subscribe(
@@ -58,6 +57,11 @@ export class AppComponent implements OnInit, OnDestroy {
     this._user_Sub = this._authService._user.subscribe(
       user => {
         if (user) {
+          // User is LogedIn saving User Firebase Token
+          // Starting FireBase Plugin
+          this.initFirebasePlugin();
+
+          // Geting and Saving User Account Information
           this._userAccountDataSub = this._userService.userAccountData().subscribe(
             data => {
               // console.log("App.Component.ts  ==  userAccountDataSub  ==  responsedata = ", data.data);
@@ -73,7 +77,7 @@ export class AppComponent implements OnInit, OnDestroy {
           );
         }
       }
-    )
+    );
   }
 
   // ngAfterViewInit() {
@@ -89,9 +93,19 @@ export class AppComponent implements OnInit, OnDestroy {
     firebase.init({
       showNotifications: true,
       showNotificationsWhenInForeground: true,
+      // iOSEmulatorFlush: true,
 
       onPushTokenReceivedCallback: (token) => {
-        console.log('[Firebase] onPushTokenReceivedCallback:', { token });
+        // console.log('[Firebase] onPushTokenReceivedCallback:', { token });
+        this._saveFirebaseToken_Sub = this._userService.storeUserFirebaseToken({ token }).subscribe(
+          res => {
+            console.log("AppComponent == initFirebasePlugin == onPushTokenReceivedCallback == response = ", res);
+          },
+          err => {
+            console.log("AppComponent == initFirebasePlugin == onPushTokenReceivedCallback == error = ", err);
+            alert("Error Saving FireBase Tokken, Restart App, If Issue Continues Contact Support!");
+          }
+        );
       },
 
       onMessageReceivedCallback: (message: firebase.Message) => {
@@ -116,6 +130,9 @@ export class AppComponent implements OnInit, OnDestroy {
     }
     if (this._user_Sub) {
       this._user_Sub.unsubscribe();
+    }
+    if (this._saveFirebaseToken_Sub) {
+      this._saveFirebaseToken_Sub.unsubscribe();
     }
   }
 

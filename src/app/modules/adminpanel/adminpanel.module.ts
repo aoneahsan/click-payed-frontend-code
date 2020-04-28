@@ -24,6 +24,7 @@ import { SingleUserComponent } from '@src/app/admin-panel/user-list/single-user/
 import { SetRulesPopupComponent } from '@src/app/admin-panel/set-new-rules/set-rules-popup/set-rules-popup.component';
 import { DepositPendingRequestsComponent } from '@src/app/admin-panel/make-deposit/deposit-pending-requests/deposit-pending-requests.component';
 import { DepositPendingRequestsPopupComponent } from '@src/app/admin-panel/make-deposit/deposit-pending-requests/deposit-pending-requests-popup/deposit-pending-requests-popup.component';
+import { AdminGuard } from '@src/app/route-guards/admin/admin-guard.service';
 
 const routes: Routes = [
     {
@@ -36,31 +37,38 @@ const routes: Routes = [
     },
     {
         path: 'admin/deposit-pending-requests',
-        component: DepositPendingRequestsComponent
+        component: DepositPendingRequestsComponent,
+        canActivate: [AdminGuard]
     },
     {
         path: 'admin/process-withdrawals',
-        component: ProcessWithdrawalsComponent
+        component: ProcessWithdrawalsComponent,
+        canActivate: [AdminGuard]
     },
     {
         path: 'admin/set-rules',
-        component: SetNewRulesComponent
+        component: SetNewRulesComponent,
+        canActivate: [AdminGuard]
     },
     {
         path: 'admin/create-notification',
-        component: CreateNotificationComponent
+        component: CreateNotificationComponent,
+        canActivate: [AdminGuard]
     },
     {
         path: 'admin/user-list',
         component: UserListComponent,
+        canActivate: [AdminGuard]
     },
     {
         path: 'admin/user-list/:id',
         component: SingleUserComponent,
+        canActivate: [AdminGuard]
     },
     {
         path: 'admin/notice-board',
-        component: NoticeBoardComponent
+        component: NoticeBoardComponent,
+        canActivate: [AdminGuard]
     }
 ]
 

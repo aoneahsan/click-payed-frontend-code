@@ -1,28 +1,28 @@
-import { Component, OnInit, ViewChild, ElementRef, ViewContainerRef } from '@angular/core';
+import { Component, OnInit, ViewChild, ElementRef, ViewContainerRef, OnDestroy } from '@angular/core';
+import { Subscription } from 'rxjs';
 
-import { RouterExtensions } from 'nativescript-angular/router';
+import { ModalDialogService } from 'nativescript-angular/common';
 
 import { ValueList, SelectedIndexChangedEventData } from 'nativescript-drop-down';
-import { ModalDialogService } from 'nativescript-angular/common';
-import { UIService } from '@src/app/shared/ui/ui.service';
-import { DepositPendingRequestsPopupComponent } from './deposit-pending-requests-popup/deposit-pending-requests-popup.component';
 
-export interface Deposit {
-  id: number,
-  date_time: string,
-  account_name: string,
-  account_no: string,
-  amount: string,
-  status: string,
-  trx_id: number
-}
+import { UIService } from '@src/app/shared/ui/ui.service';
+import { SystemService } from '@src/app/services/system.service';
+import { AdminPanelService } from '@src/app/services/adminpanel/adminpanel.service';
+
+import { DepositRequestModel } from './../../../models/admin/deposit-request-model';
+
+import { DepositPendingRequestsPopupComponent } from './deposit-pending-requests-popup/deposit-pending-requests-popup.component';
 
 @Component({
   selector: 'app-deposit-pending-requests',
   templateUrl: './deposit-pending-requests.component.html',
   styleUrls: ['./deposit-pending-requests.component.scss']
 })
-export class DepositPendingRequestsComponent implements OnInit {
+
+export class DepositPendingRequestsComponent implements OnInit, OnDestroy {
+
+  loadinPageData_s: boolean = true;
+  loadinPageDataSub: Subscription;
 
   public selectedIndex = 0;
   public items: any;
@@ -30,98 +30,79 @@ export class DepositPendingRequestsComponent implements OnInit {
 
   loadingResult: boolean = false;
 
-  requests: {
-    id: number,
-    date_time: string,
-    account_name: string,
-    account_no: string,
-    amount: string,
-    status: string,
-    trx_id: number
-  }[] = [];
-
-  all_withdrawal_requests: Deposit[] = [
-    { id: 1, date_time: '22/11/2020 | 1327', account_name: 'Ahsan Mahmood', account_no: '03006562423', amount: '300', status: 'pending', trx_id: 21029109 },
-    { id: 2, date_time: '22/11/2020 | 1327', account_name: 'Ahsan Mahmood', account_no: '03006562423', amount: '300', status: 'pending', trx_id: 21029109 },
-    { id: 3, date_time: '22/11/2020 | 1327', account_name: 'Ahsan Mahmood', account_no: '03006562423', amount: '300', status: 'approved', trx_id: 21029109 },
-    { id: 4, date_time: '22/11/2020 | 1327', account_name: 'Ahsan Mahmood', account_no: '03006562423', amount: '300', status: 'rejected', trx_id: 21029109 },
-    { id: 5, date_time: '22/11/2020 | 1327', account_name: 'Ahsan Mahmood', account_no: '03006562423', amount: '300', status: 'pending', trx_id: 21029109 },
-    { id: 6, date_time: '22/11/2020 | 1327', account_name: 'Ahsan Mahmood', account_no: '03006562423', amount: '300', status: 'pending', trx_id: 21029109 },
-    { id: 7, date_time: '22/11/2020 | 1327', account_name: 'Ahsan Mahmood', account_no: '03006562423', amount: '300', status: 'pending', trx_id: 21029109 },
-    { id: 8, date_time: '22/11/2020 | 1327', account_name: 'Ahsan Mahmood', account_no: '03006562423', amount: '300', status: 'pending', trx_id: 21029109 }
-  ];
-
-  all_pending_requests: Deposit[] = [
-    { id: 1, date_time: '22/11/2020 | 1327', account_name: 'Ahsan Mahmood', account_no: '03006562423', amount: '300', status: 'pending', trx_id: 21029109 },
-    { id: 2, date_time: '22/11/2020 | 1327', account_name: 'Ahsan Mahmood', account_no: '03006562423', amount: '300', status: 'pending', trx_id: 21029109 },
-    { id: 3, date_time: '22/11/2020 | 1327', account_name: 'Ahsan Mahmood', account_no: '03006562423', amount: '300', status: 'pending', trx_id: 21029109 },
-    { id: 4, date_time: '22/11/2020 | 1327', account_name: 'Ahsan Mahmood', account_no: '03006562423', amount: '300', status: 'pending', trx_id: 21029109 },
-    { id: 5, date_time: '22/11/2020 | 1327', account_name: 'Ahsan Mahmood', account_no: '03006562423', amount: '300', status: 'pending', trx_id: 21029109 },
-    { id: 6, date_time: '22/11/2020 | 1327', account_name: 'Ahsan Mahmood', account_no: '03006562423', amount: '300', status: 'pending', trx_id: 21029109 }
-  ];
-
-  all_approved_requests: Deposit[] = [
-    { id: 1, date_time: '22/11/2020 | 1327', account_name: 'Ahsan Mahmood', account_no: '03006562423', amount: '300', status: 'approved', trx_id: 21029109 },
-    { id: 2, date_time: '22/11/2020 | 1327', account_name: 'Ahsan Mahmood', account_no: '03006562423', amount: '300', status: 'approved', trx_id: 21029109 },
-    { id: 3, date_time: '22/11/2020 | 1327', account_name: 'Ahsan Mahmood', account_no: '03006562423', amount: '300', status: 'approved', trx_id: 21029109 }
-  ];
-
-  all_rejected_requests: Deposit[] = [
-    { id: 1, date_time: '22/11/2020 | 1327', account_name: 'Ahsan Mahmood', account_no: '03006562423', amount: '300', status: 'rejected', trx_id: 21029109 },
-    { id: 2, date_time: '22/11/2020 | 1327', account_name: 'Ahsan Mahmood', account_no: '03006562423', amount: '300', status: 'rejected', trx_id: 21029109 },
-    { id: 3, date_time: '22/11/2020 | 1327', account_name: 'Ahsan Mahmood', account_no: '03006562423', amount: '300', status: 'rejected', trx_id: 21029109 }
-  ];
+  requests: DepositRequestModel[] = [];
+  _getDepositRequests_Sub: Subscription;
+  _fetchDepositRequests_Sub: Subscription;
+  _showRequestsOfStatus: 'all' | 'approved' | 'rejected' | 'pending' = null;
 
   constructor(
-    private _router: RouterExtensions,
     private _modalService: ModalDialogService,
     private _viewRe: ViewContainerRef,
-    private _uiService: UIService
+    private _uiService: UIService,
+    private _systemService: SystemService,
+    private _adminpanelService: AdminPanelService
   ) { }
 
   ngOnInit() {
+    this.loadinPageDataSub = this._systemService.getLoadinPageDataStatus().subscribe(
+      status => {
+        this.loadinPageData_s = status;
+      }
+    );
+
+    this._systemService.loadingPageDataTrue();
+    this._getDepositRequests_Sub = this._adminpanelService.getDepositRequests().subscribe(
+      data => {
+        if (data) {
+          this.requests = data
+        }
+        else {
+          this._fetchDepositRequests_Sub = this._adminpanelService.fetchAllDepositRequests().subscribe(
+            res => {
+              console.log('PendingDepositRequestsComponent == fetchAllDepositRequests == response = ', res);
+              this._adminpanelService.setDepositRequests(res.data);
+            },
+            err => {
+              console.log('PendingDepositRequestsComponent == fetchAllDepositRequests == error = ', err);
+              alert("Error Occured While Fetching Deposit Requests, Try Again!");
+            }
+          )
+        }
+      }
+    )
+
     this.items = new ValueList([
-      { value: "all_withdrawal_requests", display: "VIEW | All Withdrawal Requests" },
+      { value: "all_withdrawal_requests", display: "VIEW | All Deposit Requests" },
       { value: "all_pending_requests", display: "VIEW | All Pending Requests" },
       { value: "all_approved_requests", display: "VIEW | All Approved Requests" },
       { value: "all_rejected_requests", display: "VIEW | All Rejected Requests" }
     ]);
 
-    this.requests = this.all_withdrawal_requests;
+    // Fetch All Deposit Requests
+    this.fetchDepositRequests();
   }
 
-  public onchange(args: SelectedIndexChangedEventData) {
-    this.loadingResult = true;
-    // console.log(`Drop Down selected index changed from ${args.oldIndex} to ${args.newIndex}, args are ${args}`);
-    console.log(this.items._array[args.newIndex]);
-    setTimeout(() => {
-      this.loadLocalData(args.newIndex);
-    }, 700);
-  }
+  fetchDepositRequests() {
 
-  public onopen() {
-    // console.log("Drop Down opened.");
-  }
-
-  public onclose() {
-    // console.log("Drop Down closed.");
   }
 
   loadLocalData(dataSet: number) {
     if (dataSet == 0) {
-      this.requests = this.all_withdrawal_requests;
+      this._showRequestsOfStatus = 'all';
     } else if (dataSet == 1) {
-      this.requests = this.all_pending_requests;
+      this._showRequestsOfStatus = 'pending';
     } else if (dataSet == 2) {
-      this.requests = this.all_approved_requests;
+      this._showRequestsOfStatus = 'approved';
     } else if (dataSet == 3) {
-      this.requests = this.all_rejected_requests;
+      this._showRequestsOfStatus = 'rejected';
     };
     this.loadingResult = false;
   }
 
+
+
   showRequestDetail(item_id) {
-    const loadedItem: Deposit = this.requests.find(el => el.id == item_id);
+    const loadedItem: DepositRequestModel = this.requests.find(el => el.id == item_id);
     // console.log(loadedItem);
     if (loadedItem.status == 'pending') {
       this.showModal(loadedItem);
@@ -166,6 +147,27 @@ export class DepositPendingRequestsComponent implements OnInit {
         }
       }
     );
+  }
+
+  public onDropDownChange(args: SelectedIndexChangedEventData) {
+    this.loadingResult = true;
+    // console.log(`Drop Down selected index changed from ${args.oldIndex} to ${args.newIndex}, args are ${args}`);
+    console.log(this.items._array[args.newIndex]);
+    setTimeout(() => {
+      this.loadLocalData(args.newIndex);
+    }, 100);
+  }
+
+  ngOnDestroy() {
+    if (this.loadinPageDataSub) {
+      this.loadinPageDataSub.unsubscribe();
+    }
+    if (this._getDepositRequests_Sub) {
+      this._getDepositRequests_Sub.unsubscribe();
+    }
+    if (this._fetchDepositRequests_Sub) {
+      this._fetchDepositRequests_Sub.unsubscribe();
+    }
   }
 
 }

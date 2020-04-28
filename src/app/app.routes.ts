@@ -2,9 +2,11 @@ import { Routes } from '@angular/router';
 import { TextComponentComponent } from './text/text-component/text-component.component';
 import { NewNotificationComponent } from './shared/ui/new-notification/new-notification.component';
 import { CompatibleGamesComponent } from './components/compatible-games/compatible-games.component';
+import { CompatibleGameInfoComponent } from './components/compatible-games/compatible-game-info/compatible-game-info.component';
+
 import { AuthGuard } from './route-guards/auth/auth-guard.service';
 import { UnAuthGuard } from './route-guards/auth/unauth-guard.service';
-import { CompatibleGameInfoComponent } from './components/compatible-games/compatible-game-info/compatible-game-info.component';
+import { AdminGuard } from './route-guards/admin/admin-guard.service';
 
 export const routes: Routes = [
   {
@@ -61,7 +63,7 @@ export const routes: Routes = [
   {
     path: 'admin/dashboard',
     loadChildren: './modules/adminpanel/adminpanel.module#AdminPanelModule',
-    canLoad: [AuthGuard]
+    canLoad: [AdminGuard]
   },
   {
     path: 'notification',

@@ -11,6 +11,7 @@ import { SharedModule } from "../../shared/shared.module";
 import { ProfileComponent } from "@src/app/components/user/profile/profile.component";
 import { AchievementsComponent } from "@src/app/components/user/achievements/achievements.component";
 import { UserSecurityComponent } from "@src/app/components/user/user-security/user-security.component";
+import { AuthGuard } from '@src/app/route-guards/auth/auth-guard.service';
 
 
 const routes: Routes = [
@@ -20,11 +21,13 @@ const routes: Routes = [
     },
     {
         path: 'user/achievements',
-        component: AchievementsComponent
+        component: AchievementsComponent,
+        canActivate: [AuthGuard]
     },
     {
         path: 'user/security',
-        component: UserSecurityComponent
+        component: UserSecurityComponent,
+        canActivate: [AuthGuard]
     }
 ]
 

@@ -122,4 +122,19 @@ export class UserService {
         );
     }
 
+    storeUserFirebaseToken(token) {
+        return this._http.post<any>(
+            this._systemService._apiRootURL + "store_user_firebase_token",
+            token
+        );
+    }
+
+    deleteUserFirebaseToken() {
+        const data = "remove_token";
+        return this._http.post<any>(
+            this._systemService._apiRootURL + "delete_user_firebase_token",
+            data
+        );
+    }
+
 }

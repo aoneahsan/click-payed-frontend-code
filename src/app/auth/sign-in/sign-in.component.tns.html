@@ -1,33 +1,110 @@
-<app-action-bar title="Sign In" [showGoBackButton]="false" [hasMenu]="false"></app-action-bar>
+<app-action-bar
+    title="Sign In"
+    [showGoBackButton]="false"
+    [hasMenu]="false"
+></app-action-bar>
 <ScrollView>
-    <FlexboxLayout class="main_con" flexDirection="column" justifyContent="center" alignItems="center">
+    <FlexboxLayout
+        class="main_con"
+        flexDirection="column"
+        justifyContent="center"
+        alignItems="center"
+    >
         <StackLayout class="text-center m-b-20">
-            <Label class="h1 t_white" text="Sign In"></Label>
-            <Label class="h2 t_white" text="to your eWallet account"></Label>
+            <label class="h1 t_white" text="Sign In"></label>
+            <label class="h2 t_white" text="to your eWallet account"></label>
         </StackLayout>
         <StackLayout class="nt-form" *ngIf="!usePinLogin">
-            <Label width="80%" class="h4 text-center t_red" [text]="errorMessage" *ngIf="errorOccured"></Label>
-            <TextField width="80%" class="ok t_white -border" [autocorrect]="false" ReturnKeyType="next" textAlignment="center"
-                hint="Enter Email" style="placeholder-color:rgba(255,255,255)" [(ngModel)]="user_number"></TextField>
-            <TextField width="80%" class="input t_white -border" hint="Enter Password" textAlignment="center" ReturnKeyType="done" style="placeholder-color:rgba(255,255,255)" [(ngModel)]="user_password">
-            </TextField>
-            <Button text="Sign In" width="80%" *ngIf="!formSubmited" class="-primary" (tap)="signInAction()" [isEnabled]="userDataEntered"></Button>
-            <ActivityIndicator [busy]="true" *ngIf="formSubmited"></ActivityIndicator>
+            <label
+                width="80%"
+                class="h4 text-center t_red"
+                [text]="errorMessage"
+                *ngIf="errorOccured"
+            ></label>
+            <TextField
+                width="80%"
+                class="ok t_white -border"
+                [autocorrect]="false"
+                ReturnKeyType="next"
+                textAlignment="center"
+                hint="Enter Email"
+                style="placeholder-color: rgba(255, 255, 255);"
+                [(ngModel)]="user_number"
+                autocapitalizationType="none"
+                autocorrect="false"
+            ></TextField>
+            <TextField
+                width="80%"
+                class="input t_white -border"
+                hint="Enter Password"
+                textAlignment="center"
+                ReturnKeyType="done"
+                style="placeholder-color: rgba(255, 255, 255);"
+                [(ngModel)]="user_password"
+                autocapitalizationType="none"
+                autocorrect="false"
+            ></TextField>
+            <button
+                text="Sign In"
+                width="80%"
+                *ngIf="!formSubmited"
+                class="-primary"
+                (tap)="signInAction()"
+                [isEnabled]="userDataEntered"
+            ></button>
+            <ActivityIndicator
+                [busy]="true"
+                *ngIf="formSubmited"
+            ></ActivityIndicator>
         </StackLayout>
         <StackLayout class="nt-form" *ngIf="usePinLogin">
-            <TextField width="80%" maxLength="5" minLength="5" keyboardType="phone" [(ngModel)]="loginPin" class="ok t_white -border" [autocorrect]="false" ReturnKeyType="next" textAlignment="center"
-                hint="Enter 5-digit Pin" style="placeholder-color:rgba(255,255,255)"></TextField>
-            <Button text="Login" width="80%" *ngIf="!formSubmited" class="-primary" [isEnabled]="loginPinLength" (tap)="verifyPinLogin()"></Button>
-            <ActivityIndicator [busy]="true" *ngIf="formSubmited"></ActivityIndicator>
+            <TextField
+                width="80%"
+                maxLength="5"
+                minLength="5"
+                keyboardType="phone"
+                [(ngModel)]="loginPin"
+                class="ok t_white -border"
+                [autocorrect]="false"
+                ReturnKeyType="next"
+                textAlignment="center"
+                hint="Enter 5-digit Pin"
+                style="placeholder-color: rgba(255, 255, 255);"
+                autocapitalizationType="none"
+                autocorrect="false"
+            ></TextField>
+            <button
+                text="Login"
+                width="80%"
+                *ngIf="!formSubmited"
+                class="-primary"
+                [isEnabled]="loginPinLength"
+                (tap)="verifyPinLogin()"
+            ></button>
+            <ActivityIndicator
+                [busy]="true"
+                *ngIf="formSubmited"
+            ></ActivityIndicator>
         </StackLayout>
         <!-- <GridLayout rows="auto" columns="auto,auto">
             <Label class="body t_white text-right m-r-5" row="0" col="0" text="Forgot Password?"></Label>
             <Label class="body t_orange text-left" row="0" col="1" text="Click Here" (tap)="forgotPasswordPage()"></Label>
         </GridLayout> -->
-        <Label class="body t_white" text="Don't have a account?"></Label>
+        <label class="body t_white" text="Don't have a account?"></label>
         <GridLayout rows="auto" columns="auto,auto">
-            <Label class="body t_white text-right m-r-5" row="0" col="0" text="Signup for new eWallet account"></Label>
-            <Label class="body  t_orange text-left" row="0" col="1" text="Here" (tap)="signUpPage()"></Label>
+            <label
+                class="body t_white text-right m-r-5"
+                row="0"
+                col="0"
+                text="Signup for new eWallet account"
+            ></label>
+            <label
+                class="body t_orange text-left"
+                row="0"
+                col="1"
+                text="Here"
+                (tap)="signUpPage()"
+            ></label>
         </GridLayout>
     </FlexboxLayout>
 </ScrollView>

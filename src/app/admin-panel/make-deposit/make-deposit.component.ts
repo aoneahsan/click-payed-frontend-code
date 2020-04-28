@@ -1,23 +1,28 @@
-import { Component, OnInit, ViewContainerRef } from '@angular/core';
+import { Component, OnInit, ViewContainerRef, OnDestroy } from '@angular/core';
 
 import { ModalDialogService } from 'nativescript-angular/common';
 
 import { UIService } from '@src/app/shared/ui/ui.service';
 
 import { MakeDepositPopupComponent } from './make-deposit-popup/make-deposit-popup.component';
+import { Subscription } from 'rxjs';
+import { SystemService } from '@src/app/services/system.service';
 
 @Component({
   selector: 'app-make-deposit',
   templateUrl: './make-deposit.component.html',
   styleUrls: ['./make-deposit.component.scss']
 })
-export class MakeDepositComponent implements OnInit {
 
+export class MakeDepositComponent implements OnInit, OnDestroy {
+
+  loadinPageData_s: boolean = true;
+  loadinPageDataSub: Subscription;
 
   amountToDeposit: number = null;
   trx_id: string = null;
   reciver_number: any;
-  reciver: { name: string, number: string, city: string, country: string } = {name: "", number: "", city: "", country: ""};
+  reciver: { name: string, number: string, city: string, country: string } = { name: "", number: "", city: "", country: "" };
   select_beneficiary: boolean = false;
   userFound: boolean = false;
 
@@ -28,10 +33,32 @@ export class MakeDepositComponent implements OnInit {
   constructor(
     private _modalService: ModalDialogService,
     private _viewRf: ViewContainerRef,
-    private _uiService: UIService
+    private _uiService: UIService,
+    private _systemService: SystemService
   ) { }
 
+  get coinsEntered() {
+    return this.amountToDeposit > 0;
+  }
+
+  get trxIdAdded() {
+    if (this.trx_id) {
+      if (this.trx_id.length >= 6) {
+        return true;
+      } else {
+        return false;
+      }
+    } else {
+      return false;
+    }
+  }
+
   ngOnInit() {
+    this.loadinPageDataSub = this._systemService.getLoadinPageDataStatus().subscribe(
+      status => {
+        this.loadinPageData_s = status;
+      }
+    );
   }
 
   searchPerson() {
@@ -54,22 +81,6 @@ export class MakeDepositComponent implements OnInit {
         this.reciver = null;
         this.searchForPerson = false;
       }, 700)
-    }
-  }
-
-  get coinsEntered() {
-    return this.amountToDeposit > 0;
-  }
-
-  get trxIdAdded() {
-    if (this.trx_id) {
-      if (this.trx_id.length >= 6) {
-        return true;
-      } else {
-        return false;
-      }
-    } else {
-      return false;
     }
   }
 
@@ -119,6 +130,12 @@ export class MakeDepositComponent implements OnInit {
     this.searchForPerson = false;
     this.formSubmited = false;
     this.select_beneficiary = false;
+  }
+
+  ngOnDestroy() {
+    if (this.loadinPageDataSub) {
+      this.loadinPageDataSub.unsubscribe();
+    }
   }
 
 }

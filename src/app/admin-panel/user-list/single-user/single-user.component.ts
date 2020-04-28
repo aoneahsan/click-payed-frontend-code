@@ -1,26 +1,31 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, OnDestroy } from '@angular/core';
 import { RouterExtensions } from 'nativescript-angular/router';
 
-import { isAndroid } from "tns-core-modules/platform";
-import * as application from "tns-core-modules/application";
-import { knownFolders, path as _path, File } from "tns-core-modules/file-system";
-import { AndroidApplication, AndroidActivityBackPressedEventData } from "tns-core-modules/application";
+// import { isAndroid } from "tns-core-modules/platform";
+// import * as application from "tns-core-modules/application";
+// import { knownFolders, path as _path, File } from "tns-core-modules/file-system";
+// import { AndroidApplication, AndroidActivityBackPressedEventData } from "tns-core-modules/application";
 
 import { AuthService } from '@src/app/services/auth/auth.service';
 import { UserService } from '@src/app/services/user/user.service';
+import { Subscription } from 'rxjs';
+import { SystemService } from '@src/app/services/system.service';
 
 // Plugin
-import * as imagepicker from "nativescript-imagepicker";
+// import * as imagepicker from "nativescript-imagepicker";
 
-// var fileSystem = require('file-system');
-const imageSourceModule = require("tns-core-modules/image-source");
+// // var fileSystem = require('file-system');
+// const imageSourceModule = require("tns-core-modules/image-source");
 
 @Component({
   selector: 'app-single-user',
   templateUrl: './single-user.component.html',
   styleUrls: ['./single-user.component.scss']
 })
-export class SingleUserComponent implements OnInit {
+export class SingleUserComponent implements OnInit, OnDestroy {
+
+  loadinPageData_s: boolean = true;
+  loadinPageDataSub: Subscription;
 
   user_name: string = '';
   member_since: string = '';
@@ -40,10 +45,16 @@ export class SingleUserComponent implements OnInit {
   constructor(
     private _authService: AuthService,
     private _router: RouterExtensions,
-    private _userService: UserService
+    private _userService: UserService,
+    private _systemService: SystemService
   ) { }
 
   ngOnInit(): void {
+    this.loadinPageDataSub = this._systemService.getLoadinPageDataStatus().subscribe(
+      status => {
+        this.loadinPageData_s = status;
+      }
+    );
     // get user info from auth service using observable
     this.user_name = 'Salman Ahmad';
     this.member_since = 'Member Since ' + new Date();
@@ -65,6 +76,12 @@ export class SingleUserComponent implements OnInit {
 
   disableEditing() {
     this.editing = false;
+  }
+
+  ngOnDestroy() {
+    if (this.loadinPageDataSub) {
+      this.loadinPageDataSub.unsubscribe();
+    }
   }
 
 }

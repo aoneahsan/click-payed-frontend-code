@@ -1,5 +1,7 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, OnDestroy } from '@angular/core';
 import { AdminPanelService } from '@src/app/services/adminpanel/adminpanel.service';
+import { Subscription } from 'rxjs';
+import { SystemService } from '@src/app/services/system.service';
 // import { Subscription } from 'rxjs';
 
 @Component({
@@ -7,19 +9,30 @@ import { AdminPanelService } from '@src/app/services/adminpanel/adminpanel.servi
   templateUrl: './notice-board.component.html',
   styleUrls: ['./notice-board.component.scss']
 })
-export class NoticeBoardComponent implements OnInit {
+export class NoticeBoardComponent implements OnInit, OnDestroy {
+
+  loadinPageData_s: boolean = true;
+  loadinPageDataSub: Subscription;
 
   newNotice = '';
 
   noticeMessages: { date_time, message }[] = [];
   // noticeMessagesSub: Subscription;
-  constructor(private _adminpanelService: AdminPanelService) { }
+  constructor(
+    private _adminpanelService: AdminPanelService,
+    private _systemService: SystemService
+  ) { }
 
   get newNoticeEntered() {
     return !!this.newNotice;
   }
 
   ngOnInit() {
+    this.loadinPageDataSub = this._systemService.getLoadinPageDataStatus().subscribe(
+      status => {
+        this.loadinPageData_s = status;
+      }
+    );
     // send http to get messages from server 
     // this.noticeMessagesSub = this._adminpanelService.getNoticeBoardMessages().subscribe();
     this.noticeMessages = [
@@ -35,6 +48,12 @@ export class NoticeBoardComponent implements OnInit {
       //send http to post new notice
       alert("post new notice");
       this.newNotice = '';
+    }
+  }
+
+  ngOnDestroy() {
+    if (this.loadinPageDataSub) {
+      this.loadinPageDataSub.unsubscribe();
     }
   }
 

@@ -3,9 +3,17 @@
     title="ADMIN DASHBOARD"
     [hasMenu]="true"
     [showGoBackButton]="true"
+    *ngIf="!loadinPageData_s"
+></app-action-bar>
+<app-action-bar
+    [title]=""
+    [hasMenu]="false"
+    [showBackButton]="false"
+    [showNotifications]="false"
+    *ngIf="loadinPageData_s"
 ></app-action-bar>
 <ScrollView>
-    <FlexBoxLayout flexDirection="column">
+    <FlexBoxLayout flexDirection="column" *ngIf="!loadinPageData_s">
         <!-- Notice Board Section -->
         <label
             text="ADMIN DASHBOARD"
@@ -373,5 +381,13 @@
 
         <!-- App Footer -->
         <!-- <app-footer [section_1]="false"></app-footer> -->
+    </FlexBoxLayout>
+    <FlexBoxLayout
+        justifyContent="center"
+        alignItems="center"
+        *ngIf="loadinPageData_s"
+        height="100vh"
+    >
+        <ActivityIndicator busy="true"></ActivityIndicator>
     </FlexBoxLayout>
 </ScrollView>

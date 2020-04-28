@@ -95,11 +95,11 @@ export class BuyCoinsComponent implements OnInit, OnDestroy {
   }
 
   ngOnDestroy() {
-    if (this._remaining_balance_Sub) {
-      this._remaining_balance_Sub.unsubscribe();
-    }
     if (this.loadinPageDataSub) {
       this.loadinPageDataSub.unsubscribe();
+    }
+    if (this._remaining_balance_Sub) {
+      this._remaining_balance_Sub.unsubscribe();
     }
     if (this._buyCoinSub) {
       this._buyCoinSub.unsubscribe();

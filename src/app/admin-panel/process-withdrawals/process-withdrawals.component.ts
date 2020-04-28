@@ -1,4 +1,4 @@
-import { Component, OnInit, ViewChild, ElementRef, ViewContainerRef } from '@angular/core';
+import { Component, OnInit, ViewChild, ElementRef, ViewContainerRef, OnDestroy } from '@angular/core';
 
 import { RouterExtensions } from 'nativescript-angular/router';
 
@@ -6,13 +6,18 @@ import { ValueList, SelectedIndexChangedEventData } from 'nativescript-drop-down
 import { ModalDialogService } from 'nativescript-angular/common';
 import { ProcessWithdrawalsPopupComponent } from './process-withdrawals-popup/process-withdrawals-popup.component';
 import { UIService } from '@src/app/shared/ui/ui.service';
+import { Subscription } from 'rxjs';
+import { SystemService } from '@src/app/services/system.service';
 
 @Component({
   selector: 'app-process-withdrawals',
   templateUrl: './process-withdrawals.component.html',
   styleUrls: ['./process-withdrawals.component.scss']
 })
-export class ProcessWithdrawalsComponent implements OnInit {
+export class ProcessWithdrawalsComponent implements OnInit, OnDestroy {
+
+  loadinPageData_s: boolean = true;
+  loadinPageDataSub: Subscription;
 
   public selectedIndex = 0;
   public items: any;
@@ -66,10 +71,16 @@ export class ProcessWithdrawalsComponent implements OnInit {
     private _router: RouterExtensions,
     private _modalService: ModalDialogService,
     private _viewRe: ViewContainerRef,
-    private _uiService: UIService
+    private _uiService: UIService,
+    private _systemService: SystemService
   ) { }
 
   ngOnInit() {
+    this.loadinPageDataSub = this._systemService.getLoadinPageDataStatus().subscribe(
+      status => {
+        this.loadinPageData_s = status;
+      }
+    );
     this.items = new ValueList([
       { value: "all_withdrawal_requests", display: "VIEW | All Withdrawal Requests" },
       { value: "all_pending_requests", display: "VIEW | All Pending Requests" },
@@ -156,6 +167,12 @@ export class ProcessWithdrawalsComponent implements OnInit {
         }
       }
     );
+  }
+
+  ngOnDestroy() {
+    if (this.loadinPageDataSub) {
+      this.loadinPageDataSub.unsubscribe();
+    }
   }
 
 }

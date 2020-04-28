@@ -1,28 +1,32 @@
-import { Component, OnInit, ViewContainerRef } from '@angular/core';
+// Angular Important
+import { Component, OnInit, ViewContainerRef, OnDestroy } from '@angular/core';
+import { Subscription } from 'rxjs';
 
+// NativeScript Imports
 import { ModalDialogService } from 'nativescript-angular/common';
 
+// Services
 import { UIService } from '@src/app/shared/ui/ui.service';
+import { SystemService } from '@src/app/services/system.service';
 
+// Components
+import { NotificationContactsComponent } from './notification-contacts/notification-contacts.component';
+
+// Model
+import { UserContact } from './../../models/user-contact-model';
+
+// Plugins
 const ImagePicker = require('nativescript-imagepicker');
 const imageSource = require("tns-core-modules/image-source");
 const fsModule = require('tns-core-modules/file-system');
-
-import { NotificationContactsComponent } from './notification-contacts/notification-contacts.component';
-
-export interface User {
-  id: number,
-  name: string,
-  email: string,
-  selected: boolean
-};
 
 @Component({
   selector: 'app-create-notification',
   templateUrl: './create-notification.component.html',
   styleUrls: ['./create-notification.component.scss']
 })
-export class CreateNotificationComponent implements OnInit {
+
+export class CreateNotificationComponent implements OnInit, OnDestroy {
 
   notification_title = null;
   notification_content = null;
@@ -30,16 +34,26 @@ export class CreateNotificationComponent implements OnInit {
   img_uploaded: boolean = false;
   downloadLink = null;
 
-  selectedContacts: User[] = [];
+  selectedContacts: UserContact[] = [];
   selectedContactsCount = 0;
+
+  loadinPageData_s: boolean = true;
+  loadinPageDataSub: Subscription;
 
   constructor(
     private _modalService: ModalDialogService,
     private _uiService: UIService,
-    private _viewRef: ViewContainerRef
+    private _viewRef: ViewContainerRef,
+    private _systemService: SystemService
   ) { }
 
   ngOnInit() {
+    this.loadinPageDataSub = this._systemService.getLoadinPageDataStatus().subscribe(
+      status => {
+        this.loadinPageData_s = status;
+      }
+    );
+
     this.selectedContacts = [
       { id: 1, name: "Ahsan", email: "ahsan@demo.com", selected: false },
       { id: 2, name: "Ahsan", email: "ahsan@demo.com", selected: false },
@@ -161,6 +175,12 @@ export class CreateNotificationComponent implements OnInit {
           console.log('Error', err);
         }
       );
+  }
+
+  ngOnDestroy() {
+    if (this.loadinPageDataSub) {
+      this.loadinPageDataSub.unsubscribe();
+    }
   }
 
 }
