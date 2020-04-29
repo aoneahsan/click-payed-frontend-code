@@ -12,7 +12,7 @@ import { TopupWalletPopupComponent } from "@src/app/components/topup-your-wallet
 
 const routes: Routes = [
     {
-        path: 'topup-your-wallet',
+        path: '',
         component: TopupYourWalletComponent
     }
 ]

@@ -7,13 +7,14 @@
     <FlexboxLayout
         class="main_con"
         flexDirection="column"
-        justifyContent="center"
+        justifyContent="flex-start"
         alignItems="center"
+        style="padding: 80 0 0 0;"
     >
-        <StackLayout class="text-center m-b-0" style="margin: -100 0 0 0;">
+        <StackLayout class="text-center m-b-0">
             <label class="h1 t_white" text="Sign Up"></label>
             <label
-                class="h2 t_white"
+                class="h3 t_white"
                 text="Create Your eWallet Account"
             ></label>
         </StackLayout>
@@ -26,7 +27,7 @@
             ></label>
             <TextField
                 width="80%"
-                class="ok -border"
+                class="input_field ok -border"
                 [autocorrect]="false"
                 ReturnKeyType="next"
                 textAlignment="center"
@@ -38,21 +39,21 @@
             ></TextField>
             <TextField
                 width="80%"
-                class="ok -border"
+                class="input_field ok -border"
                 [autocorrect]="false"
                 ReturnKeyType="next"
                 textAlignment="center"
                 hint="Enter Number (03000000000)"
                 [(ngModel)]="user_number"
                 keyboardType="phone"
-                maxLenght="11"
+                maxLength="11"
                 style="placeholder-color: rgba(255, 255, 255);"
                 autocapitalizationType="none"
                 autocorrect="false"
             ></TextField>
             <TextField
                 width="80%"
-                class="ok -border"
+                class="input_field ok -border"
                 [autocorrect]="false"
                 ReturnKeyType="next"
                 textAlignment="center"
@@ -64,7 +65,7 @@
             ></TextField>
             <TextField
                 width="80%"
-                class="input -border"
+                class="input_field input -border"
                 hint="Enter Password (Min 6)"
                 textAlignment="center"
                 ReturnKeyType="done"
@@ -75,7 +76,7 @@
             ></TextField>
             <TextField
                 width="80%"
-                class="input -border"
+                class="input_field input -border"
                 hint="Confirm Password"
                 textAlignment="center"
                 ReturnKeyType="done"

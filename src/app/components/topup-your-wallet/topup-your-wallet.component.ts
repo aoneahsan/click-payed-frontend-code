@@ -18,7 +18,7 @@ export class TopupYourWalletComponent implements OnInit {
   
   _paymentMethod: string = null;
   _trxID: string = null;
-  _depositedAmount: string = null;
+  _depositedAmount: number = null;
   _formSubmited: boolean = false;
 
   // dropdown
@@ -38,7 +38,7 @@ export class TopupYourWalletComponent implements OnInit {
     // this._paymentMethod && this._trxID && this._depositedAmount,
     // 'this._paymentMethod = ', this._paymentMethod,'this._trxID = ', this._trxID,'this._depositedAmount = ', this._depositedAmount);
     if (this._paymentMethod && this._trxID && this._depositedAmount) {
-      if (this._trxID.length == 6) {
+      if (this._trxID.length == 6 && this._depositedAmount > 99) {
         return true;
       }
     }

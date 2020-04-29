@@ -7,12 +7,12 @@ import { BehaviorSubject } from "rxjs";
 export class SystemService {
 
     // Api Root Url
-    // apiRootURL: string = 'http://localhost:8000/api/';   // development apiRootURL Local Laravel URL
-    // _apiRootURL: string = 'https://d8e1e20f.ngrok.io/api/';   // development apiRootURL Valet Link Laravel URL
     // apiRootURL: string = 'https://click-payed-245c5.firebaseio.com/text.json';   // development apiRootURL Firebase URL
+    // apiRootURL: string = 'http://localhost:8000/api/';   // development apiRootURL Local Laravel URL
+    _apiRootURL: string = 'https://a27d048b.ngrok.io/api/';   // development apiRootURL Valet Link Laravel URL
 
     // Production App Route API Path
-    _apiRootURL: string = 'https://clickpayed.jmmgroup.website/api/';   // development apiRootURL Valet Link Laravel URL
+    // _apiRootURL: string = 'https://clickpayed.jmmgroup.website/api/';   // development apiRootURL Valet Link Laravel URL
 
     _loadingPageData = new BehaviorSubject<boolean>(false);
 

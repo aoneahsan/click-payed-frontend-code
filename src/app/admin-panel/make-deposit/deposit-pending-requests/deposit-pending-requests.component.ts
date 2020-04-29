@@ -50,27 +50,6 @@ export class DepositPendingRequestsComponent implements OnInit, OnDestroy {
       }
     );
 
-    this._systemService.loadingPageDataTrue();
-    this._getDepositRequests_Sub = this._adminpanelService.getDepositRequests().subscribe(
-      data => {
-        if (data) {
-          this.requests = data
-        }
-        else {
-          this._fetchDepositRequests_Sub = this._adminpanelService.fetchAllDepositRequests().subscribe(
-            res => {
-              console.log('PendingDepositRequestsComponent == fetchAllDepositRequests == response = ', res);
-              this._adminpanelService.setDepositRequests(res.data);
-            },
-            err => {
-              console.log('PendingDepositRequestsComponent == fetchAllDepositRequests == error = ', err);
-              alert("Error Occured While Fetching Deposit Requests, Try Again!");
-            }
-          )
-        }
-      }
-    )
-
     this.items = new ValueList([
       { value: "all_withdrawal_requests", display: "VIEW | All Deposit Requests" },
       { value: "all_pending_requests", display: "VIEW | All Pending Requests" },
@@ -83,7 +62,29 @@ export class DepositPendingRequestsComponent implements OnInit, OnDestroy {
   }
 
   fetchDepositRequests() {
-
+    this._systemService.loadingPageDataTrue();
+    this._getDepositRequests_Sub = this._adminpanelService.getDepositRequests().subscribe(
+      data => {
+        if (data) {
+          this.requests = data;
+          this._systemService.loadingPageDataFalse();
+        }
+        else {
+          this._fetchDepositRequests_Sub = this._adminpanelService.fetchAllDepositRequests().subscribe(
+            res => {
+              this._systemService.loadingPageDataFalse();
+              console.log('PendingDepositRequestsComponent == fetchAllDepositRequests == response = ', res);
+              this._adminpanelService.setDepositRequests(res.data);
+            },
+            err => {
+              this._systemService.loadingPageDataFalse();
+              console.log('PendingDepositRequestsComponent == fetchAllDepositRequests == error = ', err);
+              alert("Error Occured While Fetching Deposit Requests, Try Again!");
+            }
+          );
+        }
+      }
+    );
   }
 
   loadLocalData(dataSet: number) {

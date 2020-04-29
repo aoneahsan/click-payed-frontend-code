@@ -7,12 +7,13 @@
     <FlexboxLayout
         class="main_con"
         flexDirection="column"
-        justifyContent="center"
+        justifyContent="flex-start"
         alignItems="center"
+        style="padding: 80 0 0 0;"
     >
         <StackLayout class="text-center m-b-20">
             <label class="h1 t_white" text="Sign In"></label>
-            <label class="h2 t_white" text="to your eWallet account"></label>
+            <label class="h3 t_white" text="to your eWallet account"></label>
         </StackLayout>
         <StackLayout class="nt-form" *ngIf="!usePinLogin">
             <label

@@ -6,4 +6,5 @@ export interface DepositRequestModel {
     amount: string,
     status: string,
     trx_id: number
+    user_id?,
 }

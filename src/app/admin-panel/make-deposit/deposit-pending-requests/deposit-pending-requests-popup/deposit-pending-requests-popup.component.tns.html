@@ -20,8 +20,8 @@
         <FlexBoxLayout justifyContent="center" alignItems="center">
             <label class="h2">
                 <FormattedString>
-                    <Span text="TRX ID: "></Span>
-                    <Span [text]="modalData.trx_id"></Span>
+                    <span text="TRX ID: "></span>
+                    <span [text]="modalData.trx_id"></span>
                 </FormattedString>
             </label>
         </FlexBoxLayout>
@@ -99,7 +99,12 @@
                 height="80"
                 [(ngModel)]="additional_note"
                 class="text-center"
-                style="border-width: 1; border-color: black; border-radius: 4; margin: 10 0 10 0;"
+                style="
+                    border-width: 1;
+                    border-color: black;
+                    border-radius: 4;
+                    margin: 10 0 10 0;
+                "
             ></TextView>
         </FlexBoxLayout>
         <FlexBoxLayout
@@ -177,11 +182,15 @@
             ></label>
         </FlexBoxLayout>
         <label
-            [text]="request_approved_date_time"
             width="80%"
             style="font-size: 12; font-weight: 400; text-align: center;"
             textWrap="true"
-        ></label>
+        >
+            <FormattedString>
+                <span text="WITHDRAWAL PROCESSED AT "></span>
+                <span [text]="request_approved_date_time"></span>
+            </FormattedString>
+        </label>
         <FlexBoxLayout
             justifyContent="center"
             alignItems="center"

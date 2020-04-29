@@ -40,6 +40,20 @@ export class AdminPanelService {
     setDepositRequests(data: DepositRequestModel[]) {
         this._depositRequests.next(data);
     }
+
+    approveDepositRequest(data) {
+        return this._http.post<any>(
+            this._systemService._apiRootURL + 'approve_deposit_request',
+            data
+        );
+    }
+
+    rejectDepositRequest(data) {
+        return this._http.post<any>(
+            this._systemService._apiRootURL + 'reject_deposit_request',
+            data
+        );
+    }
     // ******************************************************************************
     // Make Deposite Component Http Requests Ends
     // ******************************************************************************
@@ -53,7 +67,7 @@ export class AdminPanelService {
     }
 
     getUserData(id) {
-        return this._listUsers.find(user => user.id == id);
+        return true;
     }
     // ******************************************************************************
     // User List Component Http Requests Ends

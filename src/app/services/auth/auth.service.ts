@@ -18,7 +18,7 @@ export class AuthService {
     _user = new BehaviorSubject<User>(null);
     _tokkenExpirationTime: any = null;
 
-    _isAdmin = new BehaviorSubject<boolean>(false);
+    _userRole = new BehaviorSubject<'admin' | 'editor' | 'engager' | 'user'>(null);
 
     constructor(
         private _router: RouterExtensions,
@@ -26,6 +26,14 @@ export class AuthService {
         private _systemService: SystemService
     ) { }
 
+    getUserRole() {
+        return this._userRole;
+    }
+
+    setUserRole(role: 'admin' | 'editor' | 'engager' | 'user') {
+        this._userRole.next(role);
+    }
+    
     signIn(data) {
         //check user to sign in
 
@@ -123,6 +131,7 @@ export class AuthService {
             );
             // if (localUser.tokken) {
             this._user.next(localUser);
+            this._userRole.next(localUser.role);
             // const logoutIn = new Date(new Date(userData.tokken_expire_time).getTime() - new Date().getTime());
             // this.autoLogout(logoutIn);
             // } else {
@@ -164,6 +173,7 @@ export class AuthService {
             expireDate
         );
         this._user.next(newUser);
+        this._userRole.next(newUser.role);
         setString('user_data', JSON.stringify(newUser));
         // console.log(hasKey('user_data'));
         // console.log("getString('user_data')", getString('user_data'));

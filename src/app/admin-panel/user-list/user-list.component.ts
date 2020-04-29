@@ -1,3 +1,4 @@
+import { UserListModel } from './../../models/admin/users-list-model';
 import { Component, OnInit, OnDestroy } from '@angular/core';
 
 import { RouterExtensions } from 'nativescript-angular/router';
@@ -16,7 +17,7 @@ export class UserListComponent implements OnInit, OnDestroy {
   loadinPageData_s: boolean = true;
   loadinPageDataSub: Subscription;
 
-  users: { id, name, phone_no, status }[] = [];
+  users: any = [];
 
   constructor(
     private _router: RouterExtensions,

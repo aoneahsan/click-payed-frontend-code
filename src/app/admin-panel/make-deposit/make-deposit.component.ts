@@ -7,6 +7,7 @@ import { UIService } from '@src/app/shared/ui/ui.service';
 import { MakeDepositPopupComponent } from './make-deposit-popup/make-deposit-popup.component';
 import { Subscription } from 'rxjs';
 import { SystemService } from '@src/app/services/system.service';
+import { AuthService } from '@src/app/services/auth/auth.service';
 
 @Component({
   selector: 'app-make-deposit',
@@ -18,6 +19,12 @@ export class MakeDepositComponent implements OnInit, OnDestroy {
 
   loadinPageData_s: boolean = true;
   loadinPageDataSub: Subscription;
+
+  _userRole: 'admin' | 'editor' | 'engager' | 'user' = null;
+  _isAdmin: boolean = false;
+  _isEditor: boolean = false;
+  _isEngager: boolean = false;
+  _userRole_Sub: Subscription;
 
   amountToDeposit: number = null;
   trx_id: string = null;
@@ -34,7 +41,8 @@ export class MakeDepositComponent implements OnInit, OnDestroy {
     private _modalService: ModalDialogService,
     private _viewRf: ViewContainerRef,
     private _uiService: UIService,
-    private _systemService: SystemService
+    private _systemService: SystemService,
+    private _authService: AuthService
   ) { }
 
   get coinsEntered() {
@@ -57,6 +65,27 @@ export class MakeDepositComponent implements OnInit, OnDestroy {
     this.loadinPageDataSub = this._systemService.getLoadinPageDataStatus().subscribe(
       status => {
         this.loadinPageData_s = status;
+      }
+    );
+
+    this._userRole_Sub = this._authService.getUserRole().subscribe(
+      role => {
+        this._userRole = role;
+        if (role == 'admin') {
+          this._isAdmin = true;
+          this._isEditor = false;
+          this._isEngager = false;
+        }
+        else if (role == 'editor') {
+          this._isAdmin = false;
+          this._isEditor = true;
+          this._isEngager = false;
+        }
+        else if (role == 'engager') {
+          this._isAdmin = false;
+          this._isEditor = false;
+          this._isEngager = true;
+        }
       }
     );
   }
@@ -135,6 +164,9 @@ export class MakeDepositComponent implements OnInit, OnDestroy {
   ngOnDestroy() {
     if (this.loadinPageDataSub) {
       this.loadinPageDataSub.unsubscribe();
+    }
+    if (this._userRole_Sub) {
+      this._userRole_Sub.unsubscribe();
     }
   }
 

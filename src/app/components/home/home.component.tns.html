@@ -59,7 +59,7 @@
                         class="m-r-5"
                     ></image>
                     <label
-                        text="Buy Coins"
+                        text="Buy More"
                         class="text-left"
                         [textWrap]="true"
                     ></label>
@@ -79,7 +79,7 @@
                         class="m-l-5 m-r-5"
                     ></image>
                     <label
-                        text="Redeem Coins"
+                        text="Redeem"
                         class="text-left"
                         [textWrap]="true"
                     ></label>
@@ -99,7 +99,7 @@
                         class="m-l-5 m-r-5"
                     ></image>
                     <label
-                        text="Transfer Coins"
+                        text="Transfer"
                         class="text-left"
                         [textWrap]="true"
                     ></label>
@@ -165,7 +165,7 @@
                 >
                     <label text="Transaction History" class="text-left"></label>
                 </FlexBoxLayout>
-                <FlexBoxLayout
+                <!-- <FlexBoxLayout
                     width="48%"
                     style="height: 40; padding: 0 10;"
                     justifyContent="center"
@@ -175,6 +175,17 @@
                     (tap)="offersAndPromotions()"
                 >
                     <label text="Offers & Promotions" class="text-left"></label>
+                </FlexBoxLayout> -->
+                <FlexBoxLayout
+                    width="48%"
+                    style="height: 40; padding: 0 10;"
+                    justifyContent="center"
+                    flexDirection="column"
+                    alignItems="center"
+                    class="topup_btn"
+                    nsRouterLink="/compatible-games"
+                >
+                    <label text="Compatible Games" class="text-left"></label>
                 </FlexBoxLayout>
             </FlexBoxLayout>
         </FlexBoxLayout>

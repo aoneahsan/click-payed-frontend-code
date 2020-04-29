@@ -46,6 +46,7 @@
                     style="border-radius: 6; border-width: 1;"
                     nsRouterLink="/admin/set-rules"
                     pageTransition="slide"
+                    *ngIf="_isAdmin"
                 ></button>
                 <button
                     text="USER LIST"
@@ -55,6 +56,17 @@
                     style="border-radius: 6; border-width: 1;"
                     nsRouterLink="/admin/user-list"
                     pageTransition="slide"
+                    *ngIf="_isAdmin"
+                ></button>
+                <button
+                    text="ENGAGERS LIST"
+                    height="44"
+                    width="96%"
+                    class="bg_forest t_white"
+                    style="border-radius: 6; border-width: 1;"
+                    nsRouterLink="/admin/engagers-list"
+                    pageTransition="slide"
+                    *ngIf="_isAdmin"
                 ></button>
             </FlexBoxLayout>
             <FlexBoxLayout
@@ -80,6 +92,7 @@
                     style="border-radius: 6; border-width: 1;"
                     nsRouterLink="/admin/create-notification"
                     pageTransition="slide"
+                    *ngIf="_isAdmin"
                 ></button>
                 <button
                     text="NOTICE BOARD"
@@ -89,6 +102,17 @@
                     style="border-radius: 6; border-width: 1;"
                     nsRouterLink="/admin/notice-board"
                     pageTransition="slide"
+                    *ngIf="_isAdmin"
+                ></button>
+                <button
+                    text="COMPATIBLE GAMES"
+                    height="44"
+                    width="96%"
+                    class="bg_forest t_white"
+                    style="border-radius: 6; border-width: 1;"
+                    nsRouterLink="/compatible-games"
+                    pageTransition="slide"
+                    *ngIf="_isAdmin"
                 ></button>
             </FlexBoxLayout>
         </FlexBoxLayout>

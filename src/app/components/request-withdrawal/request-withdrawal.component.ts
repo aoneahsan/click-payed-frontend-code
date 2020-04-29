@@ -11,27 +11,41 @@ import { UserService } from '@src/app/services/user/user.service';
 })
 export class RequestWithdrawalComponent implements OnInit, OnDestroy {
 
+  loadinPageData_s: boolean = true;
+  loadinPageDataSub: Subscription;
+
   remaining_balance: string = '';
+  _balanceAmount: number = 0;
   remaining_balance_Sub: Subscription;
 
-  _formSubmited: boolean = false;
-  _amountToWithDraw: string = null;
+  _userAccountData_Sub: Subscription;
 
-  public selectedIndex = 0;
+  _formSubmited: boolean = false;
+  _amountToWithDraw: number = null;
+
+  public selectedIndex = null;
   public items: any;
-  @ViewChild('dropdow', {static: false}) dropdow: ElementRef;
-  
+  @ViewChild('dropdow', { static: false }) dropdow: ElementRef;
+
   constructor(private _systemService: SystemService, private _userService: UserService) {
   }
-  
+
   get _formDataEnteredStatus() {
     if (this._amountToWithDraw) {
-      return true;
+      if (this._amountToWithDraw <= this._balanceAmount) {
+        return true;
+      }
     }
     return false;
   }
 
   ngOnInit() {
+    this.loadinPageDataSub = this._systemService.getLoadinPageDataStatus().subscribe(
+      status => {
+        this.loadinPageData_s = status;
+      }
+    );
+
     this.items = new ValueList([
       { value: "100", display: "100" },
       { value: "200", display: "200" },
@@ -43,6 +57,7 @@ export class RequestWithdrawalComponent implements OnInit, OnDestroy {
     this.remaining_balance_Sub = this._systemService.getUserBalance().subscribe(
       balance => {
         this.remaining_balance = "Remaining Balance: PKR " + balance;
+        this._balanceAmount = balance;
       }
     );
   }
@@ -50,7 +65,7 @@ export class RequestWithdrawalComponent implements OnInit, OnDestroy {
   public onchange(args: SelectedIndexChangedEventData) {
     // console.log(`Drop Down selected index changed from ${args.oldIndex} to ${args.newIndex}, args are ${args}`);
     // console.log(this.items._array[args.newIndex].value);
-    this._amountToWithDraw = this.items._array[args.newIndex].value;
+    this._amountToWithDraw = +this.items._array[args.newIndex].value;
   }
 
   public onopen() {
@@ -62,16 +77,32 @@ export class RequestWithdrawalComponent implements OnInit, OnDestroy {
   }
 
   submitForm() {
-    if (!this._amountToWithDraw) { 
+    if (!this._amountToWithDraw) {
+      return;
+    }
+    else if (this._amountToWithDraw > this._balanceAmount) {
       return;
     }
     else {
       this._formSubmited = true;
       const data = {
-        amount: this._amountToWithDraw
+        amount: +this._amountToWithDraw
       };
       this._userService.withDrawalRequest(data).subscribe(
         res => {
+          this._systemService.loadingPageDataTrue();
+          this._userAccountData_Sub = this._userService.userAccountData().subscribe(
+            res => {
+              console.log("RequestWithdrawalComponent == submitForm == userAccountData == response = ", res);
+              this._systemService.setUserBalance(res.data.balance);
+              this._systemService.loadingPageDataFalse();
+            },
+            err => {
+              this._systemService.loadingPageDataFalse();
+              console.log("RequestWithdrawalComponent == submitForm == userAccountData == error = ", err);
+              alert("Error While Updating Account Data, Restart App!");
+            }
+          )
           console.log('RequestWithdrawalComponent == submitForm == response = ', res);
           alert(res.data);
           this.resetForm();
@@ -92,6 +123,9 @@ export class RequestWithdrawalComponent implements OnInit, OnDestroy {
   }
 
   ngOnDestroy() {
+    if (this.loadinPageDataSub) {
+      this.loadinPageDataSub.unsubscribe();
+    }
     if (this.remaining_balance_Sub) {
       this.remaining_balance_Sub.unsubscribe();
     }

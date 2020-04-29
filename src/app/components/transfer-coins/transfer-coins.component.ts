@@ -50,9 +50,9 @@ export class TransferCoinsComponent implements OnInit, OnDestroy {
 
   get _reciver_number_added() {
     if (this.reciver_number) {
-      // if (this.reciver_number.length >= 11) {
+      if (this.reciver_number.length == 11) {
       return true;
-      // }
+      }
     }
     return false;
   }

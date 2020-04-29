@@ -4,9 +4,17 @@
   [hasMenu]="true"
   [showBackButton]="false"
   [showNotifications]="true"
+  *ngIf="!loadinPageData_s"
+></app-action-bar>
+<app-action-bar
+  [title]=""
+  [hasMenu]="false"
+  [showBackButton]="false"
+  [showNotifications]="false"
+  *ngIf="loadinPageData_s"
 ></app-action-bar>
 <ScrollView>
-  <FlexBoxLayout flexDirection="column" justifyContent="center">
+  <FlexBoxLayout flexDirection="column" justifyContent="center" *ngIf="!loadinPageData_s">
     <!-- Notice Board Section -->
     <label
       text="Request A Widtdrawal"
@@ -51,8 +59,8 @@
           (selectedIndexChanged)="onchange($event)"
           (opened)="onopen()"
           (closed)="onclose()"
-          hint="Select Amount to WidtDrawal"
-          style="border-width: 2;border-color: black;padding: 6 0 0 0;margin: 0;background-color: white;border-radius: 4;font-size: 20;"
+          hint="Select Amount"
+          style="border-width: 2;border-color: black;padding: 8 0 0 0;margin: 0;background-color: white;border-radius: 4;font-size: 14;"
         ></DropDown>
         <label text="ˇ" style="font-size: 40; margin: 15 0 0 -30;"></label>
       </FlexBoxLayout>
@@ -109,5 +117,13 @@
 
     <!-- App Footer -->
     <app-footer [section_1]="true"></app-footer>
+  </FlexBoxLayout>
+  <FlexBoxLayout
+      justifyContent="center"
+      alignItems="center"
+      *ngIf="loadinPageData_s"
+      height="100vh"
+  >
+      <ActivityIndicator busy="true"></ActivityIndicator>
   </FlexBoxLayout>
 </ScrollView>
