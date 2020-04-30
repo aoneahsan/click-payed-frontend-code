@@ -11,7 +11,8 @@ import { AdminGuard } from './route-guards/admin/admin-guard.service';
 export const routes: Routes = [
   {
     path: '',
-    redirectTo: 'admin/deposit-accounts',
+    // redirectTo: 'compatible-games',
+    redirectTo: 'compatible-game-info/12',
     pathMatch: 'full',
   },
   {
@@ -81,12 +82,10 @@ export const routes: Routes = [
   },
   {
     path: 'compatible-games',
-    component: CompatibleGamesComponent,
-    canActivate: [AuthGuard]
+    component: CompatibleGamesComponent
   },
   {
     path: 'compatible-game-info/:gameId',
-    component: CompatibleGameInfoComponent,
-    canActivate: [AuthGuard]
+    component: CompatibleGameInfoComponent
   }
 ];

@@ -23,24 +23,15 @@ export class CompatibleGamesComponent implements OnInit {
   deviceSelected: 'android' | 'ios' | 'web' = null;
   loadedGames: Game[] = [];
   androidGames: Game[] = [
-    {id: 1, name: "8 Poll Ball", text: 'text', img: "res://coin", link: "https://www.ggogle.com", status: 'available', game_type: 'android'},
-    {id: 2, name: "9 Poll Ball", text: 'text', img: "res://coin", link: "https://www.ggogle.com", status: 'coming-soon', game_type: 'android'},
-    {id: 3, name: "18 Poll Ball", text: 'text', img: "res://coin", link: "https://www.ggogle.com", status: 'coming-soon', game_type: 'ios'},
-    {id: 4, name: "28 Poll Ball", text: 'text', img: "res://coin", link: "https://www.ggogle.com", status: 'coming-soon', game_type: 'android'},
-    {id: 5, name: "238 Poll Ball", text: 'text', img: "res://coin", link: "https://www.ggogle.com", status: 'coming-soon', game_type: 'android'},
-    {id: 6, name: "48 Poll Ball", text: 'text', img: "res://coin", link: "https://www.ggogle.com", status: 'coming-soon', game_type: 'web'}
+    {id: 1, name: "PUBG Compitition", text: 'text', img: "https://clickpayed.jmmgroup.website/app_images/pubggameicon.png", link: null, status: 'available', game_type: 'android'}
   ];
 
   iosGames: Game[] = [
-    {id: 7, name: "Game 1", text: 'text', img: "res://coin", link: "https://www.ggogle.com", status: 'available', game_type: 'ios'},
-    {id: 8, name: "Game 2", text: 'text', img: "res://coin", link: "https://www.ggogle.com", status: 'coming-soon', game_type: 'ios'},
-    {id: 9, name: "Game 3", text: 'text', img: "res://coin", link: "https://www.ggogle.com", status: 'coming-soon', game_type: 'ios'}
+    {id: 1, name: "PUBG Compitition", text: 'text', img: "https://clickpayed.jmmgroup.website/app_images/pubggameicon.png", link: null, status: 'available', game_type: 'ios'}
   ];
 
   webGames: Game[] = [
-    {id: 10, name: "Game 4", text: 'text', img: "res://coin", link: "https://www.ggogle.com", status: 'available', game_type: 'web'},
-    {id: 11, name: "Game 5", text: 'text', img: "res://coin", link: "https://www.ggogle.com", status: 'coming-soon', game_type: 'web'},
-    {id: 12, name: "Game 6", text: 'text', img: "res://coin", link: "https://www.ggogle.com", status: 'coming-soon', game_type: 'web'}
+    {id: 1, name: "PUBG Compitition", text: 'text', img: "https://clickpayed.jmmgroup.website/app_images/pubggameicon.png", link: null, status: 'available', game_type: 'web'}
   ];
   constructor(private _router: RouterExtensions) { }
 

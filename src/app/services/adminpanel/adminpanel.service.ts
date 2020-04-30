@@ -6,6 +6,7 @@ import { SystemService } from "../system.service";
 
 import { DepositRequestModel } from './../../models/admin/deposit-request-model';
 import { UserListModel } from './../../models/admin/users-list-model';
+import { DepositAccount } from "@src/app/interface/admin/deposit-accounts-interface";
 
 @Injectable({
     providedIn: 'root'
@@ -13,6 +14,7 @@ import { UserListModel } from './../../models/admin/users-list-model';
 
 export class AdminPanelService {
 
+    _depositeAccounts = new BehaviorSubject<DepositAccount[]>(null);
     _depositRequests = new BehaviorSubject<DepositRequestModel[]>(null);
 
     _listUsers = new BehaviorSubject<UserListModel[]>(null);
@@ -32,12 +34,20 @@ export class AdminPanelService {
         );
     }
 
-    getAllDepositAccount() {
+    fetchAllDepositAccount() {
         const data = "Get Account";
         return this._http.post<any>(
             this._systemService._apiRootURL + 'get_all_deposit_accounts',
             data
         );
+    }
+
+    getDepositAccounts() {
+        return this._depositRequests;
+    }
+
+    setDepositAccounts(data: DepositAccount[]) {
+        this._depositeAccounts.next(data);
     }
 
     addNewDepositAccount(data) {

@@ -13,9 +13,10 @@
             </FlexBoxLayout>
         </FlexBoxLayout>
         <FlexBoxLayout *ngIf="section_3" width="100%" justifyContent="center" class="m-t-10">
-            <FlexBoxLayout width="50%" justifyContent="center" style="border-width: 1; border-color: black;padding: 4 34 6 34;border-radius: 4;">
-                <Image src="res://whatsapp" width="25" height="25" class="m-r-5"></Image>
-                <Label text="Get in Touch" class="text-left m-t-2 body"></Label>
+            <FlexBoxLayout width="50%" justifyContent="center" style="border-width: 1; border-color: black;padding: 4 34 6 34;border-radius: 4;" (tap)="clickPayedLink()">
+                <!-- <Image src="res://whatsapp" width="25" height="25" class="m-r-5"></Image> -->
+                <!-- <Label text="Get in Touch" class="text-left m-t-2 body"></Label> -->
+                <Label text="Contact Us" class="text-left m-t-2 body"></Label>
             </FlexBoxLayout>
         </FlexBoxLayout>
         <FlexBoxLayout *ngIf="section_4" width="100%" justifyContent="center">

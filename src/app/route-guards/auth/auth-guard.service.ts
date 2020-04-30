@@ -22,7 +22,19 @@ export class AuthGuard implements CanActivate, CanActivateChild, CanLoad{
                 user => {
                     const isAuth = !!user;
                     if (isAuth) {
-                        return true;
+                        const userRole = user.role;
+                        if (userRole == 'admin') {
+                            this._router.navigate(['/admin/dashboard']);
+                            return true;
+                        }
+                        else if (userRole == 'editor') {
+                            this._router.navigate(['/admin/dashboard']);
+                            return true;
+                        }
+                        else if (userRole == 'user') {
+                            this._router.navigate(['/home']);
+                            return true;
+                        }
                     } else {
                         this._router.navigate(['/sign-in']);
                         return false;

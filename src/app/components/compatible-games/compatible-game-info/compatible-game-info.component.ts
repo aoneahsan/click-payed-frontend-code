@@ -33,28 +33,29 @@ export class CompatibleGameInfoComponent implements OnInit {
 
   getGameData() {
     setTimeout(() => {
-      this.game = { id: 1, name: "8 Poll Ball", text: 'PUBG MOBILE delivers the most intense multiplayer action on mobile. Drop in, gear up, and compete. Survive the classic battle & score the highest kills to get rewarded by a real-time cashback. The player with the most kills in a single battle wins', img: "res://coin", link: "https://www.ggogle.com", status: 'available', game_type: 'android' }
+      this.game = { id: 1, name: "PUBG Compitition", text: 'PUBG MOBILE delivers the most intense multiplayer action on mobile. Drop in, gear up, and compete. Survive the classic battle & score the highest kills to get rewarded by a real-time cashback. The player with the most kills in a single battle wins', img: "res://coin", link: "https://www.ggogle.com", status: 'available', game_type: 'android' }
       this.loadingGameData = false;
     }, 300);
   }
 
   enterGamePopup() {
-    this._modalService.showModal(
-      CompatibleGameInfoPopupComponent,
-      {
-        fullscreen: false,
-        viewContainerRef: this._uiService.getAppVCRef() ? this._uiService.getAppVCRef() : this._viewRef,
-        context: {game_name: this.game.name}
-      }
-    ).then(
-      res => {
-        if (res == 'okay') {
-          
-        } else if (res == undefined) {
-          alert('Kindly Pay Now To Enter');
-        }
-      }
-    )
+    alert({title: 'PUBG Compitition', message: "Compitition will start on 5th of May, 2020", okbottonText: "Okay!!!"});
+    // this._modalService.showModal(
+    //   CompatibleGameInfoPopupComponent,
+    //   {
+    //     fullscreen: false,
+    //     viewContainerRef: this._uiService.getAppVCRef() ? this._uiService.getAppVCRef() : this._viewRef,
+    //     context: { game_name: this.game.name }
+    //   }
+    // ).then(
+    //   res => {
+    //     if (res == 'okay') {
+
+    //     } else if (res == undefined) {
+    //       alert('Kindly Pay Now To Enter');
+    //     }
+    //   }
+    // );
   }
 
 }

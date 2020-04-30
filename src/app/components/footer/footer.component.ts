@@ -22,7 +22,6 @@ export class FooterComponent implements OnInit {
   clickPayedLink() {
     // alert("ok");
     openUrl("https://www.clickpayed.com");
-
   }
 
 }
