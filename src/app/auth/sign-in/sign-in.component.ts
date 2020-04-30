@@ -56,7 +56,7 @@ export class SignInComponent implements OnInit {
   signInAction() {
     this.formSubmited = true;
     let data = {
-      email: this.user_number,
+      phone_number: this.user_number,
       password: this.user_password
     };
     this._authService.signIn(data).subscribe(

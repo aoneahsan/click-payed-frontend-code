@@ -1,0 +1,100 @@
+<app-action-bar
+    title="VIEW DEPOSIT ACCOUNTS"
+    [hasMenu]="true"
+    [showGoBackButton]="true"
+    *ngIf="!loadinPageData_s"
+></app-action-bar>
+<app-action-bar
+    [title]=""
+    [hasMenu]="false"
+    [showBackButton]="false"
+    [showNotifications]="false"
+    *ngIf="loadinPageData_s"
+></app-action-bar>
+<ScrollView>
+    <FlexBoxLayout flexDirection="column" *ngIf="!loadinPageData_s">
+        <!-- Notice Board Section -->
+        <label
+            text="VIEW DEPOSIT ACCOUNTS"
+            class="h3 p-10 m-b-0 text-center text-uppercase"
+            letterSpacing=".2"
+            style="background: black; color: white; margin: 0;"
+        ></label>
+        <!-- Coin Part Section -->
+        <FlexBoxLayout
+            width="100%"
+            justifyContent="space-around"
+            style="margin: 14 0 0 0;"
+        >
+        <FlexBoxLayout width="94%" justifyContent="center" alignItems="center">
+            <DropDown
+              #dropdow
+              width="70%"
+              height="50"
+              class="text-center"
+              itemsTextAlignment="center"
+              [items]="items"
+              [(ngModel)]="selectedIndex"
+              (selectedIndexChanged)="onchange($event)"
+              hint="Select Amount"
+              style="border-width: 2;border-color: black;padding: 8 0 0 0;margin: 0;background-color: white;border-radius: 4;font-size: 14;"
+            ></DropDown>
+            <label text="ˇ" style="font-size: 40; margin: 15 0 0 -30;"></label>
+          </FlexBoxLayout>
+            <FlexBoxLayout
+                width="94%"
+                justifyContent="space-between"
+                alignItems="center"
+            >
+                <FlexBoxLayout
+                    width="66%"
+                    justifyContent="space-around"
+                    alignItems="center"
+                    flexDirection="column"
+                    marginTop="0"
+                >
+                    <TextField
+                        hint="Enter a Registered Number"
+                        [(ngModel)]="reciver_number"
+                        width="100%"
+                        style="border-width: 2; border-radius: 4;"
+                        class="text-center body p-10"
+                        keyboardType="phone"
+                        maxLength="11"
+                    ></TextField>
+                </FlexBoxLayout>
+                <FlexBoxLayout
+                    width="32%"
+                    justifyContent="space-around"
+                    style="margin: -7.5 0 0 0;"
+                    alignItems="center"
+                    flexDirection="column"
+                    marginTop="0"
+                >
+                    <button
+                        text="SEARCH"
+                        width="100%"
+                        height="42"
+                        fontSize="14"
+                        borderRadius="4"
+                        class="bg_forest t_white p-0"
+                        (tap)="searchPerson()"
+                        *ngIf="!searchForPerson"
+                    ></button>
+                    <ActivityIndicator
+                        [busy]="true"
+                        *ngIf="searchForPerson"
+                    ></ActivityIndicator>
+                </FlexBoxLayout>
+            </FlexBoxLayout>
+        </FlexBoxLayout>
+    </FlexBoxLayout>
+    <FlexBoxLayout
+        justifyContent="center"
+        alignItems="center"
+        *ngIf="loadinPageData_s"
+        height="100vh"
+    >
+        <ActivityIndicator busy="true"></ActivityIndicator>
+    </FlexBoxLayout>
+</ScrollView>

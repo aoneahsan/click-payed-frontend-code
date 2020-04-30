@@ -14,7 +14,7 @@
         flexDirection="column"
         justifyContent="center"
         alignItems="center"
-        *ngIf="!requestApproved"
+        *ngIf="!requestApproved && !_processing"
     >
         <!-- <Label text="PLEASE CONFIRM THAT YOU WISH TO DEPOSIT" style="font-size: 20;" [textWrap]="true" class="text-center" width="90%"></Label> -->
         <FlexBoxLayout justifyContent="center" alignItems="center">
@@ -53,7 +53,7 @@
             ></label>
         </FlexBoxLayout>
         <label
-            text="FOR THE WALLET WITHDRAWAL REQUEST OF"
+            text="FOR THE DEPOSIT REQUEST IN ACCOUNT OF"
             style="font-size: 14; font-weight: 400; text-align: center;"
             textWrap="true"
         ></label>
@@ -139,7 +139,7 @@
         flexDirection="column"
         justifyContent="center"
         alignItems="center"
-        *ngIf="requestApproved"
+        *ngIf="requestApproved && !_processing"
         class="m-t-10"
     >
         <image src="res://greencheck" width="140" height="140"></image>
@@ -207,5 +207,14 @@
                 style="font-size: 13;"
             ></button>
         </FlexBoxLayout>
+    </FlexBoxLayout>
+    <FlexBoxLayout
+        flexDirection="column"
+        justifyContent="center"
+        alignItems="center"
+        *ngIf="_processing"
+        class="m-t-10"
+    >
+        <ActivityIndicator busy="true"></ActivityIndicator>
     </FlexBoxLayout>
 </FlexBoxLayout>

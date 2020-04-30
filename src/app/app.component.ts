@@ -134,6 +134,8 @@ export class AppComponent implements OnInit, OnDestroy {
     if (this._saveFirebaseToken_Sub) {
       this._saveFirebaseToken_Sub.unsubscribe();
     }
+    // to delete user local data on app close
+    this._authService._user.next(null);
   }
 
 }

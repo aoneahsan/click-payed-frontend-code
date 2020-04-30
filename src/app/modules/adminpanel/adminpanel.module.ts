@@ -25,6 +25,8 @@ import { SetRulesPopupComponent } from '@src/app/admin-panel/set-new-rules/set-r
 import { DepositPendingRequestsComponent } from '@src/app/admin-panel/make-deposit/deposit-pending-requests/deposit-pending-requests.component';
 import { DepositPendingRequestsPopupComponent } from '@src/app/admin-panel/make-deposit/deposit-pending-requests/deposit-pending-requests-popup/deposit-pending-requests-popup.component';
 import { AdminGuard } from '@src/app/route-guards/admin/admin-guard.service';
+import { DepositAccountsComponent } from '@src/app/admin-panel/deposit-accounts/deposit-accounts.component';
+import { NewDepositAccountComponent } from '@src/app/admin-panel/deposit-accounts/new-deposit-account/new-deposit-account.component';
 
 const routes: Routes = [
     {
@@ -32,8 +34,19 @@ const routes: Routes = [
         component: DashboardComponent
     },
     {
+        path: 'admin/deposit-accounts',
+        component: DepositAccountsComponent,
+        canActivate: [AdminGuard]
+    },
+    {
+        path: 'admin/new-deposit-account',
+        component: NewDepositAccountComponent,
+        canActivate: [AdminGuard]
+    },
+    {
         path: 'admin/make-deposit',
-        component: MakeDepositComponent
+        component: MakeDepositComponent,
+        canActivate: [AdminGuard]
     },
     {
         path: 'admin/deposit-pending-requests',
@@ -87,7 +100,9 @@ const routes: Routes = [
         SingleUserComponent,
         SetRulesPopupComponent,
         DepositPendingRequestsComponent,
-        DepositPendingRequestsPopupComponent
+        DepositPendingRequestsPopupComponent,
+        DepositAccountsComponent,
+        NewDepositAccountComponent
     ],
     imports: [
         NativeScriptCommonModule,

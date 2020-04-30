@@ -26,8 +26,10 @@ export class BuyCoinsComponent implements OnInit, OnDestroy {
   constructor(private _systemService: SystemService, private _userService: UserService) { }
 
   get formDataEntered() {
-    if (this.rupees_value >= 50 && this.rupees_value <= this._remaining_balance) {
-      return true;
+    if (this.rupees_value) {
+      if (this.rupees_value <= this._remaining_balance) {
+        return true;
+      }
     }
     return false;
   }
@@ -56,37 +58,41 @@ export class BuyCoinsComponent implements OnInit, OnDestroy {
 
   formSubmited() {
     this._formSubmited = true;
-    if (this.rupees_value >= 50 && this.rupees_value <= this._remaining_balance) {
-      const data = {
-        amount: +this.rupees_value
-      }
-      this._buyCoinSub = this._userService.buyCoinsRequest(data).subscribe(
-        res => {
-          // console.log('Buy-coins.component.ts  ==  formSubmited == response = ', res);
-          this._systemService.loadingPageDataTrue();
-          this._updateUserAccountSub = this._userService.userAccountData().subscribe(
-            data => {
-              // console.log("App.Component.ts  ==  userAccountDataSub  ==  responsedata = ", data.data);
-              this._systemService.setUserCoins(data.data.coins);
-              this._systemService.setUserBalance(data.data.balance);
-              this._systemService.loadingPageDataFalse();
-            },
-            err => {
-              // console.log("App.Component.ts  ==  userAccountDataSub  ==  error = ", err);
-              this._systemService.loadingPageDataFalse();
-              alert("Error Occured While Updating Account Data, Reload App");
-            }
-          );
-          this.resetForm();
-
-        },
-        err => {
-          console.log('Buy-coins.component.ts  ==  formSubmited == Error = ', err);
-          this.resetForm();
+    if (this.rupees_value) {
+      if (this.rupees_value <= this._remaining_balance) {
+        const data = {
+          amount: +this.rupees_value
         }
-      )
+        this._buyCoinSub = this._userService.buyCoinsRequest(data).subscribe(
+          res => {
+            // console.log('Buy-coins.component.ts  ==  formSubmited == response = ', res);
+            this._systemService.loadingPageDataTrue();
+            this._updateUserAccountSub = this._userService.userAccountData().subscribe(
+              data => {
+                // console.log("App.Component.ts  ==  userAccountDataSub  ==  responsedata = ", data.data);
+                this._systemService.setUserCoins(data.data.coins);
+                this._systemService.setUserBalance(data.data.balance);
+                this._systemService.loadingPageDataFalse();
+              },
+              err => {
+                // console.log("App.Component.ts  ==  userAccountDataSub  ==  error = ", err);
+                this._systemService.loadingPageDataFalse();
+                alert("Error Occured While Updating Account Data, Reload App");
+              }
+            );
+            this.resetForm();
+  
+          },
+          err => {
+            console.log('Buy-coins.component.ts  ==  formSubmited == Error = ', err);
+            this.resetForm();
+          }
+        );
+      }
     }
-    return;
+    else {
+      return;
+    }
   }
 
   resetForm() {

@@ -51,14 +51,14 @@ export class TransferCoinsComponent implements OnInit, OnDestroy {
   get _reciver_number_added() {
     if (this.reciver_number) {
       if (this.reciver_number.length == 11) {
-      return true;
+        return true;
       }
     }
     return false;
   }
 
   get coinsEntered() {
-    return this.coins_to_transfer > 99;
+    return this.coins_to_transfer > 0 && this.coins_to_transfer < this.remainingUserCoins;
   }
 
   ngOnInit() {
@@ -81,7 +81,7 @@ export class TransferCoinsComponent implements OnInit, OnDestroy {
     if (this.reciver_number) {
       this.searchForPerson = true;
       const data = {
-        number: +this.reciver_number
+        number: this.reciver_number
       }
       this.searchForPerson_Sub = this._userService.searchPersonByNumber(data).subscribe(
         user => {
@@ -101,37 +101,39 @@ export class TransferCoinsComponent implements OnInit, OnDestroy {
   }
 
   transferCoins() {
+    if (this.coins_to_transfer < this.remainingUserCoins) {
     this.formSubmited = true;
-    this._modalService.showModal(
-      TransferCoinsPopupComponent,
-      {
-        fullscreen: false,
-        viewContainerRef: this._uiService.getAppVCRef() ? this._uiService.getAppVCRef() : this._viewRf,
-        context: {
-          data: {
-            coinsToTransfer: this.coins_to_transfer,
-            otherUser: {
-              name: this.reciverName,
-              number: this.reciver_number
-            },
-            remainingCoins: (this.remainingUserCoins - this.coins_to_transfer)
+      this._modalService.showModal(
+        TransferCoinsPopupComponent,
+        {
+          fullscreen: false,
+          viewContainerRef: this._uiService.getAppVCRef() ? this._uiService.getAppVCRef() : this._viewRf,
+          context: {
+            data: {
+              coinsToTransfer: this.coins_to_transfer,
+              otherUser: {
+                name: this.reciverName,
+                number: this.reciver_number
+              },
+              remainingCoins: (this.remainingUserCoins - this.coins_to_transfer)
+            }
           }
         }
-      }
-    ).then(
-      res => {
-        // console.log(res);
-        if (res == 'TRANSFER') {
-          this.transferNow();
+      ).then(
+        res => {
+          // console.log(res);
+          if (res == 'TRANSFER') {
+            this.transferNow();
+          }
+          else if (res == 'CANCEL') {
+            this.formSubmited = false;
+          }
+          else if (res == undefined) {
+            this.formSubmited = false;
+          }
         }
-        else if (res == 'CANCEL') {
-          this.formSubmited = false;
-        }
-        else if (res == undefined) {
-          this.formSubmited = false;
-        }
-      }
-    );
+      );
+    }
   }
 
   transferNow() {

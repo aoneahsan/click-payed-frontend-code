@@ -45,7 +45,7 @@
                         style="border-width: 2; border-radius: 4;"
                         class="text-center body p-10"
                         keyboardType="phone"
-                        [isEnabled]="!userFound"
+                        maxLength="11"
                     ></TextField>
                 </FlexBoxLayout>
                 <FlexBoxLayout
@@ -129,7 +129,7 @@
                         style="text-align: left;"
                     ></label>
                     <label
-                        [text]="reciver.number"
+                        [text]="reciver.phone_number"
                         width="100%"
                         style="border-width: 2; border-radius: 4;"
                         class="text-center bg_grey body p-10"
@@ -284,6 +284,22 @@
             <button
                 text="VIEW PENDING REQUESTS"
                 nsRouterLink="/admin/deposit-pending-requests"
+                fontSize="14"
+                width="50%"
+                height="40"
+                borderRadius="4"
+                class="bg_black t_white p-0"
+            ></button>
+        </FlexBoxLayout>
+
+        <FlexBoxLayout
+            width="100%"
+            justifyContent="space-around"
+            style="margin: 0 0 0 0;"
+        >
+            <button
+                text="VIEW DEPOSIT ACCOUNTS"
+                nsRouterLink="/admin/deposit-accounts"
                 fontSize="14"
                 width="50%"
                 height="40"

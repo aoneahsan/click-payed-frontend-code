@@ -15,7 +15,7 @@
         flexDirection="column"
         justifyContent="space-around"
         alignItems="center"
-        *ngIf="!depositDone"
+        *ngIf="!depositDone && !_processing"
     >
         <label
             text="PLEASE CONFIRM THAT YOU WISH TO DEPOSIT"
@@ -94,7 +94,7 @@
         flexDirection="column"
         justifyContent="space-around"
         alignItems="center"
-        *ngIf="depositDone"
+        *ngIf="depositDone && !_processing"
     >
         <image src="res://greencheck" width="140" height="140"></image>
         <FlexBoxLayout
@@ -160,4 +160,13 @@
             ></button>
         </FlexBoxLayout>
     </FlexBoxLayout>
+    <FlexBoxLayout
+        width="100%"
+        flexDirection="column"
+        justifyContent="space-around"
+        alignItems="center"
+        *ngIf="_processing"
+    >
+    <ActivityIndicator busy="true"></ActivityIndicator>
+</FlexBoxLayout>
 </FlexBoxLayout>

@@ -25,6 +25,28 @@ export class AdminPanelService {
     // ******************************************************************************
     // Make Deposite Component Http Requests Starts
     // ******************************************************************************
+    makeDepositeRequest(data) {
+        return this._http.post<any>(
+            this._systemService._apiRootURL + 'make_deposit_request',
+            data
+        );
+    }
+
+    getAllDepositAccount() {
+        const data = "Get Account";
+        return this._http.post<any>(
+            this._systemService._apiRootURL + 'get_all_deposit_accounts',
+            data
+        );
+    }
+
+    addNewDepositAccount(data) {
+        return this._http.post<any>(
+            this._systemService._apiRootURL + 'add_new_deposit_account',
+            data
+        );
+    }
+
     fetchAllDepositRequests() {
         const data = "Get Deposite Requests";
         return this._http.post<any>(

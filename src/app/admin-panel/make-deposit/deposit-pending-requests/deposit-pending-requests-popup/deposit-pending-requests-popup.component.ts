@@ -1,7 +1,8 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, OnDestroy } from '@angular/core';
 import { ModalDialogParams } from 'nativescript-angular/common';
 import { DepositRequestModel } from './../../../../models/admin/deposit-request-model';
 import { AdminPanelService } from '@src/app/services/adminpanel/adminpanel.service';
+import { Subscription } from 'rxjs';
 
 @Component({
   selector: 'app-deposit-pending-requests-popup',
@@ -9,7 +10,7 @@ import { AdminPanelService } from '@src/app/services/adminpanel/adminpanel.servi
   styleUrls: ['./deposit-pending-requests-popup.component.scss']
 })
 
-export class DepositPendingRequestsPopupComponent implements OnInit {
+export class DepositPendingRequestsPopupComponent implements OnInit, OnDestroy {
 
   modalData: DepositRequestModel;
   trx_no: string = null;
@@ -17,6 +18,11 @@ export class DepositPendingRequestsPopupComponent implements OnInit {
 
   requestApproved: boolean = false;
   request_approved_date_time: string = '';
+
+  _approveDepositRequest_Sub: Subscription;
+  _rejectDepositRequest_Sub: Subscription;
+
+  _processing: boolean = false;
 
   constructor(private _modalParams: ModalDialogParams, private _adminpanelService: AdminPanelService) { }
 
@@ -38,16 +44,44 @@ export class DepositPendingRequestsPopupComponent implements OnInit {
   }
 
   onHandle(action: "approve" | 'reject') {
+    this._processing = true;
+    const data = {
+      id: this.modalData.id,
+      user_id: this.modalData.user_id,
+      amount: this.modalData.amount,
+      additional_note: this.additional_note,
+      trx_id: this.modalData.trx_id
+    };
     if (action == 'approve') {
-      
-      // get response from http request and get date and time of approved request and store in request_approved_date_time (variable to show in screen)
-      this.request_approved_date_time = '2255 PST | MAY 20TH 2020'; // instead of writing get date time from response and show
-      this.showApprovedMessage();
+      this._approveDepositRequest_Sub = this._adminpanelService.approveDepositRequest(data).subscribe(
+        res => {
+          console.log("DepositPendingRequestPopupComponent == approveDepositRequest == response = ", res);
+          this.request_approved_date_time = res.data.date_time;
+          this.showApprovedMessage();
+          this._processing = false;
+        },
+        err => {
+          console.log("DepositPendingRequestPopupComponent == approveDepositRequest == error = ", err);
+          this._processing = false;
+          alert("Error Occured, Reuqest Failed, Try Again!");
+        }
+      );
       // this._modalParams.closeCallback('deposit');
     }
     else if (action == 'reject') {
-      //send http to reject the withdrawal request
-      this.closeModalWithStatus('rejected');
+      this._rejectDepositRequest_Sub = this._adminpanelService.rejectDepositRequest(data).subscribe(
+        res => {
+          console.log("DepositPendingRequestPopupComponent == approveDepositRequest == response = ", res);
+          this.request_approved_date_time = res.data.date_time;
+          this._processing = false;
+          this.closeModalWithStatus('rejected');
+        },
+        err => {
+          console.log("DepositPendingRequestPopupComponent == approveDepositRequest == error = ", err);
+          this._processing = false;
+          alert("Error Occured, Reuqest Failed, Try Again!");
+        }
+      );
     }
     else {
       this._modalParams.closeCallback('cancel');
@@ -64,6 +98,17 @@ export class DepositPendingRequestsPopupComponent implements OnInit {
 
   closeModalWithStatus(status: 'approved' | 'rejected') {
     this._modalParams.closeCallback(status);
+  }
+
+  ngOnDestroy(): void {
+    //Called once, before the instance is destroyed.
+    //Add 'implements OnDestroy' to the class.
+    if (this._approveDepositRequest_Sub) {
+      this._approveDepositRequest_Sub.unsubscribe();
+    }
+    if (this._rejectDepositRequest_Sub) {
+      this._rejectDepositRequest_Sub.unsubscribe();
+    }
   }
 
 }

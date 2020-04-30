@@ -11,7 +11,7 @@ import { AdminGuard } from './route-guards/admin/admin-guard.service';
 export const routes: Routes = [
   {
     path: '',
-    redirectTo: 'admin/deposit-pending-requests',
+    redirectTo: 'admin/deposit-accounts',
     pathMatch: 'full',
   },
   {

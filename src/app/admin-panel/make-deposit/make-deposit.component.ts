@@ -8,6 +8,7 @@ import { MakeDepositPopupComponent } from './make-deposit-popup/make-deposit-pop
 import { Subscription } from 'rxjs';
 import { SystemService } from '@src/app/services/system.service';
 import { AuthService } from '@src/app/services/auth/auth.service';
+import { UserService } from '@src/app/services/user/user.service';
 
 @Component({
   selector: 'app-make-deposit',
@@ -29,11 +30,12 @@ export class MakeDepositComponent implements OnInit, OnDestroy {
   amountToDeposit: number = null;
   trx_id: string = null;
   reciver_number: any;
-  reciver: { name: string, number: string, city: string, country: string } = { name: "", number: "", city: "", country: "" };
+  reciver: { id: number, name: string, phone_number: string, city: string, country: string } = { id: null, name: "", phone_number: "", city: "", country: "" };
   select_beneficiary: boolean = false;
   userFound: boolean = false;
 
   searchForPerson: boolean = false;
+  searchForPerson_Sub: Subscription;
   formSubmited: boolean = false;
   remainingUserCoins: number = 0;
 
@@ -42,7 +44,8 @@ export class MakeDepositComponent implements OnInit, OnDestroy {
     private _viewRf: ViewContainerRef,
     private _uiService: UIService,
     private _systemService: SystemService,
-    private _authService: AuthService
+    private _authService: AuthService,
+    private _userService: UserService
   ) { }
 
   get coinsEntered() {
@@ -92,24 +95,24 @@ export class MakeDepositComponent implements OnInit, OnDestroy {
 
   searchPerson() {
     this.searchForPerson = true;
-    if (this.reciver_number == '0') {
-      setTimeout(() => {
-        this.reciver = {
-          name: 'Ahsan Mahmood',
-          number: '03046619706',
-          city: 'lahore',
-          country: 'pakistan'
-        };
-        this.searchForPerson = false;
-        this.userFound = true;
-      }, 300)
-    }
-    else {
-      setTimeout(() => {
-        alert('User Not Found!');
-        this.reciver = null;
-        this.searchForPerson = false;
-      }, 700)
+    if (this.reciver_number) {
+      this.searchForPerson = true;
+      const data = {
+        number: this.reciver_number
+      }
+      this.searchForPerson_Sub = this._userService.searchPersonByNumber(data).subscribe(
+        user => {
+          console.log('Transfer Coins Compo  ==  searchPerson  ==  user = ', user);
+          this.reciver = user.data;
+          this.searchForPerson = false;
+          this.userFound = true;
+        },
+        err => {
+          console.log('Transfer Coins Compo  ==  searchPerson  ==  error = ', err);
+          this.searchForPerson = false;
+          alert({ title: 'Error', message: err.error.data });
+        }
+      )
     }
   }
 
@@ -122,12 +125,10 @@ export class MakeDepositComponent implements OnInit, OnDestroy {
         viewContainerRef: this._uiService.getAppVCRef() ? this._uiService.getAppVCRef() : this._viewRf,
         context: {
           data: {
-            User: {
-              name: this.reciver.name,
-              number: this.reciver.number
-            },
+            User: this.reciver,
             amountToDeposit: this.amountToDeposit,
-            select_beneficiary: this.select_beneficiary
+            select_beneficiary: this.select_beneficiary,
+            trx_id: this.trx_id
           }
         }
       }
@@ -151,7 +152,7 @@ export class MakeDepositComponent implements OnInit, OnDestroy {
   resetFields() {
     this.amountToDeposit = null;
     this.reciver_number = null;
-    this.reciver.number = null;
+    this.reciver.phone_number = null;
     this.reciver.name = null;
     this.reciver.city = null;
     this.reciver.country = null;
@@ -159,6 +160,7 @@ export class MakeDepositComponent implements OnInit, OnDestroy {
     this.searchForPerson = false;
     this.formSubmited = false;
     this.select_beneficiary = false;
+    this.trx_id = null;
   }
 
   ngOnDestroy() {

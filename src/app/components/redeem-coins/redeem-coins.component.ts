@@ -32,8 +32,10 @@ export class RedeemCoinsComponent implements OnInit, OnDestroy {
   constructor(private _systemService: SystemService, private _userService: UserService) { }
 
   get formDataEntered() {
-    if (this.coins_to_redeem >= 1000 && this.coins_to_redeem <= this._remaining_coins) {
-      return true;
+    if (this.coins_to_redeem >= 1000) {
+      if (this.coins_to_redeem <= this._remaining_coins) {
+        return true;
+      }
     }
     return false;
   }

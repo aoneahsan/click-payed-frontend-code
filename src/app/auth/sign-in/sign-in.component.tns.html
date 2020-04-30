@@ -26,12 +26,13 @@
                 width="80%"
                 class="ok t_white -border"
                 [autocorrect]="false"
-                ReturnKeyType="next"
                 textAlignment="center"
-                hint="Enter Email"
+                hint="Registered Mobile Number"
                 style="placeholder-color: rgba(255, 255, 255);"
                 [(ngModel)]="user_number"
                 autocapitalizationType="none"
+                keyboardType="phone"
+                maxLength="11"
                 autocorrect="false"
             ></TextField>
             <TextField

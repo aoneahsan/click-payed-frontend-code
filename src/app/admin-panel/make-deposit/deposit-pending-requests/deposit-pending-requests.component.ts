@@ -125,7 +125,7 @@ export class DepositPendingRequestsComponent implements OnInit, OnDestroy {
 
   }
 
-  showModal(loadedItem) {
+  showModal(loadedItem: DepositRequestModel) {
     this._modalService.showModal(
       DepositPendingRequestsPopupComponent,
       {
@@ -139,9 +139,11 @@ export class DepositPendingRequestsComponent implements OnInit, OnDestroy {
       res => {
         if (res == 'approved') {
           console.log("request approved");
+          loadedItem.status = 'approved';
         }
         else if (res == 'rejected') {
           console.log("request rejected");
+          loadedItem.status = 'rejected';
         }
         else if (res == undefined) {
           alert("Process Canceled");
