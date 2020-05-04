@@ -33,7 +33,7 @@ export class CompatibleGameInfoComponent implements OnInit {
 
   getGameData() {
     setTimeout(() => {
-      this.game = { id: 1, name: "PUBG Compitition", text: 'PUBG MOBILE delivers the most intense multiplayer action on mobile. Drop in, gear up, and compete. Survive the classic battle & score the highest kills to get rewarded by a real-time cashback. The player with the most kills in a single battle wins', img: "res://coin", link: "https://www.ggogle.com", status: 'available', game_type: 'android' }
+      this.game = { id: 1, name: "PUBG Compitition", text: 'PUBG MOBILE delivers the most intense multiplayer action on mobile. Drop in, gear up, and compete. Survive the classic battle & score the highest kills to get rewarded by a real-time cashback. The player with the most kills in a single battle wins', img: "res://pubgbanner2", link: "https://www.ggogle.com", status: 'available', game_type: 'android' }
       this.loadingGameData = false;
     }, 300);
   }

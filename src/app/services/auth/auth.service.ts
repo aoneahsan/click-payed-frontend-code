@@ -87,21 +87,17 @@ export class AuthService {
     logout() {
         this.logoutUserFormApp();
         const data = "ok";
+        this._router.navigate(['/sign-in'], { clearHistory: true });
+        this._systemService.loadingPageDataFalse();
         this._http.post<any>(
             this._systemService.getApiRootURL() + 'logout_api',
             data
         ).subscribe(
             res => {
-                this.logoutUserFormApp();
                 console.log('Logout Request API Done, Response = ', res);
-                this._router.navigate(['/sign-in'], { clearHistory: true });
-                this._systemService.loadingPageDataFalse();
             },
             err => {
-                this.logoutUserFormApp();
                 console.log('Error While Logout Request API, Error = ', err);
-                this._router.navigate(['/sign-in'], { clearHistory: true });
-                this._systemService.loadingPageDataFalse();
             }
         );
     }

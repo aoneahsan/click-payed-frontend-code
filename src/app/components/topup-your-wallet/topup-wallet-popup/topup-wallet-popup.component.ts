@@ -28,8 +28,8 @@ export class TopupWalletPopupComponent implements OnInit {
     this.loading = true;
     setTimeout(() => {
       this.steps = [
-        { number: 'STEP 1:', description: 'Download easypaisa /jazzcash app & Create your mobile account.' },
-        { number: 'STEP 2:', description: 'Load cash into your easypaisa / jazzcash mobile wallet account through you nearest easypaisa /jazzcash outlet.' },
+        { number: 'STEP 1:', description: 'Download easypaisa app & Create your mobile account.' },
+        { number: 'STEP 2:', description: 'Load cash into your easypaisa mobile wallet account through you nearest easypaisa outlet.' },
         { number: 'STEP 3:', description: 'Transfer cash using your preferred payment method to our active deposit account' },
         { number: 'STEP 4:', description: 'Submit deposit transaction detail and receive cash in your wallet' }
       ];
@@ -41,8 +41,8 @@ export class TopupWalletPopupComponent implements OnInit {
     this.loading = true;
     setTimeout(() => {
       this.accounts = [
-        { name: 'EasyPaisa', numbers: ['030000000', '030000000'] },
-        { name: 'Jazzcash', numbers: ['030000000', '030000000'] }
+        { name: 'EasyPaisa', numbers: ['03070492940'] }
+        // { name: 'Jazzcash', numbers: ['030000000', '030000000'] }
       ];
       this.loading = false;
     }, 700);

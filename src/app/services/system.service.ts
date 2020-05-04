@@ -9,10 +9,10 @@ export class SystemService {
     // Api Root Url
     // apiRootURL: string = 'https://click-payed-245c5.firebaseio.com/text.json';   // development apiRootURL Firebase URL
     // apiRootURL: string = 'http://localhost:8000/api/';   // development apiRootURL Local Laravel URL
-    _apiRootURL: string = 'https://f50dbaf0.ngrok.io/api/';   // development apiRootURL Valet Link Laravel URL
+    // _apiRootURL: string = 'https://6866a1f2.ngrok.io/api/';   // development apiRootURL Valet Link Laravel URL
 
     // Production App Route API Path
-    // _apiRootURL: string = 'https://clickpayed.jmmgroup.website/api/';   // development apiRootURL Valet Link Laravel URL
+    _apiRootURL: string = 'https://clickpayed.jmmgroup.website/api/';   // development apiRootURL Valet Link Laravel URL
 
     _loadingPageData = new BehaviorSubject<boolean>(false);
 

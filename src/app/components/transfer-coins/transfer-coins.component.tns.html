@@ -45,8 +45,7 @@
                     flexDirection="column"
                 >
                     <TextField
-                        #coinsToTransfer
-                        hint="Enter Number of Coins (Min 100)"
+                        hint="Enter Number of Coins"
                         [(ngModel)]="coins_to_transfer"
                         width="65%"
                         style="border-width: 2; border-radius: 4;"
@@ -76,7 +75,6 @@
                         class="text-center body p-10"
                         keyboardType="phone"
                         maxLength="11"
-                        [isUserInteractionEnabled]="!userFound"
                     ></TextField>
                     <label
                         text="Enter a ClickPayed registered mobile number"
@@ -151,7 +149,7 @@
                 borderRadius="4"
                 class="bg_green t_white p-0"
                 *ngIf="!formSubmited"
-                [isEnabled]="userFound && coinsEntered"
+                [isEnabled]="_coinsEntered"
             ></button>
             <ActivityIndicator
                 [busy]="true"
@@ -159,13 +157,17 @@
             ></ActivityIndicator>
         </FlexBoxLayout>
         <label
-            [text]="remaining_coins"
             fontSize="14"
             width="60%"
             marginBottom="25"
             borderRadius="4"
             class="text-center"
-        ></label>
+        >
+            <FormattedString>
+                <span text="Remaining Coins: "></span>
+                <span [text]="_remaining_coins"></span>
+            </FormattedString>
+        </label>
 
         <!-- App Footer -->
         <app-footer [section_1]="false"></app-footer>

@@ -1,9 +1,11 @@
-import { UserProfileData } from './../../interface/user/userprofiledata-interface';
 import { Injectable } from "@angular/core";
 import { HttpClient } from "@angular/common/http";
+import { Subscription, BehaviorSubject } from "rxjs";
 
 import { SystemService } from "../system.service";
-import { Subscription, BehaviorSubject } from "rxjs";
+
+import { TransactionHistoryInterface } from './../../interface/user/transaction-history-interface';
+import { UserProfileData } from './../../interface/user/userprofiledata-interface';
 
 @Injectable({
     providedIn: 'root'
@@ -15,6 +17,9 @@ export class UserService {
 
     // User Profile Component Variables
     _userProfileData = new BehaviorSubject<UserProfileData>(null); 
+
+    // User TransactionHistory
+    _userTransactionHistroy = new BehaviorSubject<TransactionHistoryInterface[]>(null);
 
     constructor(private _systemService: SystemService, private _http: HttpClient) { }
 
@@ -135,6 +140,22 @@ export class UserService {
             this._systemService._apiRootURL + "delete_user_firebase_token",
             data
         );
+    }
+
+    fetchUserTransactionHistory() {
+        const data = 'fetchUserTransactionHistory';
+        return this._http.post<any>(
+            this._systemService._apiRootURL + 'fetch_user_transaction_history',
+            data
+        );
+    }
+
+    setUserTransactionHistory(data: TransactionHistoryInterface[]) {
+        this._userTransactionHistroy.next(data);
+    }
+
+    getUserTransactionHistory() {
+        return this._userTransactionHistroy;
     }
 
 }

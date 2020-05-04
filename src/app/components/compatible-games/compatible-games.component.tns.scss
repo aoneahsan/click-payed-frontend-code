@@ -3,12 +3,15 @@
     background-color: rgb(255, 238, 0);
 }
 .all_games_con {
-    padding: 4 8;
+    padding: 10 8 4 8;
+    background-color: white;
 }
 .game_con {
-    margin: 0 0 10 0;
+    margin: 0 auto;
     padding: 0;
-    width: 30%;
+    width: 50%;
+    background-color: white;
+    border-width: 2;
 }
 .game_inner_con {
     background-color: white;

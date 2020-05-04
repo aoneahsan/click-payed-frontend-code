@@ -32,8 +32,8 @@ export class RedeemCoinsComponent implements OnInit, OnDestroy {
   constructor(private _systemService: SystemService, private _userService: UserService) { }
 
   get formDataEntered() {
-    if (this.coins_to_redeem >= 1000) {
-      if (this.coins_to_redeem <= this._remaining_coins) {
+    if (+this.coins_to_redeem >= 100) {
+      if (+this.coins_to_redeem <= +this._remaining_coins) {
         return true;
       }
     }
@@ -41,13 +41,13 @@ export class RedeemCoinsComponent implements OnInit, OnDestroy {
   }
 
   get remaining_balance() {
-    if (this._remaining_balance) {
-      return this._remaining_balance;
+    if (+this._remaining_balance) {
+      return true;
     }
   }
 
   get pkr_of_entered_coins() {
-    return (this.coins_to_redeem / this._pkrToCoinsRate);
+    return (+this.coins_to_redeem / +this._pkrToCoinsRate);
   }
 
   ngOnInit() {
@@ -82,7 +82,7 @@ export class RedeemCoinsComponent implements OnInit, OnDestroy {
 
   formSubmited() {
     this._formSubmited = true;
-    if (this.coins_to_redeem >= 1000 && this.coins_to_redeem <= this._remaining_coins) {
+    if ((+this.coins_to_redeem >= 100) && (+this.coins_to_redeem <= +this._remaining_coins)) {
       const data = {
         number_of_coins: +this.coins_to_redeem
       }

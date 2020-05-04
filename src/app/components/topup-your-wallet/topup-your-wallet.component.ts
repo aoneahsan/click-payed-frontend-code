@@ -13,9 +13,9 @@ import { UserService } from '@src/app/services/user/user.service';
 })
 export class TopupYourWalletComponent implements OnInit {
 
-  easyPaisaAppLink: string = 'https://google.com';
+  easyPaisaAppLink: string = 'https://play.google.com/store/apps/details?id=pk.com.telenor.phoenix&hl=en';
   jazzcashAppLink: string = 'https://google.com';
-  
+
   _paymentMethod: string = null;
   _trxID: string = null;
   _depositedAmount: number = null;
@@ -27,8 +27,8 @@ export class TopupYourWalletComponent implements OnInit {
   @ViewChild('dropdow', { static: false }) dropdow: ElementRef;
 
   constructor(
-    private _modalService: ModalDialogService, 
-    private _uiService: UIService, 
+    private _modalService: ModalDialogService,
+    private _uiService: UIService,
     private _viewRef: ViewContainerRef,
     private _userService: UserService
   ) { }
@@ -37,18 +37,16 @@ export class TopupYourWalletComponent implements OnInit {
     // console.log('this._paymentMethod && this._trxID && this._depositedAmount = ', 
     // this._paymentMethod && this._trxID && this._depositedAmount,
     // 'this._paymentMethod = ', this._paymentMethod,'this._trxID = ', this._trxID,'this._depositedAmount = ', this._depositedAmount);
-    if (this._paymentMethod && this._trxID && this._depositedAmount) {
-      if (this._trxID.length == 6 && this._depositedAmount > 99) {
-        return true;
-      }
+    if (this._paymentMethod && this._trxID && +this._depositedAmount) {
+      return true;
     }
     return false;
   }
 
   ngOnInit() {
     this.items = new ValueList([
-      { value: "easypaisa", display: "Easypaisa" },
-      { value: "jasscash", display: "Jazzcash" }
+      { value: "easypaisa", display: "Easypaisa" }
+      // { value: "jasscash", display: "Jazzcash" }
     ]);
   }
 
@@ -77,29 +75,24 @@ export class TopupYourWalletComponent implements OnInit {
 
   submitTopupRequest() {
     this._formSubmited = true;
-    if (this._paymentMethod && this._trxID && this._depositedAmount) {
-      if (this._trxID.length >= 6) {
-        const data = {
-          payment_method: this._paymentMethod,
-          trx_id: +this._trxID,
-          amount: +this._depositedAmount
-        };
-        this._userService.topupAccountRequest(data).subscribe(
-          res => {
-            console.log('Topup-wallet-component.ts  ==  submitTopupRequest == response = ', res);
-            alert(res.data);
-            this.resetForm();
-          },
-          err => {
-            console.log('Topup-wallet-component.ts  ==  submitTopupRequest == error = ', err);
-            alert(err.error.error);
-            this.resetForm();
-          }
-        )
-      }
-      else {
-        alert("Provide Correct Data!");
-      }
+    if (this._paymentMethod && this._trxID && +this._depositedAmount) {
+      const data = {
+        payment_method: this._paymentMethod,
+        trx_id: +this._trxID,
+        amount: +this._depositedAmount
+      };
+      this._userService.topupAccountRequest(data).subscribe(
+        res => {
+          console.log('Topup-wallet-component.ts  ==  submitTopupRequest == response = ', res);
+          alert(res.data);
+          this.resetForm();
+        },
+        err => {
+          console.log('Topup-wallet-component.ts  ==  submitTopupRequest == error = ', err);
+          alert(err.error.error);
+          this.resetForm();
+        }
+      );
     }
     else {
       alert("Provide Correct Data!");
@@ -150,7 +143,7 @@ export class TopupYourWalletComponent implements OnInit {
     this._paymentMethod = null;
     this._trxID = null;
     this._depositedAmount = null;
-    this.selectedIndex = 0;
+    this.selectedIndex = null;
     this._formSubmited = false;
   }
 

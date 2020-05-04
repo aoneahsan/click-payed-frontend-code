@@ -23,15 +23,15 @@ export class CompatibleGamesComponent implements OnInit {
   deviceSelected: 'android' | 'ios' | 'web' = null;
   loadedGames: Game[] = [];
   androidGames: Game[] = [
-    {id: 1, name: "PUBG Compitition", text: 'text', img: "https://clickpayed.jmmgroup.website/app_images/pubggameicon.png", link: null, status: 'available', game_type: 'android'}
+    {id: 1, name: "PUBG Compitition", text: 'text', img: "res://pubggameicon", link: null, status: 'available', game_type: 'android'}
   ];
 
   iosGames: Game[] = [
-    {id: 1, name: "PUBG Compitition", text: 'text', img: "https://clickpayed.jmmgroup.website/app_images/pubggameicon.png", link: null, status: 'available', game_type: 'ios'}
+    {id: 1, name: "PUBG Compitition", text: 'text', img: "res://pubggameicon", link: null, status: 'available', game_type: 'ios'}
   ];
 
   webGames: Game[] = [
-    {id: 1, name: "PUBG Compitition", text: 'text', img: "https://clickpayed.jmmgroup.website/app_images/pubggameicon.png", link: null, status: 'available', game_type: 'web'}
+    {id: 1, name: "PUBG Compitition", text: 'text', img: "res://pubggameicon", link: null, status: 'available', game_type: 'web'}
   ];
   constructor(private _router: RouterExtensions) { }
 

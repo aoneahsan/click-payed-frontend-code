@@ -4,24 +4,22 @@
             <Label text="IMPORTANT" [textWrap]="true" class="text-center h3" style="color: white;"></Label>
             <Label text="Due to a high volume of transactions, withdrawals requests may take up to 24hours to complete. Incase if you face any difficulty, please feel free to reach us on the given WhatsApp number below" [textWrap]="true" class="text-center body" style="color: white;"></Label>
         </FlexBoxLayout>
-        <FlexBoxLayout *ngIf="section_2" width="100%" justifyContent="center" class="">
+        <!-- <FlexBoxLayout *ngIf="section_2" width="100%" justifyContent="center" class="">
             <Label text="In case you do not receive your deposit in your wallet account in 2 hours, send us a message on below mentioned WhatsApp with your TRX number" [textWrap]="true" class="text-center body" width="92%"></Label>
-        </FlexBoxLayout>
-        <FlexBoxLayout *ngIf="faq_section" width="100%" justifyContent="center" class="m-t-10">
+        </FlexBoxLayout> -->
+        <!-- <FlexBoxLayout *ngIf="faq_section" width="100%" justifyContent="center" class="m-t-10">
             <FlexBoxLayout width="50%" justifyContent="center" style="border-width: 1; border-color: black;padding: 4 34 6 34;border-radius: 4;">
                 <Label text="FAQs" class="text-left m-t-2 body"></Label>
             </FlexBoxLayout>
-        </FlexBoxLayout>
+        </FlexBoxLayout> -->
         <FlexBoxLayout *ngIf="section_3" width="100%" justifyContent="center" class="m-t-10">
-            <FlexBoxLayout width="50%" justifyContent="center" style="border-width: 1; border-color: black;padding: 4 34 6 34;border-radius: 4;" (tap)="clickPayedLink()">
-                <!-- <Image src="res://whatsapp" width="25" height="25" class="m-r-5"></Image> -->
-                <!-- <Label text="Get in Touch" class="text-left m-t-2 body"></Label> -->
+            <FlexBoxLayout width="50%" justifyContent="center" style="border-width: 1; border-color: black;padding: 4 34 6 34;border-radius: 4;" (tap)="contactUs()">
                 <Label text="Contact Us" class="text-left m-t-2 body"></Label>
             </FlexBoxLayout>
         </FlexBoxLayout>
         <FlexBoxLayout *ngIf="section_4" width="100%" justifyContent="center">
-            <!-- <Label text="www.CoinPayed.com" class="h3 text-bold m-t-10" (tap)="clickPayedLink()"></Label> -->
-            <Label text="www.CoinPayed.com" class="h3 text-bold m-t-10" nsRouterLink="/admin/dashboard"></Label>
+            <Label text="www.CoinPayed.com" class="h3 text-bold m-t-10" (tap)="clickPayedLink()"></Label>
+            <!-- <Label text="www.CoinPayed.com" class="h3 text-bold m-t-10" nsRouterLink="/admin/dashboard"></Label> -->
         </FlexBoxLayout>
     </FlexBoxLayout>
 </FlexBoxLayout>

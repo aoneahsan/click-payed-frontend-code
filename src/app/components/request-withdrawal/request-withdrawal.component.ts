@@ -31,8 +31,8 @@ export class RequestWithdrawalComponent implements OnInit, OnDestroy {
   }
 
   get _formDataEnteredStatus() {
-    if (this._amountToWithDraw) {
-      if (this._amountToWithDraw <= this._balanceAmount) {
+    if (+this._amountToWithDraw) {
+      if (+this._amountToWithDraw <= +this._balanceAmount) {
         return true;
       }
     }
@@ -77,10 +77,10 @@ export class RequestWithdrawalComponent implements OnInit, OnDestroy {
   }
 
   submitForm() {
-    if (!this._amountToWithDraw) {
+    if (!+this._amountToWithDraw) {
       return;
     }
-    else if (this._amountToWithDraw > this._balanceAmount) {
+    else if (+this._amountToWithDraw > +this._balanceAmount) {
       return;
     }
     else {
@@ -118,7 +118,7 @@ export class RequestWithdrawalComponent implements OnInit, OnDestroy {
 
   resetForm() {
     this._amountToWithDraw = null;
-    this.selectedIndex = 0;
+    this.selectedIndex = null;
     this._formSubmited = false;
   }
 

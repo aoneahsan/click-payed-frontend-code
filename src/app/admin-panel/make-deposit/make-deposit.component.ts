@@ -54,11 +54,7 @@ export class MakeDepositComponent implements OnInit, OnDestroy {
 
   get trxIdAdded() {
     if (this.trx_id) {
-      if (this.trx_id.length >= 6) {
-        return true;
-      } else {
-        return false;
-      }
+      return true;
     } else {
       return false;
     }

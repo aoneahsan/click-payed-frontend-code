@@ -38,8 +38,8 @@ export class DepositAccountsComponent implements OnInit, OnDestroy {
     );
 
     this.items = new ValueList([
-      { value: "easypaisa", display: "Easypaisa" },
-      { value: "jazzcash", display: "Jazzcash" }
+      { value: "easypaisa", display: "Easypaisa" }
+      // { value: "jazzcash", display: "Jazzcash" }
     ]);
     
     this.getDepositAccountsAction();

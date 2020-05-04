@@ -21,6 +21,7 @@ export class SignUpComponent implements OnInit {
   user_email: string = null;
   user_password: string = null;
   user_password_confirm: string = null;
+  user_referal_code: string = null;
 
   errorOccured: boolean = false;
   errorMessage: string = null;
@@ -34,7 +35,7 @@ export class SignUpComponent implements OnInit {
   ) { }
 
   get dataEntered() {
-    if (this.user_name && this.user_number && this.user_email && this.user_password) {
+    if (this.user_name && this.user_number && this.user_password) {
       if ((this.user_number.length > 10) && (this.user_password.length >= 6)) {
         if (this.user_password == this.user_password_confirm) {
           return true;
@@ -58,31 +59,33 @@ export class SignUpComponent implements OnInit {
       name: this.user_name,
       email: this.user_email,
       password: this.user_password,
-      phone_number: this.user_number
+      phone_number: this.user_number,
+      referal_code: this.user_referal_code
     };
+    console.log("SignUpComponent == signUpAction == data = ", data);
     this._authService.signUp(data).subscribe(
       res => {
-        // this._modalService.showModal(
-        //   SignupPopupComponent,
-        //   {
-        //     fullscreen: false,
-        //     viewContainerRef: this._uiService.getAppVCRef() ? this._uiService.getAppVCRef() : this._vcRef,
-        //     context: { data: "value" }
-        //   }
-        // ).then(
-        //   res => {
-        //     console.log(res);
-        //     if (res == 'complete') {
-        //       this.goToProfile();
-        //     }
-        //     else if (res == 'skip') {
+        this._modalService.showModal(
+          SignupPopupComponent,
+          {
+            fullscreen: false,
+            viewContainerRef: this._uiService.getAppVCRef() ? this._uiService.getAppVCRef() : this._vcRef,
+            context: { data: "value" }
+          }
+        ).then(
+          res => {
+            console.log(res);
+            if (res == 'complete') {
+              this.goToProfile();
+            }
+            else if (res == 'skip') {
               this.goToHome();
-        //     }
-        //     else if (res == undefined) {
-        //       this.goToHome();
-        //     }
-        //   }
-        // );
+            }
+            else if (res == undefined) {
+              this.goToHome();
+            }
+          }
+        );
       },
       err => {
         // console.log(err);

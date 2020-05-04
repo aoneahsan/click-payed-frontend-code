@@ -31,6 +31,19 @@
                 [autocorrect]="false"
                 ReturnKeyType="next"
                 textAlignment="center"
+                hint="Enter Referral Code"
+                [(ngModel)]="user_referal_code"
+                style="placeholder-color: rgba(255, 255, 255);"
+                autocapitalizationType="none"
+                autocorrect="false"
+                maxLength="6"
+            ></TextField>
+            <TextField
+                width="80%"
+                class="input_field ok -border"
+                [autocorrect]="false"
+                ReturnKeyType="next"
+                textAlignment="center"
                 hint="Enter Name"
                 [(ngModel)]="user_name"
                 style="placeholder-color: rgba(255, 255, 255);"
@@ -47,18 +60,6 @@
                 [(ngModel)]="user_number"
                 keyboardType="phone"
                 maxLength="11"
-                style="placeholder-color: rgba(255, 255, 255);"
-                autocapitalizationType="none"
-                autocorrect="false"
-            ></TextField>
-            <TextField
-                width="80%"
-                class="input_field ok -border"
-                [autocorrect]="false"
-                ReturnKeyType="next"
-                textAlignment="center"
-                hint="Enter Email"
-                [(ngModel)]="user_email"
                 style="placeholder-color: rgba(255, 255, 255);"
                 autocapitalizationType="none"
                 autocorrect="false"
@@ -85,7 +86,7 @@
                 autocapitalizationType="none"
                 autocorrect="false"
             ></TextField>
-            <label
+            <!-- <label
                 class="text-center t_white body"
                 width="80%"
                 textWrap="true"
@@ -100,7 +101,7 @@
                     ></span>
                     <span text=" of use"></span>
                 </FormattedString>
-            </label>
+            </label> -->
             <button
                 width="80%"
                 *ngIf="!formSubmited"
@@ -108,6 +109,7 @@
                 class="-primary"
                 (tap)="signUpAction()"
                 [isEnabled]="dataEntered"
+                style="font-size: 18;"
             ></button>
             <ActivityIndicator
                 [busy]="true"
@@ -123,11 +125,12 @@
                 text="Signin into your eWallet account"
             ></label>
             <label
-                class="body t_orange text-left"
+                class="body text-left"
                 row="0"
                 col="1"
                 text="Here"
                 (tap)="signInPage()"
+                style="color: chartreuse;"
             ></label>
         </GridLayout>
     </FlexboxLayout>

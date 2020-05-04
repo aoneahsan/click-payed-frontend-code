@@ -85,7 +85,7 @@ export class ProfileComponent implements OnInit, OnDestroy {
           this._userDataFromServer_Sub = this._userService.getProfileDataFromServer().subscribe(
             res => {
               this._systemService.loadingPageDataFalse();
-              // console.log('ProfileComponent == getUserProfileData == getProfileDataFromServer == response = ', res);
+              console.log('ProfileComponent == getUserProfileData == getProfileDataFromServer == response = ', res);
               this._userService.setProfileData(res.data);
             },
             err => {

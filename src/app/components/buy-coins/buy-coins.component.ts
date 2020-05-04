@@ -26,8 +26,8 @@ export class BuyCoinsComponent implements OnInit, OnDestroy {
   constructor(private _systemService: SystemService, private _userService: UserService) { }
 
   get formDataEntered() {
-    if (this.rupees_value) {
-      if (this.rupees_value <= this._remaining_balance) {
+    if (+this.rupees_value) {
+      if (+this.rupees_value <= +this._remaining_balance) {
         return true;
       }
     }
@@ -58,8 +58,8 @@ export class BuyCoinsComponent implements OnInit, OnDestroy {
 
   formSubmited() {
     this._formSubmited = true;
-    if (this.rupees_value) {
-      if (this.rupees_value <= this._remaining_balance) {
+    if (+this.rupees_value) {
+      if (+this.rupees_value <= +this._remaining_balance) {
         const data = {
           amount: +this.rupees_value
         }

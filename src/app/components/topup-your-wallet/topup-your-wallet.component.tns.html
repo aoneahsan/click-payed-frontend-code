@@ -92,7 +92,7 @@
                     <TextField
                         width="70%"
                         height="50"
-                        hint="Enter Transaction No. (6 Digits)"
+                        hint="Enter Transaction No."
                         [(ngModel)]="_trxID"
                         class="-border text-center"
                         keyboardType="phone"
@@ -105,7 +105,6 @@
                         [(ngModel)]="_depositedAmount"
                         class="-border text-center"
                         keyboardType="phone"
-                        maxLength="6"
                         style="border-color: black; border-width: 2;margin: 16 0 0 0;color: gray;"
                     ></TextField>
                     <button
@@ -144,7 +143,7 @@
                             class="bg_black t_white"
                         ></button>
                     </FlexBoxLayout>
-                    <FlexBoxLayout
+                    <!-- <FlexBoxLayout
                         width="48%"
                         justifyContent="center"
                         alignItems="center"
@@ -159,7 +158,7 @@
                             style="font-size: 12; border-radius: 8;"
                             class="bg_black t_white"
                         ></button>
-                    </FlexBoxLayout>
+                    </FlexBoxLayout> -->
                 </FlexBoxLayout>
             </FlexBoxLayout>
         </FlexBoxLayout>

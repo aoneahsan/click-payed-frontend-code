@@ -25,11 +25,7 @@ export class ProcessWithdrawalsPopupComponent implements OnInit {
 
   get trxNoAdded() {
     if (this.trx_no) {
-      if (this.trx_no.length >= 6) {
-        return true;
-      } else {
-        return false;
-      }
+      return true;
     } else {
       return false;
     }

@@ -1,7 +1,6 @@
-import { Component, OnInit, ViewContainerRef, ViewChild, ElementRef, OnDestroy } from '@angular/core';
+import { Component, OnInit, ViewContainerRef, OnDestroy } from '@angular/core';
 import { Subscription } from 'rxjs';
 
-import { RouterExtensions } from 'nativescript-angular/router';
 import { ModalDialogService } from 'nativescript-angular/common';
 
 import { SystemService } from '@src/app/services/system.service';
@@ -16,17 +15,16 @@ import { CoinsTransferedPopupComponent } from './coins-transfered-popup/coins-tr
   templateUrl: './transfer-coins.component.html',
   styleUrls: ['./transfer-coins.component.scss']
 })
-export class TransferCoinsComponent implements OnInit, OnDestroy {
 
-  @ViewChild('coinsToTransfer', { static: false }) coinsToTransfer: ElementRef;
+export class TransferCoinsComponent implements OnInit, OnDestroy {
 
   loadinPageData_s: boolean = true;
   loadinPageDataSub: Subscription;
 
-  remaining_coins: string = '';
+  _remaining_coins: number = 0;
   remaining_coins_Sub: Subscription;
 
-  coins_to_transfer: number = null;
+  coins_to_transfer: number = 0;
   reciver_number: string = null;
   _reciverUserData = null;
   reciverName: string = 'Recipient Registered Name';
@@ -35,7 +33,6 @@ export class TransferCoinsComponent implements OnInit, OnDestroy {
   searchForPerson: boolean = false;
   searchForPerson_Sub: Subscription;
   formSubmited: boolean = false;
-  remainingUserCoins: number = 0;
 
   _userAccountDataSub: Subscription;
 
@@ -44,21 +41,24 @@ export class TransferCoinsComponent implements OnInit, OnDestroy {
     private _modalService: ModalDialogService,
     private _viewRf: ViewContainerRef,
     private _uiService: UIService,
-    private _router: RouterExtensions,
     private _userService: UserService
   ) { }
 
   get _reciver_number_added() {
     if (this.reciver_number) {
-      if (this.reciver_number.length == 11) {
-        return true;
-      }
+      return true;
     }
     return false;
   }
 
-  get coinsEntered() {
-    return this.coins_to_transfer > 0 && this.coins_to_transfer < this.remainingUserCoins;
+  get _coinsEntered() {
+    // console.log("this.coins_to_transfer && this.userFound", this.coins_to_transfer, this.userFound, this._remaining_coins, +this.coins_to_transfer < this._remaining_coins);
+    if (!!this.coins_to_transfer && !!this.userFound) {
+      return true;
+    }
+    else {
+      return false;
+    }
   }
 
   ngOnInit() {
@@ -70,8 +70,7 @@ export class TransferCoinsComponent implements OnInit, OnDestroy {
 
     this.remaining_coins_Sub = this._systemService.getUserCoins().subscribe(
       coins => {
-        this.remaining_coins = 'Remaining Coins: ' + coins;
-        this.remainingUserCoins = coins;
+        this._remaining_coins = coins;
       }
     );
   }
@@ -82,27 +81,29 @@ export class TransferCoinsComponent implements OnInit, OnDestroy {
       this.searchForPerson = true;
       const data = {
         number: this.reciver_number
-      }
+      };
       this.searchForPerson_Sub = this._userService.searchPersonByNumber(data).subscribe(
         user => {
+          this.userFound = true;
           console.log('Transfer Coins Compo  ==  searchPerson  ==  user = ', user);
           this._reciverUserData = user.data;
-          this.reciverName = user.data.name ? user.data.name : 'Error';
+          if (user.data) {
+            this.reciverName = user.data.name;
+          }
           this.searchForPerson = false;
-          this.userFound = true;
         },
         err => {
           console.log('Transfer Coins Compo  ==  searchPerson  ==  error = ', err);
           this.searchForPerson = false;
           alert({ title: 'Error', message: err.error.data });
         }
-      )
+      );
     }
   }
 
   transferCoins() {
-    if (this.coins_to_transfer < this.remainingUserCoins) {
-    this.formSubmited = true;
+    if (+this.coins_to_transfer <= +this._remaining_coins) {
+      this.formSubmited = true;
       this._modalService.showModal(
         TransferCoinsPopupComponent,
         {
@@ -115,7 +116,7 @@ export class TransferCoinsComponent implements OnInit, OnDestroy {
                 name: this.reciverName,
                 number: this.reciver_number
               },
-              remainingCoins: (this.remainingUserCoins - this.coins_to_transfer)
+              remainingCoins: (+this._remaining_coins - +this.coins_to_transfer)
             }
           }
         }
@@ -133,11 +134,13 @@ export class TransferCoinsComponent implements OnInit, OnDestroy {
           }
         }
       );
+    } else {
+      alert("Not Enough Coins!");
     }
   }
 
   transferNow() {
-    if (this.coins_to_transfer <= this.remainingUserCoins) {
+    if (+this.coins_to_transfer <= +this._remaining_coins) {
       const data = {
         revicer_id: this._reciverUserData.id,
         coins_to_transfer: this.coins_to_transfer
@@ -151,7 +154,7 @@ export class TransferCoinsComponent implements OnInit, OnDestroy {
               viewContainerRef: this._uiService.getAppVCRef() ? this._uiService.getAppVCRef() : this._viewRf,
               context: {
                 data: {
-                  remainingCoins: (this.remainingUserCoins - this.coins_to_transfer)
+                  remainingCoins: (this._remaining_coins - this.coins_to_transfer)
                 }
               }
             }
@@ -188,13 +191,13 @@ export class TransferCoinsComponent implements OnInit, OnDestroy {
       )
     } else {
       alert("Don't Have Enough Coins!");
-      this.coins_to_transfer = null;
+      this.coins_to_transfer = 0;
       this.formSubmited = false;
     }
   }
 
   // coinToTransferChanged() {
-  //   if (this.coins_to_transfer <= this.remainingUserCoins) {
+  //   if (this.coins_to_transfer) {
   //     const data = {
   //       revicer_id: this._reciverUserData.id
   //     }
@@ -214,7 +217,7 @@ export class TransferCoinsComponent implements OnInit, OnDestroy {
   // }
 
   resetFields() {
-    this.coins_to_transfer = null;
+    this.coins_to_transfer = 0;
     this.reciver_number = null;
     this.reciverName = 'Recipient Registered Name';
     this.userFound = false;

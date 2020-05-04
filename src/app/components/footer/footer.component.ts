@@ -21,7 +21,11 @@ export class FooterComponent implements OnInit {
 
   clickPayedLink() {
     // alert("ok");
-    openUrl("https://www.clickpayed.com");
+    openUrl("https://www.coinpayed.com");
+  }
+
+  contactUs() {
+    openUrl("https://api.whatsapp.com/send?phone=+923070492940");
   }
 
 }

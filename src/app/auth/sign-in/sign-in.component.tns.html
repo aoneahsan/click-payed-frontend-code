@@ -53,6 +53,7 @@
                 class="-primary"
                 (tap)="signInAction()"
                 [isEnabled]="userDataEntered"
+                style="font-size: 18;"
             ></button>
             <ActivityIndicator
                 [busy]="true"
@@ -101,11 +102,12 @@
                 text="Signup for new eWallet account"
             ></label>
             <label
-                class="body t_orange text-left"
+                class="body text-left"
                 row="0"
                 col="1"
                 text="Here"
                 (tap)="signUpPage()"
+                style="color: chartreuse;"
             ></label>
         </GridLayout>
     </FlexboxLayout>

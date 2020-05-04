@@ -11,8 +11,8 @@ import { AdminGuard } from './route-guards/admin/admin-guard.service';
 export const routes: Routes = [
   {
     path: '',
-    // redirectTo: 'compatible-games',
-    redirectTo: 'compatible-game-info/12',
+    redirectTo: 'home',
+    // redirectTo: 'compatible-game-info/12',
     pathMatch: 'full',
   },
   {
