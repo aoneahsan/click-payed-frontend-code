@@ -26,6 +26,7 @@ import { DepositPendingRequestsComponent } from '@src/app/admin-panel/make-depos
 import { DepositPendingRequestsPopupComponent } from '@src/app/admin-panel/make-deposit/deposit-pending-requests/deposit-pending-requests-popup/deposit-pending-requests-popup.component';
 import { AdminGuard } from '@src/app/route-guards/admin/admin-guard.service';
 import { DepositAccountsComponent } from '@src/app/admin-panel/deposit-accounts/deposit-accounts.component';
+import { ManageUserCoinsComponent } from '@src/app/admin-panel/manage-user-coins/manage-user-coins.component';
 
 const routes: Routes = [
     {
@@ -76,6 +77,11 @@ const routes: Routes = [
         path: 'admin/notice-board',
         component: NoticeBoardComponent,
         canActivate: [AdminGuard]
+    },
+    {
+        path: 'admin/manage-user-coins',
+        component: ManageUserCoinsComponent,
+        canActivate: [AdminGuard]
     }
 ]
 
@@ -95,7 +101,8 @@ const routes: Routes = [
         SetRulesPopupComponent,
         DepositPendingRequestsComponent,
         DepositPendingRequestsPopupComponent,
-        DepositAccountsComponent
+        DepositAccountsComponent,
+        ManageUserCoinsComponent
     ],
     imports: [
         NativeScriptCommonModule,

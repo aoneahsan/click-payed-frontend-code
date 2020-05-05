@@ -1,26 +1,22 @@
-import { Component, OnInit, ViewContainerRef, OnDestroy } from '@angular/core';
+import { Component, OnInit, OnDestroy } from '@angular/core';
 import { Subscription } from 'rxjs';
 
-import { ModalDialogService } from 'nativescript-angular/common';
-
-import { UIService } from '@src/app/shared/ui/ui.service';
 import { SystemService } from '@src/app/services/system.service';
 import { AuthService } from '@src/app/services/auth/auth.service';
 import { UserService } from '@src/app/services/user/user.service';
+import { AdminPanelService } from '@src/app/services/adminpanel/adminpanel.service';
 
 import { SearchUserInterface } from './../../interface/user/search-user-interface';
 
-import { MakeDepositPopupComponent } from './make-deposit-popup/make-deposit-popup.component';
-
 @Component({
-  selector: 'app-make-deposit',
-  templateUrl: './make-deposit.component.html',
-  styleUrls: ['./make-deposit.component.scss']
+  selector: 'app-manage-user-coins',
+  templateUrl: './manage-user-coins.component.html',
+  styleUrls: ['./manage-user-coins.component.scss']
 })
 
-export class MakeDepositComponent implements OnInit, OnDestroy {
+export class ManageUserCoinsComponent implements OnInit, OnDestroy {
 
-  loadinPageData_s: boolean = true;
+  loadinPageData_s: boolean = false;
   loadinPageDataSub: Subscription;
 
   _userRole: 'admin' | 'editor' | 'engager' | 'user' = null;
@@ -29,7 +25,7 @@ export class MakeDepositComponent implements OnInit, OnDestroy {
   _isEngager: boolean = false;
   _userRole_Sub: Subscription;
 
-  amountToDeposit: number = null;
+  _coinsToTransfer: number = null;
   trx_id: string = null;
   reciver_number: any;
   reciver: SearchUserInterface = { id: null, name: "", phone_number: "", city: "", country: "" };
@@ -41,33 +37,36 @@ export class MakeDepositComponent implements OnInit, OnDestroy {
   formSubmited: boolean = false;
   remainingUserCoins: number = 0;
 
+  _transferModeSetToAddCoins: boolean = false;
+  _makeTransferRequest_Sub: Subscription;
+
   constructor(
-    private _modalService: ModalDialogService,
-    private _viewRf: ViewContainerRef,
-    private _uiService: UIService,
     private _systemService: SystemService,
     private _authService: AuthService,
-    private _userService: UserService
+    private _userService: UserService,
+    private _adminpanelService: AdminPanelService
   ) { }
 
   get coinsEntered() {
-    return this.amountToDeposit > 0;
+    return this._coinsToTransfer > 0;
   }
 
   get trxIdAdded() {
-    if (this.trx_id) {
-      return true;
-    } else {
-      return false;
-    }
+    // if (this.trx_id) {
+    return true;
+    // } else {
+    //   return false;
+    // }
   }
 
   ngOnInit() {
     this.loadinPageDataSub = this._systemService.getLoadinPageDataStatus().subscribe(
       status => {
-        this.loadinPageData_s = status;
+        // this.loadinPageData_s = status;
+        this.loadinPageData_s = false;
       }
     );
+    this._transferModeSetToAddCoins = true;
 
     this._userRole_Sub = this._authService.getUserRole().subscribe(
       role => {
@@ -89,6 +88,10 @@ export class MakeDepositComponent implements OnInit, OnDestroy {
         }
       }
     );
+  }
+
+  switchTransferMode() {
+    this._transferModeSetToAddCoins = !this._transferModeSetToAddCoins;
   }
 
   searchPerson() {
@@ -114,46 +117,43 @@ export class MakeDepositComponent implements OnInit, OnDestroy {
     }
   }
 
-  depositAmount() {
+  makeTransferRequest() {
     this.formSubmited = true;
-    this._modalService.showModal(
-      MakeDepositPopupComponent,
-      {
-        fullscreen: false,
-        viewContainerRef: this._uiService.getAppVCRef() ? this._uiService.getAppVCRef() : this._viewRf,
-        context: {
-          data: {
-            User: this.reciver,
-            amountToDeposit: this.amountToDeposit,
-            select_beneficiary: this.select_beneficiary,
-            trx_id: this.trx_id
-          }
-        }
-      }
-    ).then(
+    const data = {
+      user_id: this.reciver.id,
+      number_of_coins: this._coinsToTransfer,
+      select_beneficiary: this.select_beneficiary,
+      is_mode_set_to_add_coins: this._transferModeSetToAddCoins
+    };
+
+    this._makeTransferRequest_Sub = this._adminpanelService.makeAddRemoveUserCoinsRequest(data).subscribe(
       res => {
-        // console.log(res);
-        if (res == 'deposit') {
-          this.resetFields();
-          this.formSubmited = false;
-        }
-        else if (res == 'cancel') {
-          this.formSubmited = false;
-        }
-        else if (res == undefined) {
-          this.formSubmited = false;
-        }
+        console.log("ManageUserCoinsComponent == makeAddRemoveUserCoinsRequest == response = ", res);
+
+        let options = {
+          title: "Request Successful",
+          message: 'User Coins = ' + res.new_coins,
+          okButtonText: 'Okay'
+        };
+        alert(options);
+        this.resetFields();
+      },
+      err => {
+        console.log("ManageUserCoinsComponent == makeAddRemoveUserCoinsRequest == error = ", err);
+        alert("Error Occured, Try Again");
       }
     );
   }
 
   resetFields() {
-    this.amountToDeposit = null;
+    this._coinsToTransfer = null;
     this.reciver_number = null;
     this.reciver.phone_number = null;
     this.reciver.name = null;
     this.reciver.city = null;
     this.reciver.country = null;
+    this.reciver.coins = null;
+    this.reciver.balance = null;
     this.userFound = false;
     this.searchForPerson = false;
     this.formSubmited = false;
@@ -167,6 +167,9 @@ export class MakeDepositComponent implements OnInit, OnDestroy {
     }
     if (this._userRole_Sub) {
       this._userRole_Sub.unsubscribe();
+    }
+    if (this._makeTransferRequest_Sub) {
+      this._makeTransferRequest_Sub.unsubscribe();
     }
   }
 

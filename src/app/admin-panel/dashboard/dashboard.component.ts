@@ -19,12 +19,14 @@ export class DashboardComponent implements OnInit, OnDestroy {
   _isEngager: boolean = false;
   _userRole_Sub: Subscription;
 
-  totalDeposit: string = '';
-  totalWithDrawal: string = '';
-  totalCoinsConverted: string = '';
-  totalCoinsRedeemed: string = '';
-  totalCoinsInCirculation: string = '';
+  totalDeposit: string = null;
+  totalWithDrawal: string = null;
+  totalCoinsConverted: string = null;
+  totalCoinsRedeemed: string = null;
+  totalCoinsInCirculation: string = null;
   totalwalletusers: string = "";
+  _fetchAppUsers_Sub: Subscription;
+  _getAppUsers_Sub: Subscription;
 
   constructor(private _systemService: SystemService, private _authService: AuthService) { }
 
@@ -56,13 +58,23 @@ export class DashboardComponent implements OnInit, OnDestroy {
       }
     );
 
-    // http to get values
     this.totalDeposit = '12000000';
     this.totalWithDrawal = "2700000";
     this.totalCoinsConverted = "120000000";
     this.totalCoinsRedeemed = "80000000";
-    this.totalCoinsInCirculation = "40000000";
+    // this.totalCoinsInCirculation = "40000000";
     this.totalwalletusers = '2200';
+
+    // http to get values
+    this.fetchTotalAppUsersAction();
+  }
+
+  fetchTotalAppUsersAction() {
+    this._fetchAppUsers_Sub = null;
+  }
+
+  getTotalAppUsersAction() {
+
   }
 
   ngOnDestroy() {

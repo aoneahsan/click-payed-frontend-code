@@ -130,6 +130,7 @@
                 class="m-b-5"
                 justifyContent="center"
                 alignItems="center"
+                *ngIf="totalDeposit"
                 style="
                     border-width: 2;
                     border-color: black;
@@ -180,6 +181,7 @@
                 class="m-b-5"
                 justifyContent="center"
                 alignItems="center"
+                *ngIf="totalWithDrawal"
                 style="
                     border-width: 2;
                     border-color: black;
@@ -236,6 +238,7 @@
                     border-radius: 8;
                     padding: 0 6;
                 "
+                *ngIf="totalCoinsConverted"
             >
                 <FlexBoxLayout
                     justifyContent="center"
@@ -282,6 +285,7 @@
                     border-radius: 8;
                     padding: 0 6;
                 "
+                *ngIf="totalCoinsRedeemed"
             >
                 <FlexBoxLayout
                     justifyContent="center"
@@ -316,13 +320,14 @@
             </FlexBoxLayout>
 
             <!-- Total Coins In Circulation Row -->
-            <!-- <FlexBoxLayout
+            <FlexBoxLayout
                 flexDirection="row"
                 width="96%"
                 class="m-b-5"
                 justifyContent="center"
                 alignItems="center"
                 style="border-width: 2; border-color: black; border-radius: 8; padding: 0 6;"
+                *ngIf="totalCoinsInCirculation"
             >
                 <FlexBoxLayout
                     justifyContent="center"
@@ -354,7 +359,7 @@
                         style="font-size: 12;"
                     ></label>
                 </FlexBoxLayout>
-            </FlexBoxLayout> -->
+            </FlexBoxLayout>
 
             <!-- Total Wallet Users Row -->
             <FlexBoxLayout
@@ -369,6 +374,7 @@
                     border-radius: 8;
                     padding: 0 6;
                 "
+                *ngIf="totalwalletusers"
             >
                 <FlexBoxLayout
                     justifyContent="center"

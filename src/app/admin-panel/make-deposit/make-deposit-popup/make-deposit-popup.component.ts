@@ -1,6 +1,10 @@
 import { Component, OnInit } from '@angular/core';
+
 import { ModalDialogParams } from 'nativescript-angular/common';
+
 import { AdminPanelService } from '@src/app/services/adminpanel/adminpanel.service';
+
+import { SearchUserInterface } from './../../../interface/user/search-user-interface';
 
 @Component({
   selector: 'app-make-deposit-popup',
@@ -10,7 +14,7 @@ import { AdminPanelService } from '@src/app/services/adminpanel/adminpanel.servi
 export class MakeDepositPopupComponent implements OnInit {
   
   modalData: {
-    User: { id: number, name: string, phone_number: string, city: string, country: string },
+    User: SearchUserInterface,
     amountToDeposit: any,
     select_beneficiary: boolean,
     trx_id: string
@@ -21,7 +25,7 @@ export class MakeDepositPopupComponent implements OnInit {
   constructor(private _modalParams: ModalDialogParams, private _adminpanelService: AdminPanelService) { }
 
   ngOnInit() {
-    this.modalData = (this._modalParams.context as { data: { User: { id: number, name: string, phone_number: string, city: string, country: string }, amountToDeposit: any, select_beneficiary: boolean, trx_id: string } }).data;
+    this.modalData = (this._modalParams.context as { data: { User: SearchUserInterface, amountToDeposit: any, select_beneficiary: boolean, trx_id: string } }).data;
   }
 
   onHandle(action: "deposit" | 'cancel') {

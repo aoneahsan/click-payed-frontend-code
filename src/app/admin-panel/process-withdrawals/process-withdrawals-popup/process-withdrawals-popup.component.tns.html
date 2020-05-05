@@ -14,7 +14,7 @@
         flexDirection="column"
         justifyContent="center"
         alignItems="center"
-        *ngIf="!requestApproved"
+        *ngIf="!requestApproved && !_processingRequest"
     >
         <!-- <Label text="PLEASE CONFIRM THAT YOU WISH TO DEPOSIT" style="font-size: 20;" [textWrap]="true" class="text-center" width="90%"></Label> -->
         <FlexBoxLayout justifyContent="center" alignItems="center">
@@ -25,7 +25,12 @@
                 height="40"
                 [(ngModel)]="trx_no"
                 class="text-center"
-                style="border-width: 1; border-color: black; border-radius: 4; margin: 10 0 10 0;"
+                style="
+                    border-width: 1;
+                    border-color: black;
+                    border-radius: 4;
+                    margin: 10 0 10 0;
+                "
             ></TextField>
         </FlexBoxLayout>
         <FlexBoxLayout
@@ -84,7 +89,12 @@
                 height="80"
                 [(ngModel)]="additional_note"
                 class="text-center"
-                style="border-width: 1; border-color: black; border-radius: 4; margin: 10 0 10 0;"
+                style="
+                    border-width: 1;
+                    border-color: black;
+                    border-radius: 4;
+                    margin: 10 0 10 0;
+                "
             ></TextView>
         </FlexBoxLayout>
         <FlexBoxLayout
@@ -120,7 +130,7 @@
         flexDirection="column"
         justifyContent="center"
         alignItems="center"
-        *ngIf="requestApproved"
+        *ngIf="requestApproved && !_processingRequest"
         class="m-t-10"
     >
         <image src="res://greencheck" width="140" height="140"></image>
@@ -163,11 +173,15 @@
             ></label>
         </FlexBoxLayout>
         <label
-            [text]="request_approved_date_time"
             width="80%"
             style="font-size: 12; font-weight: 400; text-align: center;"
             textWrap="true"
-        ></label>
+        >
+            <FormattedString>
+                <!-- <span text="WITHDRAWAL PROCESSED AT"></span>
+                <span [text]="request_approved_date_time"></span> -->
+            </FormattedString>
+        </label>
         <FlexBoxLayout
             justifyContent="center"
             alignItems="center"
@@ -184,5 +198,16 @@
                 style="font-size: 13;"
             ></button>
         </FlexBoxLayout>
+    </FlexBoxLayout>
+
+    <!-- Processing Request -->
+    <FlexBoxLayout
+        flexDirection="column"
+        justifyContent="center"
+        alignItems="center"
+        *ngIf="_processingRequest"
+        class="m-t-10"
+    >
+        <ActivityIndicator busy="true"></ActivityIndicator>
     </FlexBoxLayout>
 </FlexBoxLayout>

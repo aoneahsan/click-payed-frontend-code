@@ -12,7 +12,7 @@ export const routes: Routes = [
   {
     path: '',
     redirectTo: 'home',
-    // redirectTo: 'compatible-game-info/12',
+    // redirectTo: 'request-withdrawal',
     pathMatch: 'full',
   },
   {

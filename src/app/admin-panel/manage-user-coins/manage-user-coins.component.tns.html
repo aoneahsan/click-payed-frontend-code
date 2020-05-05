@@ -1,0 +1,322 @@
+<app-action-bar
+    title="Manage User Coins"
+    [hasMenu]="true"
+    [showGoBackButton]="true"
+    *ngIf="!loadinPageData_s"
+></app-action-bar>
+<app-action-bar
+    [title]=""
+    [hasMenu]="false"
+    [showBackButton]="false"
+    [showNotifications]="false"
+    *ngIf="loadinPageData_s"
+></app-action-bar>
+<ScrollView>
+    <FlexBoxLayout flexDirection="column" *ngIf="!loadinPageData_s">
+        <!-- Notice Board Section -->
+        <label
+            text="Manage User Coins"
+            class="h3 p-10 m-b-0 text-center text-uppercase"
+            letterSpacing=".2"
+            style="background: black; color: white; margin: 0;"
+        ></label>
+        <!-- Coin Part Section -->
+        <FlexBoxLayout
+            width="100%"
+            justifyContent="space-around"
+            style="margin: 14 0 0 0;"
+        >
+            <FlexBoxLayout
+                width="94%"
+                justifyContent="space-between"
+                alignItems="center"
+            >
+                <FlexBoxLayout
+                    width="66%"
+                    justifyContent="space-around"
+                    alignItems="center"
+                    flexDirection="column"
+                    marginTop="0"
+                >
+                    <TextField
+                        hint="Enter a Registered Number"
+                        [(ngModel)]="reciver_number"
+                        width="100%"
+                        style="border-width: 2; border-radius: 4;"
+                        class="text-center body p-10"
+                        keyboardType="phone"
+                        maxLength="11"
+                    ></TextField>
+                </FlexBoxLayout>
+                <FlexBoxLayout
+                    width="32%"
+                    justifyContent="space-around"
+                    style="margin: -7.5 0 0 0;"
+                    alignItems="center"
+                    flexDirection="column"
+                    marginTop="0"
+                >
+                    <button
+                        text="SEARCH"
+                        width="100%"
+                        height="42"
+                        fontSize="14"
+                        borderRadius="4"
+                        class="bg_forest t_white p-0"
+                        (tap)="searchPerson()"
+                        *ngIf="!searchForPerson"
+                    ></button>
+                    <ActivityIndicator
+                        [busy]="true"
+                        *ngIf="searchForPerson"
+                    ></ActivityIndicator>
+                </FlexBoxLayout>
+            </FlexBoxLayout>
+        </FlexBoxLayout>
+
+        <FlexBoxLayout
+            width="100%"
+            justifyContent="space-around"
+            style="margin: 0 0 5 0; border-width: 2;"
+        >
+            <label
+                text="SEARCH RESULTS"
+                style="font-size: 18; font-weight: 600; letter-spacing: 0.1;"
+                class="text-center"
+            ></label>
+        </FlexBoxLayout>
+
+        <FlexBoxLayout
+            width="100%"
+            justifyContent="center"
+            alignItems="center"
+            style="margin: 15 0 20 0;"
+            flexDirection="column"
+        >
+            <FlexBoxLayout
+                width="94%"
+                justifyContent="space-between"
+                alignItems="center"
+                flexDirection="row"
+            >
+                <FlexBoxLayout
+                    width="49%"
+                    justifyContent="space-around"
+                    alignItems="center"
+                    flexDirection="column"
+                >
+                    <label
+                        text="Account Name"
+                        width="100%"
+                        style="text-align: left;"
+                    ></label>
+                    <label
+                        [text]="reciver.name"
+                        width="100%"
+                        style="border-width: 2; border-radius: 4;"
+                        class="text-center bg_grey body p-10"
+                    ></label>
+                </FlexBoxLayout>
+                <FlexBoxLayout
+                    width="49%"
+                    justifyContent="space-around"
+                    alignItems="center"
+                    flexDirection="column"
+                >
+                    <label
+                        text="Registered Mobile Number"
+                        width="100%"
+                        style="text-align: left;"
+                    ></label>
+                    <label
+                        [text]="reciver.phone_number"
+                        width="100%"
+                        style="border-width: 2; border-radius: 4;"
+                        class="text-center bg_grey body p-10"
+                    ></label>
+                </FlexBoxLayout>
+            </FlexBoxLayout>
+
+            <!-- City & Country of User -->
+            <FlexBoxLayout
+                width="94%"
+                justifyContent="space-between"
+                alignItems="center"
+                flexDirection="row"
+            >
+                <FlexBoxLayout
+                    width="49%"
+                    justifyContent="space-around"
+                    alignItems="center"
+                    flexDirection="column"
+                >
+                    <label
+                        text="User Coins"
+                        width="100%"
+                        style="text-align: left;"
+                    ></label>
+                    <label
+                        [text]="reciver?.coins"
+                        width="100%"
+                        style="border-width: 2; border-radius: 4;"
+                        class="text-center bg_grey body p-10"
+                    ></label>
+                </FlexBoxLayout>
+                <FlexBoxLayout
+                    width="49%"
+                    justifyContent="space-around"
+                    alignItems="center"
+                    flexDirection="column"
+                >
+                    <label
+                        text="User Balance"
+                        width="100%"
+                        style="text-align: left;"
+                    ></label>
+                    <label
+                        [text]="reciver?.balance"
+                        width="100%"
+                        style="border-width: 2; border-radius: 4;"
+                        class="text-center bg_grey body p-10"
+                    ></label>
+                </FlexBoxLayout>
+            </FlexBoxLayout>
+
+            <FlexBoxLayout
+                width="94%"
+                justifyContent="center"
+                alignItems="center"
+                class="m-t-20"
+            >
+                <FlexBoxLayout
+                    width="44%"
+                    style="border-width: 2; border-radius: 4;"
+                    class="bg_grey text-center"
+                >
+                    <CheckBox
+                        [(ngModel)]="select_beneficiary"
+                        width="65"
+                    ></CheckBox>
+                    <label
+                        text="Select Beneficiary"
+                        width="100%"
+                        class="m-t-5"
+                    ></label>
+                </FlexBoxLayout>
+            </FlexBoxLayout>
+        </FlexBoxLayout>
+
+        <label class="hr m-5" style="border-color: black;"></label>
+
+        <FlexBoxLayout
+            width="100%"
+            justifyContent="space-around"
+            alignItems="center"
+            class="m-t-10 m-b-20"
+        >
+            <FlexBoxLayout
+                width="100%"
+                justifyContent="space-around"
+                alignItems="center"
+                flexDirection="column"
+            >
+                <TextField
+                    #coinsToTransfer
+                    hint="Enter Coins Here"
+                    [(ngModel)]="_coinsToTransfer"
+                    width="60%"
+                    style="border-width: 2; border-radius: 4;"
+                    class="text-center body p-10"
+                    keyboardType="phone"
+                ></TextField>
+                <label
+                    text="Enter the Amount to be Deposited"
+                    [textWrap]="true"
+                    width="100%"
+                    class="text-center"
+                    marginTop="-18"
+                ></label>
+                <!-- <TextField
+                    #trxNo
+                    hint="Enter TRX ID Here"
+                    [(ngModel)]="trx_id"
+                    width="60%"
+                    style="border-width: 2; border-radius: 4;"
+                    class="text-center body p-10"
+                    keyboardType="phone"
+                ></TextField>
+                <label
+                    text="Enter TRX ID - Min 6"
+                    [textWrap]="true"
+                    width="100%"
+                    class="text-center"
+                    marginTop="-18"
+                ></label> -->
+            </FlexBoxLayout>
+        </FlexBoxLayout>
+
+        <FlexBoxLayout
+            width="100%"
+            justifyContent="space-around"
+            style="margin: 0 0 0 0;"
+        >
+            <button
+                text="Submit Request"
+                (tap)="makeTransferRequest()"
+                fontSize="14"
+                width="50%"
+                borderRadius="4"
+                class="bg_green t_white p-0"
+                *ngIf="!formSubmited"
+                height="40"
+                [isEnabled]="userFound && coinsEntered && select_beneficiary && trxIdAdded"
+            ></button>
+            <ActivityIndicator
+                [busy]="true"
+                *ngIf="formSubmited"
+            ></ActivityIndicator>
+        </FlexBoxLayout>
+
+        <FlexBoxLayout
+            width="100%"
+            justifyContent="space-around"
+            style="margin: 0 0 0 0;"
+        >
+            <button
+                text="Switch Transfer Mode"
+                (tap)="switchTransferMode()"
+                fontSize="14"
+                width="50%"
+                height="40"
+                borderRadius="4"
+                class="bg_black t_white p-0"
+            ></button>
+        </FlexBoxLayout>
+
+        <FlexBoxLayout
+            width="100%"
+            justifyContent="space-around"
+            style="margin: 0 0 0 0;"
+        >
+            <label
+                style="font-size: 16;"
+                textWrap="true"
+                class="text-center"
+            >
+            <FormattedString>
+                <Span text="Currently Set To "></Span>
+                <Span [text]="_transferModeSetToAddCoins ? 'Add' : 'Remove'" class="t_blue"></Span>
+                <span text=" coins"></span>
+            </FormattedString>
+        </label>
+        </FlexBoxLayout>
+    </FlexBoxLayout>
+    <FlexBoxLayout
+        justifyContent="center"
+        alignItems="center"
+        *ngIf="loadinPageData_s"
+        height="100vh"
+    >
+        <ActivityIndicator busy="true"></ActivityIndicator>
+    </FlexBoxLayout>
+</ScrollView>

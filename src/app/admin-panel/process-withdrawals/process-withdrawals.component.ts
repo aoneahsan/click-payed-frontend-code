@@ -1,13 +1,14 @@
-import { Component, OnInit, ViewChild, ElementRef, ViewContainerRef, OnDestroy } from '@angular/core';
-
-import { RouterExtensions } from 'nativescript-angular/router';
+import { Component, OnInit, ViewContainerRef, OnDestroy } from '@angular/core';
+import { Subscription } from 'rxjs';
 
 import { ValueList, SelectedIndexChangedEventData } from 'nativescript-drop-down';
 import { ModalDialogService } from 'nativescript-angular/common';
 import { ProcessWithdrawalsPopupComponent } from './process-withdrawals-popup/process-withdrawals-popup.component';
 import { UIService } from '@src/app/shared/ui/ui.service';
-import { Subscription } from 'rxjs';
 import { SystemService } from '@src/app/services/system.service';
+
+import { WithDrawalRequestsInterface } from './../../interface/admin/withdrawal-requests-interface';
+import { AdminPanelService } from '@src/app/services/adminpanel/adminpanel.service';
 
 @Component({
   selector: 'app-process-withdrawals',
@@ -21,42 +22,19 @@ export class ProcessWithdrawalsComponent implements OnInit, OnDestroy {
 
   public selectedIndex = 0;
   public items: any;
-  @ViewChild('dropdow', { static: false }) dropdow: ElementRef;
 
   loadingResult: boolean = false;
 
-  requests: {
-    id: number,
-    date_time: string,
-    account_name: string,
-    account_no: string,
-    amount: string,
-    status: string,
-    trx_id: number
-  }[] = [];
-
-  all_withdrawal_requests: { id: number, date_time: string, account_name: string, account_no: string, amount: string, status: string, trx_id: number }[] = [
-    { id: 1, date_time: '22/11/2020 | 1327', account_name: 'Ahsan Mahmood', account_no: '03006562423', amount: '300', status: 'pending', trx_id: null }
-  ];
-
-  all_pending_requests: { id: number, date_time: string, account_name: string, account_no: string, amount: string, status: string, trx_id: number }[] = [
-    { id: 1, date_time: '22/11/2020 | 1327', account_name: 'Ahsan Mahmood', account_no: '03006562423', amount: '300', status: 'pending', trx_id: null }
-  ];
-
-  all_approved_requests: { id: number, date_time: string, account_name: string, account_no: string, amount: string, status: string, trx_id: number }[] = [
-    { id: 1, date_time: '22/11/2020 | 1327', account_name: 'Ahsan Mahmood', account_no: '03006562423', amount: '300', status: 'approved', trx_id: 21029109 }
-  ];
-
-  all_rejected_requests: { id: number, date_time: string, account_name: string, account_no: string, amount: string, status: string, trx_id: number }[] = [
-    { id: 1, date_time: '22/11/2020 | 1327', account_name: 'Ahsan Mahmood', account_no: '03006562423', amount: '300', status: 'rejected', trx_id: 21029109 }
-  ];
+  requests: WithDrawalRequestsInterface[] = null;
+  _fetchWithdrawalRequests_Sub: Subscription;
+  _getWithdrawalRequests_Sub: Subscription;
 
   constructor(
-    private _router: RouterExtensions,
     private _modalService: ModalDialogService,
     private _viewRe: ViewContainerRef,
     private _uiService: UIService,
-    private _systemService: SystemService
+    private _systemService: SystemService,
+    private _adminpanelService: AdminPanelService
   ) { }
 
   ngOnInit() {
@@ -65,14 +43,42 @@ export class ProcessWithdrawalsComponent implements OnInit, OnDestroy {
         this.loadinPageData_s = status;
       }
     );
+
     this.items = new ValueList([
       { value: "all_withdrawal_requests", display: "VIEW | All Withdrawal Requests" },
       { value: "all_pending_requests", display: "VIEW | All Pending Requests" },
       { value: "all_approved_requests", display: "VIEW | All Approved Requests" },
       { value: "all_rejected_requests", display: "VIEW | All Rejected Requests" }
     ]);
+    
+    this.fetchWithdrawalRequestsAction();
+  }
 
-    this.requests = this.all_withdrawal_requests;
+  fetchWithdrawalRequestsAction() {
+    this._systemService.loadingPageDataTrue();
+    this._fetchWithdrawalRequests_Sub = this._adminpanelService.fetchWithdrawalRequests().subscribe(
+      res => {
+        console.log('ProcessWithdrawalsComponent == fetchWithdrawalRequests == response = ',res);
+        this._adminpanelService.setWithdrawalRequests(res.data);
+        this.getWithdrawalRequestsAction();
+        this._systemService.loadingPageDataFalse();
+      },
+      err => {
+        this._systemService.loadingPageDataFalse();
+        console.log('ProcessWithdrawalsComponent == fetchWithdrawalRequests == error = ',err);
+        alert("Error Occured, Try Again!");
+      }
+    );
+  }
+
+  getWithdrawalRequestsAction() {
+    this._systemService.loadingPageDataTrue();
+    this._getWithdrawalRequests_Sub = this._adminpanelService.getWithdrawalRequests().subscribe(
+      data => {
+        this.requests = data;
+        this._systemService.loadingPageDataFalse();
+      }
+    );
   }
 
   public onchange(args: SelectedIndexChangedEventData) {
@@ -84,43 +90,35 @@ export class ProcessWithdrawalsComponent implements OnInit, OnDestroy {
     }, 700);
   }
 
-  public onopen() {
-    // console.log("Drop Down opened.");
-  }
-
-  public onclose() {
-    // console.log("Drop Down closed.");
-  }
-
   loadLocalData(dataSet: number) {
-    if (dataSet == 0) {
-      this.requests = this.all_withdrawal_requests;
-    } else if (dataSet == 1) {
-      this.requests = this.all_pending_requests;
-    } else if (dataSet == 2) {
-      this.requests = this.all_approved_requests;
-    } else if (dataSet == 3) {
-      this.requests = this.all_rejected_requests;
-    };
+    // if (dataSet == 0) {
+    //   this.requests = this.all_withdrawal_requests;
+    // } else if (dataSet == 1) {
+    //   this.requests = this.all_pending_requests;
+    // } else if (dataSet == 2) {
+    //   this.requests = this.all_approved_requests;
+    // } else if (dataSet == 3) {
+    //   this.requests = this.all_rejected_requests;
+    // };
     this.loadingResult = false;
   }
 
   showRequestDetail(item_id) {
-    const loadedItem: { id: number, date_time: string, account_name: string, account_no: string, amount: string, status: string, trx_id: number } = this.requests.find(el => el.id == item_id);
+    const loadedItem: WithDrawalRequestsInterface = this.requests.find(el => el.id == item_id);
     // console.log(loadedItem);
     if (loadedItem.status == 'pending') {
       this.showModal(loadedItem);
     } else if (loadedItem.status == 'approved') {
       let options = {
         title: "Approved",
-        message: 'TRX = ' + loadedItem.trx_id + "\n\nDate: " + loadedItem.date_time,
+        message: 'TRX = ' + loadedItem.trx_id + "\n\nAdditional Note: " + loadedItem.additional_note + "\n\nDate: " + loadedItem.date_time,
         okButtonText: 'Okay'
       };
       alert(options);
     } else if (loadedItem.status == 'rejected') {
       let options = {
         title: "Rejected",
-        message: 'TRX = ' + loadedItem.trx_id + "\n\nDate: " + loadedItem.date_time,
+        message: 'TRX = ' + loadedItem.trx_id + "\n\nAdditional Note: " + loadedItem.additional_note + "\n\nDate: " + loadedItem.date_time,
         okButtonText: 'Okay'
       };
       alert(options);
@@ -128,7 +126,7 @@ export class ProcessWithdrawalsComponent implements OnInit, OnDestroy {
 
   }
 
-  showModal(loadedItem) {
+  showModal(loadedItem: WithDrawalRequestsInterface) {
     this._modalService.showModal(
       ProcessWithdrawalsPopupComponent,
       {
@@ -141,10 +139,10 @@ export class ProcessWithdrawalsComponent implements OnInit, OnDestroy {
     ).then(
       res => {
         if (res == 'approved') {
-          console.log("request approved");
+          console.log("Request Approved!");
         }
         else if (res == 'rejected') {
-          console.log("request rejected");
+          console.log("Request Rejected!");
         }
         else if (res == undefined) {
           alert("Process Canceled");
@@ -153,9 +151,16 @@ export class ProcessWithdrawalsComponent implements OnInit, OnDestroy {
     );
   }
 
+
   ngOnDestroy() {
     if (this.loadinPageDataSub) {
       this.loadinPageDataSub.unsubscribe();
+    }
+    if (this._fetchWithdrawalRequests_Sub) {
+      this._fetchWithdrawalRequests_Sub.unsubscribe();
+    }
+    if (this._getWithdrawalRequests_Sub) {
+      this._getWithdrawalRequests_Sub.unsubscribe();
     }
   }
 

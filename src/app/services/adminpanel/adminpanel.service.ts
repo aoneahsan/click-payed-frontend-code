@@ -4,9 +4,11 @@ import { BehaviorSubject } from 'rxjs';
 
 import { SystemService } from "../system.service";
 
+import { WithDrawalRequestsInterface } from './../../interface/admin/withdrawal-requests-interface';
+import { DepositAccount } from "@src/app/interface/admin/deposit-accounts-interface";
+
 import { DepositRequestModel } from './../../models/admin/deposit-request-model';
 import { UserListModel } from './../../models/admin/users-list-model';
-import { DepositAccount } from "@src/app/interface/admin/deposit-accounts-interface";
 
 @Injectable({
     providedIn: 'root'
@@ -14,8 +16,12 @@ import { DepositAccount } from "@src/app/interface/admin/deposit-accounts-interf
 
 export class AdminPanelService {
 
+    // Deposit Component
     _depositeAccounts = new BehaviorSubject<DepositAccount[]>(null);
     _depositRequests = new BehaviorSubject<DepositRequestModel[]>(null);
+
+    // Withdrawal Component
+    _withdrawalRequests = new BehaviorSubject<WithDrawalRequestsInterface[]>(null);
 
     _listUsers = new BehaviorSubject<UserListModel[]>(null);
     constructor(
@@ -105,5 +111,55 @@ export class AdminPanelService {
     // User List Component Http Requests Ends
     // ******************************************************************************
     // ********************************************************************************************************
+    // ******************************************************************************
+    // Withdrawal Requests Component Http Requests Starts
+    // ******************************************************************************
+    fetchWithdrawalRequests() {
+        const data = "withdrawal requests";
+        return this._http.post<any>(
+            this._systemService._apiRootURL + 'get_all_withdrawal_requests',
+            data
+        );
+    }
+
+    getWithdrawalRequests() {
+        return this._withdrawalRequests;
+    }
+
+    setWithdrawalRequests(requests: WithDrawalRequestsInterface[]) {
+        this._withdrawalRequests.next(requests);
+    }
+
+    approveWithdrawalRequest(data) {
+        return this._http.post<any>(
+            this._systemService._apiRootURL + 'approve_withdrawal_request',
+            data
+        );
+    }
+
+    rejectWithdrawalRequest(data) {
+        return this._http.post<any>(
+            this._systemService._apiRootURL + 'reject_withdrawal_request',
+            data
+        );
+    }
+    // ******************************************************************************
+    // Withdrawal Requests Component Http Requests Ends
+    // ******************************************************************************
+    // ********************************************************************************************************
+    // ******************************************************************************
+    // Manage User Coins Component Http Requests Starts
+    // ******************************************************************************
+    makeAddRemoveUserCoinsRequest(data) {
+        return this._http.post<any>(
+            this._systemService._apiRootURL + 'make_add_remove_user_coins_request',
+            data
+        );
+    }
+    // ******************************************************************************
+    // Manage User Coins Component Http Requests Ends
+    // ******************************************************************************
+    // ********************************************************************************************************
+
 
 }
