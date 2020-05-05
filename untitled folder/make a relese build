@@ -1,0 +1,1 @@
+tns build android --release --key-store-path ~/Desktop/coinpayed.keystore --key-store-password jmmdeveloper --key-store-alias coinpayed --key-store-alias-password jmmdeveloper

@@ -62,8 +62,7 @@ export class ManageUserCoinsComponent implements OnInit, OnDestroy {
   ngOnInit() {
     this.loadinPageDataSub = this._systemService.getLoadinPageDataStatus().subscribe(
       status => {
-        // this.loadinPageData_s = status;
-        this.loadinPageData_s = false;
+        this.loadinPageData_s = status;
       }
     );
     this._transferModeSetToAddCoins = true;
